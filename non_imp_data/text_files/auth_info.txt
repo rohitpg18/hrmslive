@@ -1,0 +1,2 @@
+admin username = EP00001
+admin password = 12345

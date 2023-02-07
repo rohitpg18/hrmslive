@@ -1,0 +1,111 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+
+{% block tag %}
+<link href="{%static 'css/user_form.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %}
+  <!-- page title name --> {% endblock %}</title>
+
+
+
+{% block css %}
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+  }
+</style>
+
+
+{% endblock %}
+
+
+
+
+
+
+{%block body%}
+
+<section class="user-info">
+  <div class="details" *ngIf="userDetails">
+
+    <h1 class="main-heading">Basic Details</h1>
+    <div class="info">
+      <p class="info-title">Name</p>
+      <p class="info-description">
+        sagar kakade
+      </p>
+    </div>
+
+    <div class="info">
+      <p class="info-title">Email</p>
+      <p class="info-description">sagarkakade0201@gmail.com</p>
+
+    </div>
+
+    <div class="info">
+      <p class="info-title">Mobile</p>
+      <p class="info-description">+91 8637790201</p>
+    </div>
+
+    <div class="info">
+      <p class="info-title">PAN</p>
+      <p class="info-description">IVAPK9246M</p>
+    </div>
+
+
+    <div class="info">
+      <p class="info-title">Client Holding</p>
+      <p class="info-description">Single</p>
+    </div>
+
+    <div class="info">
+      <p class="info-title">Date Of Birth</p>
+      <p class="info-description">06/01/2001
+      </p>
+    </div>
+
+
+    <div class="info">
+      <p class="info-title">Tax Status</p>
+      <p class="info-description">Individual</p>
+
+    </div>
+
+    <div class="info">
+      <p class="info-title">Occupation</p>
+      <p class="info-description">
+        Web Developer</p>
+    </div>
+
+    <div class="info">
+      <p class="info-title">Gender</p>
+      <p class="info-description" *ngIf="userDetails['gender']=='M'">Male</p>
+    </div>
+
+    <div class="info">
+      <p class="info-title">Account Verified</p>
+      <p class="info-description">Active</p>
+    </div>
+
+
+  </div>
+
+  </div>
+</section>
+
+
+{%endblock%}
+
+
+
+{% block js %}
+<script>
+  //  add javaScript code here 
+</script>
+{% endblock %}

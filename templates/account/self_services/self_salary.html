@@ -1,0 +1,95 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Salary {% endblock %}</title>
+
+
+{% block style %}
+
+<style>
+    .profile-navigations .profile-navigation-links .link1 {
+        color: #fff;
+        background-color: #018ABE;
+        transition: all 0.5s ease-out;
+    }
+
+    .profile-navigations .profile-navigation-links .link1 svg {
+        fill: #fff;
+        transition: all 0.5s ease-out;
+    }
+    .table .next-btn2 {
+        margin: 0;
+        padding: 0.2em 1em;
+        font-size: 1em;
+        font-weight: 500;
+        border: 2px solid #018ABE;
+        transition: 0.2s linear;
+    }
+</style>
+
+
+{% endblock %}
+
+{% block profile %}
+
+
+
+    <p class="main-heading">Salary Data</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Employee ID</th>
+                <th scope="col">Month</th>
+                <th scope="col">Net Salary</th>
+                <th scope="col">Generate Salary Slip</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for sal in salary_details %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{sal.emp_user.username}}</td>
+                <td>{{sal.month.month_name}}</td>
+                <td> {% if basic_details.is_salaried == True %} {{sal.net_salary}} {% else %} {{sal.gross_salary}} {% endif %} </td>
+                <td><a href="{% url 'self_salary' %}{{sal.id}}">
+                    <button type="submit" class="next-btn2">Generate</button>
+                    </a>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}
+
+
+
+
+{% block js %}
+
+<script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js"></script>
+
+
+<script>
+    document.getElementById('self-salary').classList.add('link1');
+</script>
+
+
+
+
+{% endblock %}

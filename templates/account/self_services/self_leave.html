@@ -1,0 +1,307 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Self Details {% endblock %}</title>
+
+{% block style %}
+
+<style>
+.user-info{
+    padding: 2rem;
+    overflow: hidden;
+    height: 90vh;
+    overflow: auto;
+}
+.user_info{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+.basic_info {
+    width: 100%;
+}
+
+.main-heading{
+    margin: 0;
+    padding: 2.5rem 1rem;
+}
+.user_info .info{
+    max-width: 40%;
+    display: flex;
+    justify-content: space-between;
+    padding:0;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #ddd;
+}
+.user_info .info .info-description{
+    margin-right: 1rem;
+
+}
+.user_info .info p{
+    margin: 0;
+}
+
+.info-full {
+    max-width: 100%;
+    padding: 0 1rem;
+
+}
+
+.details{
+    padding: 0;
+    margin-top: 0;
+}
+
+
+
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <div class="basic_info">
+        <p class="main-heading">Leave Balance - {{current_month}}</p>
+
+        <div class="user_info">
+            <div class="info">
+                <p class="info-title">Sick Leave (SL) </p>
+                <p class="info-description" id="sl">
+                    {{leave_count.sl_count}}
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="info-title">Casual Leave (CL)</p>
+                <p class="info-description" id="cl">
+                    {{leave_count.cl_count}}
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="info-title">Personal Leave (PL) </p>
+                <p class="info-description" id="pl">
+                    {{leave_count.pl_count}}
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="info-title">Loss Of Pay (LOP) </p>
+                <p class="info-description" id="lop">
+                    {{leave_count.lop_count}}
+                </p>
+            </div>
+        </div>
+
+        <p class="main-heading">Apply Leave</p>
+
+
+        <form class="details"  action="{% url 'self_leave' %}" method="post">{% csrf_token %}
+
+        
+            <div class="info">
+                <p class="info-title">Start Date</p>
+                <input type="date" class="form-control" id="start_date" name="start_date" onchange="leaveApply()" required>
+            </div>
+
+
+            <div class="info">
+                <p class="info-title" >Start day is</p>
+                <select class="options" name="start_date_is_half" id="start_date_is_half" onchange="leaveApply()">
+                    <option selected value="False">Full Day</option>
+                    <option  value="True">Half day</option>
+                </select>
+            </div>
+
+
+            <div class="info info-full" id="start_date_is_first_half">
+                <p class="info-title">Half</p>
+                <select class="options" name="start_date_is_first_half" id="start_day_half">
+                    <option selected value="True">First Half</option>
+                    <option  value="False">Second Half</option>
+                </select>
+            </div>
+        
+            <div class="info">
+                <p class="info-title">End Date</p>
+                <input type="date" class="form-control" id="end_date" name="end_date" onchange="leaveApply()" required>
+            </div>
+
+            <div class="info" id="start_end_same">
+                <p class="info-title">End day is</p>
+                <select class="options" name="end_date_is_half" id="end_date_is_half" onchange="leaveApply()">
+                    <option selected value="False">Full Day</option>
+                    <option  value="True">Half day</option>
+                </select>
+            </div>
+
+
+            <div class="info info-full" id="end_date_is_first_half">
+                <p class="info-title">Half</p>
+                <select class="options" name="end_date_is_first_half" id="end_date_half">
+                    <option  value="True">First Half</option>
+                    <option selected value="False">Second Half</option>
+                </select>
+            </div>
+
+        
+            <div class="info">
+                <p class="info-title">Number of Days</p>
+                <input type="number" class="form-control" id="no_of_days" step=".1" name="no_of_days" value="0" placeholder="Number of days"
+                    required readonly>
+            </div>
+        
+            <div class="info">
+                <p class="info-title">Leave type</p>
+                <select class="options" name="type">
+                    <option selected value="LOP">Loss Of Pay</option>
+                    <option  value="SL"  id="type_sl">Sick Leave</option>
+                    <option  value="CL" id="type_cl">Casual Leave</option>
+                    <option  value="PL" id="type_pl">Personal Leave</option>
+                </select>
+            </div>
+        
+            <div class="info info-full">
+                <p class="info-title">Reason</p>
+                <input type="text" class="form-control" id="reason" name="reason" placeholder="Enter valid leave reason"
+                    required >
+            </div>
+        
+        
+            <div class="info info-full">
+                <p class="info-title">Attachment</p>
+                <input type="file" class="form-control" id="attachment_doc" name="attachment_doc">
+            </div>
+        
+            <!-- disabled -->
+            <div class="btns">
+                <button type="submit" class="next-btn2">Apply</button>
+        
+            </div>
+        
+        </form>
+
+        
+
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    document.getElementById('self-leave').classList.add('link1');
+
+    window.onload= leaveApply();
+
+    function leaveApply(){
+        var start_date_is_half= document.getElementById('start_date_is_half').value;
+        var end_date_is_half= document.getElementById('end_date_is_half').value;
+        
+
+        if (start_date_is_half == "False"){
+            document.getElementById("start_date_is_first_half").style.display= 'none';
+
+        }else{
+            document.getElementById("start_date_is_first_half").style.display= 'block';
+        }
+
+
+        if (end_date_is_half == "False"){
+            document.getElementById("end_date_is_first_half").style.display= 'none';
+        }else{
+            document.getElementById("end_date_is_first_half").style.display= 'block';
+        }
+        
+        var start_date=document.getElementById("start_date").value  ;
+        var end_date=document.getElementById("end_date").value ;
+
+        if (start_date){
+            document.getElementById("end_date").setAttribute("min", start_date);
+        }
+
+        
+        if (start_date && end_date){
+            var no_of_days=document.getElementById("no_of_days")
+            var start_date= new Date(start_date).getTime()
+            var end_date = new Date(end_date).getTime()
+
+            var two_dates_diff =((end_date - start_date)/ (1000 * 3600 * 24))+1 ;
+            
+
+
+            if (start_date_is_half == "True"){
+                two_dates_diff -= 0.5
+            }
+
+            if (end_date_is_half == "True"){
+                two_dates_diff -= 0.5
+            }
+
+            if (start_date == end_date){
+                document.getElementById("start_end_same").style.display="none"
+                document.getElementById("end_date_is_first_half").style.display= 'none';
+
+                if (start_date_is_half == "True"){
+                    two_dates_diff = 0.5
+                }else{
+                    two_dates_diff = 1
+                }
+                
+
+
+            }else{
+                document.getElementById("start_end_same").style.display="block"
+            }
+
+            no_of_days.value= two_dates_diff;
+
+            
+        }
+
+
+        cl=Number(document.getElementById('cl').innerHTML.replaceAll(' ',''));
+        sl=Number(document.getElementById('sl').innerHTML.replaceAll(' ',''));
+        pl=Number(document.getElementById('pl').innerHTML.replaceAll(' ',''));
+        //lop=Number(document.getElementById('lop').innerHTML.replaceAll(' ',''));
+
+        var no_of_days=Number(document.getElementById("no_of_days").value);
+
+
+        if (no_of_days > cl){
+            document.getElementById('type_cl').disabled = true;
+        }else{
+            document.getElementById('type_cl').disabled = false;
+        }
+
+        if (no_of_days > sl){
+            document.getElementById('type_sl').disabled = true;
+        }else{
+            document.getElementById('type_sl').disabled = false;
+        }
+
+        if (no_of_days > pl){
+            document.getElementById('type_pl').disabled = true;
+        }else{
+            document.getElementById('type_pl').disabled = false;
+        }
+        
+        
+
+
+
+    }
+
+</script>
+{% endblock %}

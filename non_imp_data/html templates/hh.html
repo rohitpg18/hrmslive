@@ -1,0 +1,121 @@
+<script>
+    console.log("hello")
+
+    window.onload= manageEducationalDetails();
+
+    function manageEducationalDetails() {
+        var emp_hsc_check = document.getElementById("emp_hsc_check").checked;
+        var emp_diploma_check = document.getElementById("emp_diploma_check").checked;
+        var emp_graduation_check = document.getElementById("emp_graduation_check").checked;
+        var emp_pg_check = document.getElementById("emp_pg_check").checked;
+
+
+
+
+        if (emp_graduation_check == false) {
+            document.getElementById("is_post_graduation_complete").classList.add('hide_display');
+
+        }else{
+            document.getElementById("is_post_graduation_complete").classList.remove('hide_display');
+        }
+
+        
+        var hsc_detail = document.querySelectorAll('.hsc_detail');
+        var hsc_input = document.querySelectorAll('.hsc_input');
+
+        if (emp_hsc_check) {
+
+            for (var i = 0; i < hsc_detail.length; i++) {
+                hsc_detail[i].classList.remove('hide_display');
+            }
+
+            for (var i = 0; i < hsc_input.length; i++) {
+                hsc_input[i].required = true;
+            }
+
+        }else{
+            for (var i = 0; i < hsc_detail.length; i++) {
+                hsc_detail[i].classList.add('hide_display');
+            }
+            for (var i = 0; i < hsc_input.length; i++) {
+                hsc_input[i].required = false;
+            }
+        }
+
+
+
+
+
+        var diploma_detail = document.querySelectorAll('.diploma_detail');
+        var diploma_input = document.querySelectorAll('.diploma_input');
+
+        if (emp_diploma_check) {
+            
+            for (var i = 0; i < diploma_detail.length; i++) {
+                diploma_detail[i].classList.remove('hide_display');
+            }
+
+            for (var i = 0; i < diploma_input.length; i++) {
+                hsc_input[i].required = true;
+            }
+
+        }else{
+            for (var i = 0; i < diploma_detail.length; i++) {
+                diploma_detail[i].classList.add('hide_display');
+
+            }
+            for (var i = 0; i < diploma_input.length; i++) {
+                hsc_input[i].required = false;
+            }
+        }
+
+
+        var graduation_detail = document.querySelectorAll('.graduation_detail');
+        var graduation_input = document.querySelectorAll('.graduation_input');
+
+        if (emp_graduation_check) {
+            
+            for (var i = 0; i < graduation_detail.length; i++) {
+                graduation_detail[i].classList.remove('hide_display');
+
+            }
+            for (var i = 0; i < graduation_input.length; i++) {
+                hsc_input[i].required = true;
+            }
+
+        }else{
+            for (var i = 0; i < graduation_detail.length; i++) {
+                graduation_detail[i].classList.add('hide_display');
+
+            }
+            for (var i = 0; i < graduation_input.length; i++) {
+                hsc_input[i].required = false;
+            }
+        }
+
+
+        var post_graduation_detail = document.querySelectorAll('.post_graduation_detail');
+        var post_graduation_input = document.querySelectorAll('.post_graduation_input');
+
+        if (emp_pg_check) {
+            
+            for (var i = 0; i < post_graduation_detail.length; i++) {
+                post_graduation_detail[i].classList.remove('hide_display');
+
+            }
+            for (var i = 0; i < post_graduation_input.length; i++) {
+                hsc_input[i].required = true;
+            }
+
+        }else{
+            for (var i = 0; i < post_graduation_detail.length; i++) {
+                post_graduation_detail[i].classList.add('hide_display');
+
+            }
+            for (var i = 0; i < post_graduation_input.length; i++) {
+                hsc_input[i].required = false;
+            }
+        }
+        
+    }
+</script>

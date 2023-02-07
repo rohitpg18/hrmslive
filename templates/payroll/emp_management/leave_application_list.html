@@ -1,0 +1,203 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Self Details {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    .user-info {
+        padding: 2rem;
+        overflow: hidden;
+        height: 90vh;
+        overflow: auto;
+    }
+
+    .user_info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .basic_info {
+        width: 100%;
+    }
+
+    .main-heading {
+        margin: 0;
+        padding: 2.5rem 1rem;
+    }
+
+    .user_info .info {
+        max-width: 40%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user_info .info .info-description {
+        margin-right: 1rem;
+
+    }
+
+    .user_info .info p {
+        margin: 0;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+
+    .details {
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .info_card {
+        border: 1px solid #018ABE;
+        padding: 1em;
+        padding-bottom: 0;
+        width: 100%;
+
+    }
+
+    .table thead tr th {
+        color: #018ABE;
+        font-weight: 600;
+        border: none;
+    }
+
+    .table .next-btn2 {
+        margin: 0;
+        padding: 0.2em 1em;
+        font-size: 1em;
+        font-weight: 500;
+        border: 2px solid #018ABE;
+        transition: 0.2s linear;
+    }
+
+    .table .next-btn2:hover {
+        background: #fff;
+        color: #018ABE;
+        border: 2px solid #018ABE;
+        transition: 0.2s linear;
+    }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <div class="basic_info">
+        <p class="main-heading">Leave Applications Info</p>
+
+        <div class="user_info">
+            <div class="info">
+                <p class="info-title">Total Leaves Applications</p>
+                <p class="info-description" id="sl">
+                    {{total_applications}}
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="info-title">Pending Leaves Applications</p>
+                <p class="info-description" id="lop">
+                    {{pending_applications}}
+                </p>
+            </div>
+        </div>
+
+        
+
+        {% if total_applications == 0 and pending_applications == 0 %}
+
+        <p class="main-heading text-center my-lg-5" style="color:red">Leave Applications are not available</p>
+
+        {% else %}
+
+        {% if pending_applications != 0 %}
+        <p class="main-heading">Pending Applications</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Employee Id</th>
+                    <th scope="col">Application Date</th>
+                    <th scope="col">Verify</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                {% for application in leave_applications %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{application.emp_user}}</td>
+                    <td>{{application.date_of_apply}}</td>
+                    <td><a href="{% url 'leave_applications' %}{{application.id}}">
+                        <button type="submit" class="next-btn2">View</button>
+                    </a>
+                        
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        {% else %}
+        <p class="main-heading">Applications History</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Employee Id</th>
+                    <th scope="col">Application Date</th>
+                    <th scope="col">No of Day</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                {% for application in leave_history %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{application.emp_user}}</td>
+                    <td>{{application.date_of_apply}}</td>
+                    <td>{{application.no_of_days}}</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% endif %}
+
+        {% endif %}
+
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    document.getElementById('leave-requests').classList.add('link1');
+</script>
+{% endblock %}

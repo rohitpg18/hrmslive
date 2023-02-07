@@ -1,0 +1,121 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+
+{% block tag %}
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
+{% endblock %}
+
+
+
+
+{% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+    #Navbar {
+        display: none;
+    }
+
+    .user-info{
+        max-width: 1200px;
+        width: 100%;
+        height: 100%;
+        margin: 7rem auto;
+        border: 1px solid #018ABE;
+    }
+
+
+    .details .permissions {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .details .permissions p {
+        color: #018ABE;
+        font-weight: 500;
+        margin-bottom: 1em;
+        text-transform: uppercase;
+    }
+
+    .details .permissions .check-box-info {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 1rem;
+    }
+
+    .details .permissions .check-box {
+        max-width: 22rem;
+        overflow: hidden;
+    }
+
+    .check-box-square {
+        width: 1.3rem;
+        height: 1.3rem;
+        transform: translateY(25%);
+        margin-right: 1rem;
+    }
+
+    .check-box-label:hover {
+        cursor: pointer;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+</style>
+
+
+{% block style %}
+{% endblock %}
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{%block body%}
+
+<section class="user-info">
+
+    {% block userForm %}
+
+
+    {% endblock %}
+
+</section>
+
+
+{%endblock%}
+
+
+
+{% block js %}
+<script>
+    // user additional  details js
+    function sameAddress() {
+        var is_same = document.getElementById("is_address_same").checked;
+        
+        if (is_same == true) {
+            document.getElementById("current_address_div").style.display = "none";
+        }else{
+            document.getElementById("current_address_div").style.display = "block";
+        }
+        
+    }
+</script>
+
+{% block javaScript %}
+
+{% endblock %}
+
+{% endblock %}

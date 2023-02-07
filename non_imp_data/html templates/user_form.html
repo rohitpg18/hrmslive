@@ -1,0 +1,85 @@
+<section class="user-info">
+    <div class="details" *ngIf="userDetails">
+  
+      <h1 class="main-heading">Basic Details</h1>
+      <div class="info">
+        <p class="info-title">Name</p>
+        <p class="info-description" *ngIf="userDetails['first_name']!=''">
+          {{userDetails['first_name']}}
+          {{userDetails['middle_name']}}
+          {{userDetails['last_name']}}</p>
+      </div>
+  
+      <div class="info">
+        <p class="info-title">Email</p>
+        <p class="info-description">{{userDetails['email']}}</p>
+  
+      </div>
+  
+      <div class="info">
+        <p class="info-title">Mobile</p>
+        <p class="info-description">{{userDetails['mobile']}}</p>
+      </div>
+  
+      <div class="info">
+        <p class="info-title">PAN</p>
+        <p class="info-description">{{userDetails['pan']}}</p>
+      </div>
+  
+  
+      <div class="info">
+        <p class="info-title">Client Holding</p>
+        <p class="info-description" *ngIf="userDetails['client_holding']=='SI'">Single</p>
+        <p class="info-description" *ngIf="userDetails['client_holding']=='JO'">Joint</p>
+        <p class="info-description" *ngIf="userDetails['client_holding']=='AS'">Anyone or Survivor</p>
+      </div>
+  
+      <div class="info">
+        <p class="info-title">Date Of Birth</p>
+        <p class="info-description">{{ userDetails['dob'] | date }}
+        </p>
+      </div>
+  
+  
+      <div class="info">
+        <p class="info-title">Tax Status</p>
+        <p class="info-description" *ngIf="userDetails['tax_status']=='01'">Individual</p>
+        <p class="info-description" *ngIf="userDetails['tax_status']=='21'">NRI - NRE(Repatriation)</p>
+        <p class="info-description" *ngIf="userDetails['tax_status']=='24'">NRI - NRO (Non Repatriation)</p>
+        <p class="info-description" *ngIf="userDetails['tax_status']=='-'">-</p>
+  
+      </div>
+  
+      <div class="info">
+        <p class="info-title">Occupation</p>
+        <p class="info-description">
+          {{Occupation[userDetails['occ_code']]}}</p>
+      </div>
+  
+      <div class="info">
+        <p class="info-title">Gender</p>
+        <p class="info-description" *ngIf="userDetails['gender']=='M'">Male</p>
+        <p class="info-description" *ngIf="userDetails['gender']=='F'">Female</p>
+        <p class="info-description" *ngIf="userDetails['gender']=='T'">Transgender</p>
+        <p class="info-description not-given" *ngIf="userDetails['gender']=='-'">-</p>
+        <p class="info-description not-given" *ngIf="userDetails['gender']=='S'">-</p>
+      </div>
+  
+      <div class="info">
+        <p class="info-title">Account Verified</p>
+        <p class="info-description" *ngIf="userDetails['a_v']==true">Active</p>
+        <p class="info-description" *ngIf="userDetails['a_v']!=true">INACTIVE</p>
+      </div>
+  
+      <div class=" info" *ngIf="documents!='doc'">
+        <p class="info-title">Signature</p>
+        <p class="info-description" *ngIf="documents['file']=='-'">-</p>
+        <div class="sign" *ngIf="documents['file']!='-'">
+          <img src="{{domain}}{{documents['file']}}" alt="">
+        </div>
+  
+      </div>
+  
+    </div>
+  </section>
+  

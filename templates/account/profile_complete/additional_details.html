@@ -1,0 +1,151 @@
+{% extends 'basic_form.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+    
+</style>
+{% endblock %}
+
+
+{% block userForm %}
+
+
+<form class="details" action="{% url 'additional_details' %}" method="post">{% csrf_token %}
+
+    <div class="heading">
+        <h3 class="user-profile-update-title">Additional details</h3>
+    </div>
+
+    <div class="info">
+        <p class="info-title">Profile Photo</p>
+        <input type="file" class="form-control" id="profile_photo" name="profile_photo"
+            placeholder="Select profile photo">
+    </div>
+
+    <div class="info">
+        <p class="info-title">gender</p>
+        <select class="options" name="gender" required>
+            <option selected value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    </div>
+
+    <div class="info">
+        <p class="info-title" id="payment_label">mobile number</p>
+        <input type="number" class="form-control" id="mobile_no" name="mobile_no" placeholder="Enter mobile number"
+            required>
+    </div>
+
+
+    <div class="info">
+        <p class="info-title">Date of birth</p>
+        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
+            placeholder="Enter date of joining" required>
+    </div>
+
+    <div class="info">
+        <p class="info-title">pan number</p>
+        <input type="text" class="form-control" id="pan_number" name="pan_number" placeholder="Enter pan number"
+            required>
+    </div>
+
+    <div class="info">
+        <p class="info-title">aadhaar number</p>
+        <input type="number" class="form-control" id="aadhaar_number" name="aadhaar_number"
+            placeholder="Enter aadhaar number" required>
+    </div>
+
+
+
+
+    <div class="info">
+        <p class="info-title">Marital Status</p>
+        <select class="options" name="marital_status" required>
+            <option selected value="Single">Single</option>
+            <option value="Married">Married</option>
+        </select>
+    </div>
+
+    <div class="info">
+        <p class="info-title">passport number</p>
+        <input type="text" class="form-control" id="passport_no" name="passport_no" placeholder="Enter passport number">
+    </div>
+
+    <div class="info">
+        <p class="info-title">father name</p>
+        <input type="text" class="form-control" id="father_name" name="father_name" placeholder="Enter father name"
+            required>
+    </div>
+
+    <div class="info">
+        <p class="info-title">mother name</p>
+        <input type="text" class="form-control" id="mother_name" name="mother_name" placeholder="Enter mother name"
+            required>
+    </div>
+
+    <div class="info">
+        <p class="info-title">nationality</p>
+        <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter nationality" value="Indian"
+            required>
+    </div>
+
+
+    <div class="info">
+        <p class="info-title">emergency contact number</p>
+        <input type="number" class="form-control" id="emergency_contact_no" name="emergency_contact_no"
+            placeholder="Enter emergency contact number" >
+    </div>
+
+    <div class="info info-full">
+        <p class="info-title">blood group</p>
+        <select class="options" name="blood_group" required>
+            <option value="A-">A-</option>
+            <option value="A+">A+</option>
+            <option value="B-">B-</option>
+            <option value="B+">B+</option>
+            <option value="O-">O-</option>
+            <option value="O+">O+</option>
+            <option value="AB+">AB+</option>>
+            <option value="AB-">AB-</option>
+        </select>
+    </div>
+
+    <div class="info info-full">
+        <p class="info-title">permanent address</p>
+        <input type="text" class="form-control" id="permanent_address" name="permanent_address"
+            placeholder="Enter permanent address" required>
+    </div>
+
+
+    <div class="permissions">
+        <div class="check-box-info">
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="is_address_same" name="is_address_same"
+                    value="True" onchange="sameAddress()">
+                <label class="check-box-label" for="is_address_same">Permanent and current address same</label>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="info info-full" id="current_address_div">
+        <p class="info-title">current address</p>
+        <input type="text" class="form-control" id="current_address" name="current_address"
+            placeholder="Enter current address">
+    </div>
+
+
+
+    <!-- disabled -->
+    <div class="btns">
+        <button type="submit" class="next-btn2">Submit</button>
+
+    </div>
+
+</form>
+
+
+{% endblock %}
+

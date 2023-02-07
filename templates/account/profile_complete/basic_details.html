@@ -1,0 +1,196 @@
+{% extends 'basic_form.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+    #Navbar {
+        display: flex;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block userForm %}
+
+
+<form class="details" action="{% url 'signup' %}" method="post">{% csrf_token %}
+
+    <div class="heading">
+        <h3 class="user-profile-update-title">User Basic Details( Sign Up)</h3>
+    </div>
+
+    <div class="info">
+        <p class="info-title">First Name</p>
+        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter first name"
+            required>
+        <!-- <small class="error" *ngIf="Profile.value['address_line1']==0">Address Line1 is required</small> -->
+    </div>
+
+    <div class="info">
+        <p class="info-title">last name</p>
+        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter last name" required>
+        <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
+    </div>
+
+
+    <div class="info">
+        <p class="info-title">department</p>
+        <select class="options" name="department" required>
+            {% for department in departments %}
+            <option value="{{department.id}}">{{department.department_name}}</option>
+            {% endfor %}
+        </select>
+        <!-- <small class="error" *ngIf="Profile.value['state']=='S'">State is required</small> -->
+    </div>
+
+    <div class="info">
+        <p class="info-title">designation</p>
+        <select class="options" name="designation" required>
+            {% for designation in designations %}
+            <option value="{{designation.id}}">{{designation.designation_name}}</option>
+            {% endfor %}
+        </select>
+        <!-- <small class="error" *ngIf="Profile.value['state']=='S'">State is required</small> -->
+    </div>
+
+
+    <div class="info">
+        <p class="info-title">experience</p>
+        <select class="options" name="experience_status" required>
+            <option value="Fresher" selected>Fresher</option>
+            <option value="Experienced">Experienced</option>
+        </select>
+        <!-- <small class="error" *ngIf="Profile.value['state']=='S'">State is required</small> -->
+    </div>
+
+    <div class="info">
+        <p class="info-title">Shift</p>
+        <select class="options" name="shift_details" required>
+            {% for shift in shifts %}
+            <option value="{{shift.id}}">{{shift.shift_name}}</option>
+            {% endfor %}
+        </select>
+        <!-- <small class="error" *ngIf="Profile.value['state']=='S'">State is required</small> -->
+    </div>
+
+
+    <div class="info">
+        <p class="info-title">Date of joining</p>
+        <input type="date" class="form-control" id="date_of_joining" name="date_of_joining"
+            placeholder="Enter date of joining" required>
+        <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
+    </div>
+
+
+
+    <div class="info">
+        <p class="info-title">Payment Type</p>
+        <select class="options" name="is_salaried" id="is_salaried" required onchange="paymentType()">
+            <option value="True" selected>Salary</option>
+            <option value="False">Stipend</option>
+        </select>
+        <!-- <small class="error" *ngIf="Profile.value['state']=='S'">State is required</small> -->
+    </div>
+
+    <div class="info">
+        <p class="info-title" id="payment_label">Salary</p>
+        <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter salary amount" required>
+        <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
+    </div>
+
+
+    <div class="permissions">
+        <div class="check-box-info">
+            <p class="info-title">Permissions</p>
+
+            <input type="hidden" class="form-control" value="{{emp_no}}" name="emp_no" required>
+
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="can_approve_attendance" name="can_approve_attendance" value="True">
+                <label class="check-box-label" for="can_approve_attendance">Can approve attendances</label>
+            </div>
+
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="can_approve_leaves" name="can_approve_leaves" value="True">
+                <label class="check-box-label" for="can_approve_leaves">Can approve leaves</label>
+            </div>
+
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="can_manage_employee" name="can_manage_employee" value="True">
+                <label class="check-box-label" for="can_manage_employee">Can manage employees</label>
+            </div>
+
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="can_manage_teams" name="can_manage_teams" value="True">
+                <label class="check-box-label" for="can_manage_teams">Can manage teams</label>
+            </div>
+
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="can_manage_holiday" name="can_manage_holiday" value="True">
+                <label class="check-box-label" for="can_manage_holiday">Can manage holidays</label>
+            </div>
+
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="can_manage_salary" name="can_manage_salary" value="True">
+                <label class="check-box-label" for="can_manage_salary">Can manage salarys</label>
+            </div>
+
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="can_verify_emp_details" name="can_verify_emp_details" value="True">
+                <label class="check-box-label" for="can_verify_emp_details">Can verify details</label>
+            </div>
+
+            <div class="check-box">
+                <input type="checkbox" class="check-box-square" id="can_manage_shifts" name="can_manage_shifts" value="True">
+                <label class="check-box-label" for="can_manage_shifts">Can manage office shifts</label>
+            </div>
+        
+
+        </div>
+
+
+
+    </div>
+
+
+    <div class="info info-full">
+        <p class="info-title">password</p>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
+    </div>
+
+
+
+
+
+
+    <!-- disabled -->
+    <div class="btns">
+        <button type="submit" class="next-btn2">Create Account</button>
+
+    </div>
+
+</form>
+
+
+{% endblock %}
+
+{% block javaScript %}
+
+
+<script>
+    function paymentType() {
+        var is_salaried = document.getElementById("is_salaried").value;
+        var paymentLabel = document.getElementById("payment_label").innerText;
+
+        if (is_salaried == "True") {
+            document.getElementById("payment_label").innerText = "Salary";
+        } else {
+            document.getElementById("payment_label").innerText = "Stipend";
+        }
+
+    }
+</script>
+
+{% endblock %}

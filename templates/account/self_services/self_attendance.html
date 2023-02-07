@@ -1,0 +1,227 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Self Details {% endblock %}</title>
+
+{% block style %}
+
+<style>
+.user-info{
+    padding: 2rem;
+    overflow: hidden;
+    height: 90vh;
+    overflow: auto;
+}
+.user_info{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+.basic_info {
+    width: 100%;
+}
+
+.main-heading{
+    margin: 0;
+    padding: 2.5rem 1rem;
+}
+.user_info .info{
+    max-width: 40%;
+    display: flex;
+    justify-content: space-between;
+    padding:0;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #ddd;
+}
+.user_info .info .info-description{
+    margin-right: 1rem;
+
+}
+.user_info .info p{
+    margin: 0;
+}
+
+.info-full {
+    max-width: 100%;
+    padding: 0 1rem;
+
+}
+
+.card{
+    border:1px solid #387EF9;
+    border-radius:0px;
+    padding:1rem;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+}
+.card p{
+    margin:0;
+    color: #444;
+    font-weight: 500;
+    margin-left:1rem;
+}
+
+
+
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <div class="basic_info">
+        <p class="main-heading">Monthly Details</p>
+
+        <div class="user_info">
+
+            <div class="info">
+                <p class="info-title">Number of working days</p>
+                <p class="info-description" id="sl">
+                    30
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="info-title">Number of Holidays</p>
+                <p class="info-description" id="lop">
+                    3
+                </p>
+            </div>
+
+
+            <div class="info">
+                <p class="info-title">Present days</p>
+                <p class="info-description" id="pl">
+                    12
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="info-title">Absent days</p>
+                <p class="info-description" id="cl">
+                    1
+                </p>
+            </div>
+
+        </div>
+
+        {% if can_mark_attendance %}
+
+        <p class="main-heading">Daily Attendance</p>
+
+        
+        <!-- {% if is_requested %} -->
+        
+
+        <div class="card">
+            <p class="info-title">Mark My Todays Out time</p>
+
+            <form action="{% url 'self_attendance' %}" method="post">{% csrf_token %}
+                <input type="hidden" value="{{request.user.id}}" name="user_id">
+                <button type="submit" class="next_btn2">Mark</button>
+            </form>
+
+        </div>
+
+        <!-- {% else %} -->
+
+        <div class="card">
+
+            <p class="info-title">Mark My Todays Attendance</p>
+            <form action="{% url 'self_attendance' %}" method="post">{% csrf_token %}
+                <input type="hidden" value="{{request.user.id}}" name="user_id">
+                <button type="submit" class="next_btn2">Mark</button>
+
+            </form>
+
+        </div>
+
+        <!-- {% endif %} -->
+
+        {% endif %}
+
+
+
+        <p class="main-heading">Missing Attendance</p>
+
+        <form class="user_input_form"  action="{% url 'missing_attendance' %}" method="post">{% csrf_token %}
+
+        
+            <div class="input_box">
+                <p class="input_title">Date</p>
+                <input type="date" class="input_value" id="start_date" name="date" onchange="MissingAttendance()" required>
+            </div>
+
+
+            <div class="input_box">
+                <p class="input_title" >Start day is</p>
+                <select class="input_options" name="half_day" id="start_date_is_half" onchange="MissingAttendance()">
+                    <option selected value="False">Full Day</option>
+                    <option  value="True">Half day</option>
+                </select>
+            </div>
+
+
+            <div class="input_box input_box_full" id="start_date_is_first_half">
+                <p class="input_title">Half</p>
+                <select class="input_options" name="first_half" id="start_day_half">
+                    <option selected value="True">First Half</option>
+                    <option  value="False">Second Half</option>
+                </select>
+            </div>
+        
+
+            <div class="input_box input_box_full">
+                <p class="input_title">Reason</p>
+                <input type="text" class="input_value" id="reason" name="reason" placeholder="Enter valid leave reason"
+                    required >
+            </div>
+        
+        
+            <!-- disabled -->
+            <div class="input_button_submit">
+                <button type="submit" class="next_btn2">Submit</button>
+            </div>
+        
+        </form>
+
+
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    document.getElementById('self-attendance').classList.add('link1');
+
+
+    window.onload= MissingAttendanceApply()
+
+    function MissingAttendanceApply()
+    {
+        var start_date_is_half = document.getElementById("start_date_is_half").value;start_day_half
+        var start_date_is_first_half = document.getElementById("start_date_is_first_half");
+        
+        if (start_date_is_half == "True"){
+            start_date_is_first_half.style.display= 'block';
+        }else{
+            start_date_is_first_half.style.display= 'none';
+        }
+        }
+
+</script>
+{% endblock %}

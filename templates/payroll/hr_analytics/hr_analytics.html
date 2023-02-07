@@ -1,0 +1,105 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+
+{% block tag %}
+<link href="{%static 'css/hr_analytics.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %}HR Analytics{% endblock %}</title>
+
+
+
+{% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+
+    #Navbar {
+        display: none !important;
+    }
+    iframe{
+        height: 80vh;
+        width: 100%;
+        padding: 5rem;
+    }
+
+</style>
+
+
+{% endblock %}
+
+
+{%block body%}
+
+
+<section class="analytics">
+
+    <iframe src="https://cdn8.vidstreamjp.cloud/gogoanime/watch/one-piece-episode-1" title="video" id="myiFrame"></iframe>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- <canvas id="myChart" style="width:100%;max-width:700px"></canvas> -->
+
+{%endblock%}
+
+
+
+{% block js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                colors: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+    
+
+<script>
+    let myiFrame = document.getElementById("myiFrame");
+    window.onload = function() {
+        let myiFrame = document.getElementById("myiFrame");
+        let doc = myiFrame.contentDocument;
+        console.log(myiFrame.contentWindow.document)
+        //console.log(myiFrame.contents().find('body'))
+        //doc.body.innerHTML = doc.body.innerHTML + '<style>/******* Put your styles here *******</style>';
+
+
+    }
+
+
+    document.getElementById("plyr-seek-5667").style.color = "red";
+</script>
+{% endblock %}

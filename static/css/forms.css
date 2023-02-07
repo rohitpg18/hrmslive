@@ -1,0 +1,156 @@
+
+
+
+.user_input_form {
+    
+    width: 100%;
+    height: 100%;
+    padding:0.8em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+
+.input_box{
+    max-width: 20em;
+    width: 100%;
+    margin-bottom: 1.5em;
+}
+
+.input_box_full{
+    max-width: 100%;
+    width: 100% !important;
+}
+
+
+.input_box .input_title {
+    color: #387EF9;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.input_box .input_description {
+    padding-bottom: 0.2em;
+    color: #444;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+@media (max-width:1000px) {
+    .input_box {
+        max-width: 100%;
+    }
+}
+
+@media (max-width:350px) {
+    .input_box .input_title {
+        font-size: 0.9em;
+    }
+
+    .input_box .input_description {
+        font-size: 0.8em;
+    }
+
+    .user_input_form {
+        padding: 0.5em 0.5rem;
+    }
+}
+
+.input_heading {
+    margin-bottom: 2rem;
+}
+
+
+.input_box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5em;
+}
+
+
+.input_options {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5em;
+    color: #444;
+    cursor: pointer;
+}
+
+
+@media (max-width:700px) {
+    .input_button_submit {
+        margin-top: 0;
+    }
+
+    .user_input_form {
+        margin-top: 0;
+
+    }
+}
+
+
+.input_button_submit {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    width: 100%;
+}
+
+.next_btn1 {
+    padding: 0.5em 1.5rem;
+    border: none;
+    outline: none;
+    color: #387EF9;
+    border: 1px solid #387EF9;
+    cursor: pointer;
+    margin: 1rem;
+    font-weight: 600;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.next_btn2 {
+    padding: 0.5em 1.5rem;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #387EF9;
+    border: 1px solid #387EF9;
+    cursor: pointer;
+    margin: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.btns button:disabled,
+.btns button[disabled] {
+    border: 1px solid #ddd;
+    color: #ddd;
+    background: #fff
+}
+
+
+.error {
+    color: #387EF9;
+    margin-top: 0.5em;
+}
+

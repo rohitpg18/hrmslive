@@ -1,0 +1,289 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Self Details {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    .user-info {
+        padding: 2rem;
+        overflow: hidden;
+        height: 90vh;
+        overflow: auto;
+    }
+
+    .user_info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .basic_info {
+        width: 100%;
+    }
+
+    .main-heading {
+        margin: 0;
+        padding: 2.5rem 1rem;
+    }
+
+    .user_info .info {
+        max-width: 40%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user_info .info .info-description {
+        margin-right: 1rem;
+
+    }
+
+    .user_info .info p {
+        margin: 0;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+
+    .card {
+        border: 1px solid #387EF9;
+        border-radius: 0px;
+        padding: 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card p {
+        margin: 0;
+        color: #444;
+        font-weight: 500;
+        margin-left: 1rem;
+    }
+
+
+
+    .table thead tr th {
+        color: #387EF9;
+        font-weight: 600;
+        border: none;
+    }
+
+
+    .table .next-btn2 {
+        margin: 0;
+        padding: 0.2em 1em;
+        font-size: 1em;
+        font-weight: 500;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+
+    .table .next-btn2:hover {
+        background: #fff;
+        color: #387EF9;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+
+    tbody .input_value {
+        border: none;
+        outline: none;
+        border: 1px solid #ddd;
+        padding: 0.3em 0.8em;
+        color: #444;
+
+    }
+
+    .table tbody td {
+        padding: 0.5em 0.3em;
+        vertical-align: baseline;
+        border: none;
+    }
+    .table tr{
+        border-bottom: 1px solid #ddd;
+    }
+
+
+
+    .input_item {
+        border: none;
+        background: #fff;
+    }
+
+    .table tbody .display_hidden {
+        display: none;
+    }
+
+    .form_action_btns {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .form_action_btns .icon_button {
+        outline: none;
+        border: none;
+        border: 1px solid #ddd;
+        background:#ddd;
+        color: #444;
+        border-radius: 50%;
+    }
+
+    .material-symbols-outlined {
+        padding: 0.3em;
+        color: #444;
+        cursor: pointer;
+    }
+
+
+</style>
+
+
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <div class="basic_info">
+
+        <p class="main-heading">Designation Details</p>
+
+        <form class="user_input_form" action="{% url 'designation' %}" method="post">{% csrf_token %}
+
+
+            <div class="input_box ">
+                <p class="input_title">Designation Name</p>
+                <input type="hidden" name="des_id" >
+                <input type="text" class="input_value" id="reason" name="des_name" placeholder="Enter a Designation"
+                    required>
+            </div>
+
+            <button type="submit" name="type" value="create" class="next_btn2">Submit</button>
+
+        </form>
+
+
+    </div>
+
+
+{% if designations %}
+
+    <p class="main-heading">Designation list</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Designations Name</th>
+                <th scope="col" style="text-align: center;">Actions</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for des in designations %}
+            <tr>
+                <form action="{% url 'designation' %}" method="post">{% csrf_token %}
+
+                    <td>{{forloop.counter}}</td>
+
+                    <td id="des_inputs{{des.id}}">
+
+                        <input type="hidden" name="des_id" value="{{des.id}}" disabled>
+                        <input type="text" id="reason" class="input_item" name="des_name" value="{{des.designation_name}}" required disabled>
+
+                    </td>
+
+                    <td class="form_action_btns" >
+
+                        <div class="buttons_div display_hidden" id="des_update_buttons{{des.id}}" >
+                            <button type="submit" class="icon_button" name="type" value="update"><span class="material-symbols-outlined" style="color:#387EF9">upgrade</span></button>
+                            <button type="submit" class="icon_button" name="type" value="delete"><span class="material-symbols-outlined" style="color:red">delete</span></button>
+                        </div>
+                        
+
+                        <span class="material-symbols-outlined cancel_button display_hidden icon_button" id="cancel_button{{des.id}}" onclick="editDes('{{des.id}}','cancel')">
+                            close
+                        </span>
+
+                        <span class="material-symbols-outlined edit_button icon_button" id="edit_button{{des.id}}" onclick="editDes('{{des.id}}','update')">
+                            
+                                drive_file_rename_outline
+                                
+                        </span>
+                    </td>
+
+                </form>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endif %}
+
+</section>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    function editDes(id, action) {
+        var edit_button = document.getElementById('edit_button' + id);
+        var cancel_button = document.getElementById('cancel_button' + id);
+        var des_update_buttons = document.getElementById('des_update_buttons' + id);
+        var inputs = document.querySelector('#des_inputs' + id).querySelectorAll('input')
+
+
+        console.log(id)
+
+        if (action == 'update') {
+
+
+            edit_button.classList.add("display_hidden")
+            cancel_button.classList.remove("display_hidden")
+            des_update_buttons.classList.remove("display_hidden")
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = false;
+                inputs[i].classList.add("input_value")
+                inputs[i].classList.remove("input_item")
+            }
+
+        } else {
+
+            edit_button.classList.remove("display_hidden")
+            cancel_button.classList.add("display_hidden")
+            des_update_buttons.classList.add("display_hidden")
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = true;
+                inputs[i].classList.add("input_item")
+                inputs[i].classList.remove("input_value")
+            }
+        }
+
+
+    }
+</script>
+{% endblock %}

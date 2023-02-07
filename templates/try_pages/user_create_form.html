@@ -1,0 +1,104 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+
+{% block tag %}
+<link href="{%static 'css/user_form.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %}
+    <!-- page title name --> {% endblock %}</title>
+
+
+
+{% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+    #Navbar {
+        display: none;
+    }
+</style>
+
+
+{% endblock %}
+
+
+
+
+
+
+{%block body%}
+
+<section class="user-info">
+
+    <form action=""  class="details" (input)="isValid(ProfileUpdate.value)"
+        (ngSubmit)="profileUpdate(ProfileUpdate.value)">
+        <div class="heading">
+            <h3 class="user-profile-update-title">Add Address Details(Indian)</h3>
+        </div>
+
+        <div class="info">
+            <p class="info-title">Address Line</p>
+            <input type="text" placeholder="Enter Address Line1" name="address_line1" *ngIf="addressDetail"
+                [ngModel]="addressDetail['address_line1']">
+            <small class="error" *ngIf="Profile.value['address_line1']==0">Address Line1 is required</small>
+        </div>
+
+        <div class="info">
+            <p class="info-title">Address Line2</p>
+            <input type="text" placeholder="Enter Address Line2" name="address_line2" *ngIf="addressDetail"
+                [ngModel]="addressDetail['address_line2']">
+            <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small>
+        </div>
+
+        <div class="info">
+            <p class="info-title">Pin Code</p>
+            <input type="tel" maxlength="6" placeholder="Enter Pin Code" name="pin" *ngIf="addressDetail"
+                onkeypress="return (event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57)"
+                [ngModel]="addressDetail['pin']" (input)="pinCode(pin.value)" #pin>
+            <small class="error" *ngIf="msg">{{msg}}</small>
+        </div>
+        <div class="info">
+            <p class="info-title">City</p>
+            <input type="text" placeholder="Enter City" name="city" *ngIf="addressDetail"
+                [ngModel]="addressDetail['city']"
+                onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'>
+            <small class="error" *ngIf="Profile.value['city']==0">City is required</small>
+        </div>
+
+        <div class="info">
+            <p class="info-title">State</p>
+            <select class="options" name="state" *ngIf="addressDetail" [ngModel]="addressDetail['state']">
+                <option name="state" value="{{item.key}}" *ngFor="let item of States | keyvalue">
+                    {{item.value}}
+                </option>
+            </select>
+            <small class="error" *ngIf="Profile.value['state']=='S'">State is required</small>
+        </div>
+
+
+        <div class="btns">
+            <button type="submit" class="next-btn2" [disabled]="notSubmit">Next
+            </button>
+            <button class="next-btn1" routerLink="/account/profile/profile-update/professional-details">Back</button>
+        </div>
+
+    </form>
+
+</section>
+
+
+{%endblock%}
+
+
+
+{% block js %}
+<script>
+    //  add javaScript code here 
+</script>
+{% endblock %}

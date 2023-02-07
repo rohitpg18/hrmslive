@@ -1,0 +1,334 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+
+
+
+<title>{% block title %} HRMS : Profile {% endblock %}</title>
+
+
+
+{% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+
+    #Navbar {
+        display: none;
+    }
+
+
+
+
+    .profile-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        margin-top: 2rem;
+    }
+
+    .profile-links-container {
+        max-width: 18rem;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding: 1rem;
+        background-color: #fff;
+        box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+            rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    }
+
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        padding-bottom: 1em;
+        border-bottom: 1px solid rgb(152, 152, 152);
+    }
+
+    .user-profile h4 {
+        color: #444;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .user-profile p {
+        max-width: 100%;
+        overflow: hidden;
+        margin-top: 0.2em;
+    }
+
+    .user-profile-pic {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1em;
+        border: 1px solid #ed1965;
+        position: relative;
+        transform: rotate(60deg);
+    }
+
+    .user-profile-pic::before {
+        content: "";
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        border: 0.3rem solid #fff;
+        background: #ed1965;
+        transform: translate(-50%, -50%);
+    }
+
+    .user-profile-pic::after {
+        content: "";
+        width: 0.8rem;
+        height: 0.8rem;
+        border: 0.3rem solid #fff;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 0;
+        background: #ed1965;
+        transform: translate(-50%, 50%);
+    }
+
+    .user-profile-pic img {
+        width: 9.1rem;
+        height: 9.1rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+        transform: rotate(-60deg);
+        z-index: 2;
+    }
+
+    .profile-navigations {
+        margin: 1.5rem 0;
+    }
+
+    .profile-navigation-links li {
+        list-style: none;
+        border-collapse: collapse;
+        padding: 0.7em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+
+    .profile-navigation-links li svg{
+        fill: #ed1965;
+        height: 1rem;
+    }
+
+
+    .profile-navigation-links a {
+        text-decoration: none;
+        color: #ed1965;
+        font-weight: 600;
+    }
+
+    .active {
+        color: #fff;
+        background-color: #ed1965;
+    }
+
+    .active a {
+        color: #fff;
+        text-align: center;
+    }
+
+    .profile-navigation-links li:hover {
+        color: #fff;
+        background-color: #ed1965;
+        transition: all 0.5s ease-out;
+    }
+
+    .profile-navigation-links li:hover  svg{
+        fill: #fff;
+        transition: all 0.5s ease-out;
+    }
+
+
+    .profile-details-container {
+        width: 100%;
+        margin-left: 3rem;
+        margin-right: 1rem;
+        min-height: 80vh;
+        height: 100%;
+        box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+            rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+
+    .back-to-profile {
+        padding: 1em 1em 0 1em;
+        display: none;
+    }
+
+    .back-to-profile button {
+        outline: none;
+        border: none;
+        background-color: transparent;
+    }
+
+    .back-to-profile .material-icons {
+        color: #444;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    @media (max-width:700px) {
+        .profile-container {
+            margin-top: 0;
+        }
+
+        .profile-container .profile-links-container {
+            max-width: 100%;
+            position: absolute;
+            z-index: 2;
+            min-height: 100vh;
+            overflow-y: scroll;
+        }
+
+        .profile-details-container {
+            box-shadow: none;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .profile-details-container {
+            width: 100%;
+            margin: 0;
+        }
+
+        .back-to-profile {
+            display: block;
+        }
+    }
+</style>
+
+
+{% endblock %}
+
+
+
+
+
+
+{%block body%}
+
+<app-navbar></app-navbar>
+<section class="profile-container">
+
+    <section class="profile-links-container">
+
+        <div class="user-profile">
+
+            <div class="user-profile-pic">
+                <img src="{{request.user.user_additional_details.profile_photo.url}}" alt="">
+            </div>
+
+            <h4>{{request.user.get_full_name}}</h4>
+
+            <p>{{request.user.username}}</p>
+        </div>
+
+        <div class="profile-navigations">
+            <ul class="profile-navigation-links">
+
+                <a href="">
+                    <li class="profile-navigation-link " routerLinkActive="active">Details
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                            <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path
+                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                            </svg>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="profile-navigation-link">Attendance
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                            <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path
+                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                            </svg>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="profile-navigation-link">Leaves
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                            <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path
+                                d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                            </svg>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="profile-navigation-link">Salary
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                <path
+                                    d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                                </svg>
+                        
+                    </li>
+                </a>
+
+
+
+
+            </ul>
+        </div>
+
+    </section>
+
+
+
+    <section class="profile-details-container">
+        <div class="back-to-profile">
+            <button>
+                <span class="material-icons">
+                    keyboard_backspace
+                </span>
+            </button>
+
+        </div>
+
+        {% block profile %}
+        
+        {% endblock %}
+        
+    </section>
+
+
+</section>
+
+
+{%endblock%}
+
+
+
+{% block js %}
+<script>
+    //  add javaScript code here 
+</script>
+{% endblock %}
