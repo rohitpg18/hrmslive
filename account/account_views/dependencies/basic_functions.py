@@ -233,6 +233,7 @@ def user_permissions(user_id):
 
 #     return last_date_of_month.strftime("%Y-%m-%d")
 
+
 def month_attendance_counter (user_id, month_name = 0):
     if User.objects.filter(id=user_id).exists() == False:
         return None
@@ -247,7 +248,7 @@ def month_attendance_counter (user_id, month_name = 0):
     month_attendance_count = MonthAttendanceCounter.objects.filter(emp_user_id=user_id, month=month)
     
     if not month_attendance_count.exists():
-       month_attendance_count =  MonthAttendanceCounter.objects.create(emp_user_id=user_id, month=month, present_days = 0, absent_days = 0, week_offs = weekdays, paid_leaves = 0, non_paid_leaves = 0, paid_holiday = holiday_month_count, sand_witched_days = 0, total_paid_days = 0, over_time_hours = 0 )   
+        month_attendance_count =  MonthAttendanceCounter.objects.create(emp_user_id=user_id, month=month, present_days = 0, absent_days = 0, week_offs = weekdays, paid_leaves = 0, non_paid_leaves = 0, paid_holiday = holiday_month_count, sand_witched_days = 0, total_paid_days = 0, over_time_hours = 0 )   
     else:
         month_attendance_count=month_attendance_count[0]
         

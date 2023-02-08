@@ -25,12 +25,10 @@
     .loginForm {
         position: relative;
 
-        background: #018ABE;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #97CADB, #018ABE);
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #97CADB, #018ABE);
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: #9CECFB;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #9CECFB, #65C7F7, #0080FE);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #9CECFB, #65C7F7, #0080FE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
 
         display: flex;
         overflow: hidden;
@@ -63,7 +61,7 @@
         position: relative;
         width: 50%;
         height: 100%;
-        background: #018ABE;
+        background: #387EF9;
         transition: 0.5s;
     }
 
@@ -116,7 +114,7 @@
 
     .container .user .formBx form input[type="submit"] {
         max-width: 100px;
-        background: #018ABE;
+        background: #387EF9;
         color: #fff;
         cursor: pointer;
         font-size: 14px;
@@ -209,8 +207,8 @@
 <section class="loginForm">
     <div class="container">
         <div class="user signinBx">
-            <div class="imgBx"><img
-                    src="{%static 'images/LoginPageImg.jpg' %}" />
+            <div class="imgBx">
+                <img src="{%static 'images/LoginPageImg.jpg' %}" />
             </div>
             <div class="formBx">
                 <form action="{% url 'login' %}" method="post">{% csrf_token %}
