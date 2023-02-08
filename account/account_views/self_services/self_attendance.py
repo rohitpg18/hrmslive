@@ -75,9 +75,77 @@ class ApplyAttendance(View):
             else:
                 can_mark_attendance = False
                 is_requested =False
+       
+            # calculates no of present days in current month
+        month_full_day_present_count = DailyAttendance.objects.filter(emp_user_id = user_id, month = get_month_year(), is_present = True).count()
+        month_half_day_present_count = DailyAttendance.objects.filter(emp_user_id = user_id, month = get_month_year(), is_present = True, is_half_day = True).count()
+        if month_full_day_present_count == 0:
+            month_presenty_count = Decimal(month_half_day_present_count*0.5)
+        else:
+            month_presenty_count = Decimal(month_full_day_present_count - (month_half_day_present_count*0.5))
+            
         
             
-        return render(request,"account/self_services/self_attendance.html",{'can_mark_attendance':can_mark_attendance,"is_requested":is_requested})
+        months = {month: index for index, month in enumerate(month_abbr) if month}
+        month_index = int(months[str(get_month_year())[0:3]])
+        year = int(str(get_month_year())[-4:])
+        end_date = get_end_date_of_month(year, month_index)
+        first_date = end_date.replace(day = 1)
+        
+        month_full_day_leaves = DailyLeave.objects.filter(emp_user_id = user_id, date__gte = first_date, date__lte = last_date).count()
+        month_half_day_leaves = DailyLeave.objects.filter(emp_user_id = user_id, date__gte = first_date, date__lte = last_date, date_is_half = True).count()
+        if month_full_day_leaves == 0:
+            month_leaves_count = Decimal(month_half_day_leaves*0.5)
+        else:
+            month_leaves_count = Decimal(month_full_day_leaves - (month_half_day_leaves * 0.5))
+        
+        holiday_month_count = Decimal(Holiday.objects.filter(month = get_month_year()).count())
+        
+        
+        month_days = Decimal(monthrange(year, month)[1])
+        
+        sundays = 0
+        saturdays = 0
+        for day in Calendar().itermonthdates(year, month_index):
+            if day.weekday() == 6 and day.month == month_index:
+                sundays += 1
+        for day in Calendar().itermonthdates(year, month_index):
+            if day.weekday() == 5 and day.month == month_index:
+                saturdays += 1
+        weekdays = Decimal(sundays + saturdays)
+        
+        # test_date1, test_date2 = first_date, end_date
+        
+        # print(test_date1, test_date2)
+
+
+        # dates = (test_date1 + timedelta(idx + 1)
+        #  for idx in range((test_date2 - test_date1).days))
+
+        # res = sum(1 for day in dates if day.weekday() < 5)
+
+        # weekdays = month_days - int(res)
+        
+        # print(res)
+        
+        absent_days = month_days - holiday_month_count - month_leaves_count - month_presenty_count - weekdays
+        
+        working_days = month_days - holiday_month_count - weekdays
+        
+        print(month_days)
+        print(weekdays)
+        
+        context = {
+            'can_mark_attendance':can_mark_attendance,
+            'is_requested':is_requested,
+            'present_days': month_presenty_count,
+            'leaves': month_leaves_count,
+            'holidays': holiday_month_count,
+            'working_days': working_days,
+            'absent_days':absent_days
+            }
+            
+        return render(request,"account/self_services/self_attendance.html", context)
     
     
 
