@@ -6,7 +6,7 @@
 <link href="{%static 'css/forms.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : Self Details {% endblock %}</title>
+<title>{% block title %} HRMS : Self Attendance {% endblock %}</title>
 
 {% block style %}
 
@@ -88,14 +88,14 @@
             <div class="info">
                 <p class="info-title">Number of working days</p>
                 <p class="info-description" id="sl">
-                    30
+                    {{working_days}}
                 </p>
             </div>
 
             <div class="info">
                 <p class="info-title">Number of Holidays</p>
                 <p class="info-description" id="lop">
-                    3
+                    {{holidays}}
                 </p>
             </div>
 
@@ -103,14 +103,14 @@
             <div class="info">
                 <p class="info-title">Present days</p>
                 <p class="info-description" id="pl">
-                    12
+                    {{present_days}}
                 </p>
             </div>
 
             <div class="info">
                 <p class="info-title">Absent days</p>
                 <p class="info-description" id="cl">
-                    1
+                    {{absent_days}}
                 </p>
             </div>
 
