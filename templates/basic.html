@@ -88,7 +88,7 @@
         padding: 1rem;
         justify-content: space-evenly;
         align-items: center;
-        
+
 
         border: 1px solid #387EF9;
     }
@@ -138,6 +138,9 @@
 
     {% endfor %}
     {% endif %}
+
+
+
 
 
 
@@ -216,8 +219,63 @@
     <!-- Template Main Javascript File -->
     <script src="{%static 'JavaScript/main.js'%}"></script>
     <script>
-        function popup() {
-            document.getElementById("popup1").style.display = "none";
+        function validate(type, value, id, button) {
+
+            console.log(type,value,id);
+
+            if (type == 'mobile_number') {
+                console.log('mobile_number');
+
+                if (value.length != 10) {
+                    document.getElementById(id).style.display = 'block';
+                    document.getElementById(id).innerText = "Mobile number must be 10 digits"
+                    document.getElementById(button).disabled = true
+
+                } else {
+                    document.getElementById(id).style.display = 'none';
+                    document.getElementById(button).disabled = false
+                }
+                
+            } else if (type == 'pan_number') {
+
+                let   regex = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+
+                if (regex.test(value)) {
+
+                    document.getElementById(id).style.display = 'none';
+                    document.getElementById(button).disabled = false
+                    
+
+                }else{
+
+                    document.getElementById(id).style.display = 'block';
+                    document.getElementById(id).innerText = "Invalid pan card number"
+                    document.getElementById(button).disabled = true
+
+                }
+
+                
+            }else if (type == 'aadhaar_number'){
+                
+                
+
+                if (value.length == 12) {
+
+                    document.getElementById(id).style.display = 'none';
+                    document.getElementById(button).disabled = false
+
+                }else{
+
+                    document.getElementById(id).style.display = 'block';
+                    document.getElementById(id).innerText = "Invalid addhaar number"
+                    document.getElementById(button).disabled = true
+
+                }
+
+            }
+
+
+
         }
     </script>
 
@@ -227,7 +285,6 @@
         function popup() {
             document.getElementById("panel").style.display = "none";
         }
-
     </script>
 
 

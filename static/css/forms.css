@@ -74,6 +74,15 @@
     border-bottom: 1px solid #ddd;
     padding-bottom: 0.5em;
 }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+input[type="text"]{
+    text-transform: capitalize;
+}
 
 
 .input_options {
@@ -150,7 +159,8 @@
 
 
 .error {
-    color: #387EF9;
+    color: #ed1965;
     margin-top: 0.5em;
+    display: none;
 }
 

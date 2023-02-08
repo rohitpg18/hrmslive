@@ -36,7 +36,7 @@ class UserBasicDetails(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, to_field='department_name',related_name='user_department_details', null=True)
     shift_details = models.ForeignKey(UserShiftDetails, on_delete=models.CASCADE, to_field='shift_name',related_name='user_shift_details', null=True)
     date_of_joining = models.DateField(auto_now=True, null=True)
-    salary = models.DecimalField(max_digits=7, decimal_places=2, null=True)
+    salary = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     uan_number = models.BigIntegerField(null=True)
     pf_number = models.CharField(max_length=10, null=True)
     experience_status = models.CharField (choices=(("Fresher", "Fresher"), ("Experienced", "Experienced")), max_length=50, null=True)
@@ -82,7 +82,7 @@ class UserAdditionalDetail(models.Model):
     nationality = models.CharField(max_length=50, null=True)
     emergency_contact_no = models.BigIntegerField(null=True)
     blood_group = models.CharField(max_length=3, null=True)
-    profile_photo = models.FileField(upload_to='userprofile', null=True, default='default_profile_pic.png')
+    profile_photo = models.ImageField(upload_to='userprofile', null=True, default='default_profile_pic.png')
     is_requested = models.BooleanField(default=False) 
     is_completed_additional_details = models.BooleanField(default=False)  # this will become True if mandatory fields are filled by employee after verification by HR
     created_at = models.DateTimeField(auto_now_add=True)

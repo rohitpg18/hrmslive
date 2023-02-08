@@ -81,14 +81,14 @@
     
         <div class="info">
             <p class="info-title">First Name</p>
-            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter first name"
+            <input type="text" minlength="2" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))' class="form-control" id="first_name" name="first_name" placeholder="Enter first name"
                 required>
             <!-- <small class="error" *ngIf="Profile.value['address_line1']==0">Address Line1 is required</small> -->
         </div>
     
         <div class="info">
             <p class="info-title">last name</p>
-            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter last name" required>
+            <input type="text" minlength="2" class="form-control" id="last_name" name="last_name" placeholder="Enter last name" required onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))'>
             <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
         </div>
     
@@ -153,8 +153,8 @@
         </div>
     
         <div class="info info-full">
-            <p class="info-title" id="payment_label">Salary</p>
-            <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter salary amount" required>
+            <p class="info-title" id="payment_label">Salary (Rs)</p>
+            <input type="number" required min="0" onkeypress='return ((event.keyCode >= 48 && event.keyCode <= 57 )|| event.key === " ")' max="999999999"  class="form-control" id="salary" name="salary" placeholder="Enter salary amount" >
             <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
         </div>
     
@@ -215,7 +215,7 @@
     
         <div class="info info-full">
             <p class="info-title">password</p>
-            <input type="password" id="password" name="password" placeholder="Enter password" required>
+            <input type="password" minlength="8" id="password" name="password" placeholder="Enter password" required>
             <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
         </div>
     
@@ -239,5 +239,21 @@
 {% block js %}
 <script>
     document.getElementById('create-account').classList.add('link1');
+    window.load= paymentType();
+
+    function paymentType(){
+        var is_salaried = document.getElementById('is_salaried').value;
+        
+
+        if (is_salaried == "True"){
+            document.getElementById('payment_label').innerText= "Salary (Rs)";
+        }else{
+            document.getElementById('payment_label').innerText= "Stipend (Rs)";
+        }
+
+    }
+
+
+
 </script>
 {% endblock %}

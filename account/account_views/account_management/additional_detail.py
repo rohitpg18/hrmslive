@@ -23,7 +23,10 @@ class AdditionalDetail(View):
 
         user_additional_detail= UserAdditionalDetail.objects.get(emp_user_id=user_id)
 
-        profile_pic= request.FILES.get('profile_photo')
+        
+        profile_pic= request.FILES['img']
+        
+        print(profile_pic)
 
         additional_details= request.POST
 
