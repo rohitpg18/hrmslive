@@ -1,0 +1,56 @@
+{% block style %}
+
+<style>
+    .profile-navigations .profile-navigation-links .link1 {
+        color: #fff;
+        background-color: #387EF9;
+        transition: all 0.5s ease-out;
+    }
+
+    .profile-navigations .profile-navigation-links .link1 svg {
+        fill: #fff;
+        transition: all 0.5s ease-out;
+    }
+    .table .next-btn2 {
+        margin: 0;
+        padding: 0.2em 1em;
+        font-size: 1em;
+        font-weight: 500;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+    
+    #left, #center, #right {
+     position: relative;
+     display: inline-block;
+     margin: 1em 0.1em 0.1em 0.8%;
+     padding: 0.1em;
+     background: #ebebfb;
+     border: 2px solid blue;
+    }
+    #left {
+     width: 22%;
+     height: 20em;
+    }
+    #center {
+     width: 52%;
+     height: 30em;
+    }
+    #right {
+     width: 16.2%;
+     height: 20em;
+    }
+</style>
+    
+        
+        <div id='left'>
+         <div>
+         <p>Payroll Data</p>
+         </div>
+        </div>
+        
+        
+        
+        <div id='right'>
+         <a href="{% url 'filter_salary' %}" class="next-btn2" > Filter Salary Data</a>
+        </div>

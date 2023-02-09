@@ -30,6 +30,27 @@
         border: 2px solid #387EF9;
         transition: 0.2s linear;
     }
+
+    #left, #center, #right {
+        position: relative;
+        display: inline-block;
+        margin: 1em 0.1em 0.1em 0.8%;
+        padding: 0.1em;
+        background: #ebebfb;
+        border: 2px solid blue;
+       }
+       #left {
+        width: 22%;
+        height: 20em;
+       }
+       #center {
+        width: 52%;
+        height: 30em;
+       }
+       #right {
+        width: 16.2%;
+        height: 20em;
+       }
 </style>
 
 
@@ -38,8 +59,11 @@
 {% block profile %}
 
 
-
-    <p class="main-heading">Payroll Data</p>
+<div>
+    <p class="main-heading">Payroll Data </p> <span style="position:fixed; right:200px; top:45px"> <a href="{% url 'filter_salary' %}"><button type="submit" class="next-btn2">Filter Salary Data</button></a> </span>
+</div>
+    
+        
     <table class="table">
         <thead>
             <tr>
@@ -55,7 +79,7 @@
 
 
         <tbody>
-            {% for s in sal %}
+            {% for s in salary %}
             <tr>
                 <th scope="row">{{s.emp_user.username}}</th>
                 <td>{{s.emp_user.first_name}} {{s.emp_user.last_name}}</td>
@@ -63,7 +87,7 @@
                 <td>{{s.gross_salary}}</td>
                 <td>{{s.pf_employer}}</td>
                 <td>{{s.net_salary}}</td>
-                <td><a href="#">
+                <td><a href="{% url 'self_salary' %}{{sal.id}}">
                     <button type="submit" class="next-btn2">Generate</button>
                     </a>
                 </td>
