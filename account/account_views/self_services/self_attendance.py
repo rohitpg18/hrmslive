@@ -114,20 +114,6 @@ class ApplyAttendance(View):
                 saturdays += 1
         weekdays = Decimal(sundays + saturdays)
         
-        # test_date1, test_date2 = first_date, end_date
-        
-        # print(test_date1, test_date2)
-
-
-        # dates = (test_date1 + timedelta(idx + 1)
-        #  for idx in range((test_date2 - test_date1).days))
-
-        # res = sum(1 for day in dates if day.weekday() < 5)
-
-        # weekdays = month_days - int(res)
-        
-        # print(res)
-        
         absent_days = month_days - holiday_month_count - month_leaves_count - month_presenty_count - weekdays
         
         working_days = month_days - holiday_month_count - weekdays
