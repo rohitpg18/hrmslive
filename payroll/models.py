@@ -76,9 +76,9 @@ class DailyAttendance(models.Model):
 class MissingAttendance(models.Model):
     emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='missing_attendance_users')
 
-    approved_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='daily_attendance_approved_by')
+    approved_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='daily_attendance_approved_by', null=True)
     
-    date = models.DateField(auto_now=True)
+    date = models.DateField()
     description = models.TextField(default="Attendance disappeared for some reason")
 
     is_half_day = models.BooleanField(default=False)
