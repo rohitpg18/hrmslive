@@ -10,4 +10,5 @@ urlpatterns = [
     path("designation/",DesignationDetails.as_view(),name="designation"),
     path("payroll/", PayrollData.as_view(), name = "payroll"),
     path("filter-salary/", filter_salary, name = "filter_salary"),
+    path("missing-attendance-applications/", MissingAttendanceApplications.as_view(), name = "missing_attendance_applications"),
 ]   
