@@ -34,7 +34,7 @@ class DepartmentDetails(View):
             
                 if dept.exists():
                     
-                    print(int(data['dept_id']))
+                   
                     dept = Department.objects.get(id=data['dept_id'])
                     dept.department_name= data['dept_name']
                     dept.save()

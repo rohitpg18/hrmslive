@@ -189,12 +189,10 @@ def monthly_leave_count(user_id,month_name = 0):
     
     if not leave_count.exists():
         
-        
-        
 
         preview_month=get_month_year(create_month_year_formate(month=1))
         
-        print(preview_month)
+    
         
         pre_month_leave_count= LeaveCount.objects.filter(emp_user_id=user_id,month=preview_month.id)
         
@@ -223,15 +221,6 @@ def user_permissions(user_id):
         return user[0]
     else:
         return None
-    
-# def get_last_date_of_month(year, month):
-
-#     if month == 12:
-#         last_date_of_month = datetime(year, month, 31)
-#     else:
-#         last_date_of_month = datetime(year, month + 1, 1) + timedelta(days=-1)
-
-#     return last_date_of_month.strftime("%Y-%m-%d")
 
 
 def month_attendance_counter (user_id, month_name = 0):
@@ -374,8 +363,7 @@ def salary_slip (user_id, month_name = 0):
                     prof_tax = 275
                 else:
                     prof_tax = 175
-    print(prof_tax)
-    print(gross)
+   
     deduction = round(pf_employee + prof_tax)
                 
     in_hand_sal = round(gross - pf_employee - prof_tax)
@@ -390,9 +378,9 @@ def salary_slip (user_id, month_name = 0):
             current_month_salary.update(current_month_ctc= user_sal, basic_salary=basic_sal, house_rent_allowance=hra_sal, conveyance_allowance=conveyance_allo, utility_allowance= utility_allo, pf_employer=pf_employer, pf_employee =pf_employee,  profession_tax=prof_tax, epf_employer=epf_employer, eps_employer=eps_employer, gross_salary = gross, deductions = deduction, net_salary=in_hand_sal)
     else:
         if not current_month_salary.exists():
-            Salary.objects.create(emp_user_id = user_id, month = month, basic_salary=basic_sal, house_rent_allowance=hra_sal, conveyance_allowance=conveyance_allo, utility_allowance= utility_allo, current_month_ctc= user_sal, pf_employer=0.00, pf_employee =0.00,  profession_tax=0.00, epf_employer=0.00, eps_employer=0.00, gross_salary = user_sal, deductions = 0.00, net_salary=user_sal)
+            Salary.objects.create(emp_user_id = user_id, month = month, basic_salary=basic_sal, house_rent_allowance=hra_sal, conveyance_allowance=conveyance_allo, utility_allowance= utility_allo, current_month_ctc= user_sal, pf_employer=0.00, pf_employee =0.00,  profession_tax=0.00, epf_employer=0.00, eps_employer=0.00, gross_salary = 0.00, deductions = 0.00, net_salary=user_sal)
         else:
-            current_month_salary.update(basic_salary=basic_sal, house_rent_allowance=hra_sal, conveyance_allowance=conveyance_allo, utility_allowance= utility_allo, current_month_ctc= user_sal, pf_employer= 0.00, pf_employee= 0.00,  profession_tax= 0.00, epf_employer= 0.00, eps_employer= 0.00, gross_salary = user_sal, deductions= 0.00, net_salary=user_sal)
+            current_month_salary.update(basic_salary=basic_sal, house_rent_allowance=hra_sal, conveyance_allowance=conveyance_allo, utility_allowance= utility_allo, current_month_ctc= user_sal, pf_employer= 0.00, pf_employee= 0.00,  profession_tax= 0.00, epf_employer= 0.00, eps_employer= 0.00, gross_salary = 0.00, deductions= 0.00, net_salary=user_sal)
         
     return current_month_salary
 

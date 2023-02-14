@@ -83,3 +83,17 @@ class ApplyLeave(View):
             messages.warning(request, "You have already\n applied for leave between these dates")
         
         return redirect('self_leave')
+    
+class LeavesHistory(View):
+    def get (self, request, *args, **kwargs):
+        
+        user_id = request.user.id 
+        
+        leave_history = LeaveApplication.objects.filter(emp_user_id = user_id)
+        
+        context = {
+            'leave_history':leave_history
+        }
+        
+        
+        return render (request, 'account/self_services/leave_history.html', context)

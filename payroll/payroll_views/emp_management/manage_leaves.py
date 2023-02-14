@@ -50,7 +50,7 @@ class ApproveLeaves(View):
         else:
             leave_application = LeaveApplication.objects.get(id=pk)
         
-        print(leave_application.start_date)
+       
         
         emp_id = leave_application.emp_user     
         

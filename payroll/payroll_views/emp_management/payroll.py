@@ -35,10 +35,7 @@ def filter_salary (request):
         context = {
             'salary':salary,
         }
-        
-        print(name)
-        print(username) 
-        print(salary)
+       
         
         return render (request, 'payroll\emp_management\payroll.html',context)
     
@@ -48,5 +45,8 @@ def filter_salary (request):
     
     else:
         return HttpResponse('An Exception Occurred')
+    
+    
+
     
         

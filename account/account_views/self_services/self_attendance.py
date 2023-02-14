@@ -118,8 +118,7 @@ class ApplyAttendance(View):
         
         working_days = month_days - holiday_month_count - weekdays
         
-        print(month_days)
-        print(weekdays)
+       
         
         context = {
             'can_mark_attendance':can_mark_attendance,
