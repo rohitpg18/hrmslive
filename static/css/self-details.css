@@ -1,72 +1,76 @@
 .details {
-    padding: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    overflow: auto;
-  
-  }
-  
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  overflow: auto;
+
+}
+
+.info {
+  flex: 1 1 auto;
+  max-width: 30%;
+  width: 100%;
+  margin: 0.3em;
+  margin-bottom: 1em;
+  padding: 0.5em 0.8em;
+}
+
+.details .info-full {
+  max-width: 100%;
+}
+
+
+.info .info-title {
+  color: #387EF9;
+  font-weight: 500;
+  margin-bottom: 0.2em;
+  text-transform: uppercase;
+}
+
+.info .info-description {
+  padding-bottom: 0.2em;
+  color: #444;
+  font-weight: 500;
+  border-bottom: 1px solid #ddd;
+}
+
+.sign {
+  height: 10rem;
+  width: auto;
+}
+
+.sign img {
+  height: 100%;
+}
+
+
+@media (max-width:1000px) {
   .info {
-    flex: 1 1 auto;
-    max-width: 43%;
-    width: 100%;
-    margin: 0.3em;
-    margin-bottom: 1em;
-    padding: 0.5em 0.8em;
+    max-width: 100%;
   }
-  
+}
+
+@media (max-width:350px) {
   .info .info-title {
-    color: #387EF9;
-    font-weight: 500;
-    margin-bottom: 0.2em;
-    text-transform: uppercase;
+    font-size: 0.9em;
   }
-  
+
   .info .info-description {
-    padding-bottom: 0.2em;
-    color: #444;
-    font-weight: 500;
-    border-bottom: 1px solid #ddd;
+    font-size: 0.8em;
   }
-  
-  .sign {
-    height: 10rem;
-    width: auto;
+
+  .details {
+    padding: 0.5em 0.5rem;
   }
-  
-  .sign img {
-    height: 100%;
-  }
-  
-  
-  @media (max-width:1000px) {
-    .info {
-      max-width: 100%;
-    }
-  }
-  
-  @media (max-width:350px) {
-    .info .info-title {
-      font-size: 0.9em;
-    }
-  
-    .info .info-description {
-      font-size: 0.8em;
-    }
-  
-    .details {
-      padding: 0.5em 0.5rem;
-    }
-  }
-  
-  .main-heading {
-    font-size: 1.5rem;
-    width: 100%;
-    color: #444;
-    margin: 2rem 1rem;
-    font-weight: 500;
-  }
-  
+}
+
+.main-heading {
+  font-size: 1.5rem;
+  width: 100%;
+  color: #444;
+  margin: 2rem 1rem;
+  font-weight: 500;
+}

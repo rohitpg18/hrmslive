@@ -3,25 +3,83 @@
 
 {% block tag %}
 <link href="{%static 'css/self-details.css'%}" rel="stylesheet">
-<link href="{%static 'css/form.css'%}" rel="stylesheet">
+<link href="{%static 'css/forms.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : Salary {% endblock %}</title>
-
+<title>{% block title %} HRMS : Attendance History {% endblock %}</title>
 
 {% block style %}
 
 <style>
-    .profile-navigations .profile-navigation-links .link1 {
-        color: #fff;
-        background-color: #387EF9;
-        transition: all 0.5s ease-out;
+    .user-info {
+        padding: 2rem;
+        overflow: auto;
     }
 
-    .profile-navigations .profile-navigation-links .link1 svg {
-        fill: #fff;
-        transition: all 0.5s ease-out;
+    .user_info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
     }
+
+    .basic_info {
+        width: 100%;
+    }
+
+    .main-heading {
+        margin: 0;
+        padding: 2.5rem 1rem;
+    }
+
+    .user_info .info {
+        max-width: 40%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user_info .info .info-description {
+        margin-right: 1rem;
+
+    }
+
+    .user_info .info p {
+        margin: 0;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+
+    .details {
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .info_card {
+        border: 1px solid #387EF9;
+        padding: 1em;
+        padding-bottom: 0;
+        width: 100%;
+
+    }
+
+    .table thead tr {
+        color: #387EF9;
+        font-weight: 600;
+        border: none;
+    }
+
+    .table thead tr th {
+        border: none;
+    }
+
     .table .next-btn2 {
         margin: 0;
         padding: 0.2em 1em;
@@ -30,66 +88,81 @@
         border: 2px solid #387EF9;
         transition: 0.2s linear;
     }
-</style>
 
+    .table .next-btn2:hover {
+        background: #fff;
+        color: #387EF9;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+
+    .table thead tr:hover {
+        color: #fff;
+        background-color: #387EF9;
+        transition: 0.3s linear;
+        
+    }
+</style>
 
 {% endblock %}
 
 {% block profile %}
 
 
+<section class="user-info">
+    <div class="basic_info">
 
-    <p class="main-heading">Salary Data</p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Sr. No.</th>
-                <th scope="col">Employee ID</th>
-                <th scope="col">Month</th>
-                <th scope="col">Net Salary</th>
-                <th scope="col">Generate Salary Slip</th>
-            </tr>
-        </thead>
+        <p class="main-heading">Salary Details</p>
 
 
-        <tbody>
-            {% for sal in salary_details %}
-            <tr>
-                <th scope="row">{{forloop.counter}}</th>
-                <td>{{sal.emp_user.username}}</td>
-                <td>{{sal.month.month_name|slice:":-4:"}} {{sal.month.month_name|slice:"-4::"}}</td>
-                <td> {% if basic_details.is_salaried == True %} {{sal.net_salary}} {% else %} {{sal.gross_salary}} {% endif %} </td>
-                <td><a href="{% url 'self_salary' %}{{sal.id}}">
-                    <button type="submit" class="next-btn2">Generate</button>
+
+        <table class="table">
+            <thead >
+                <tr>
+                    <th scope="col">Sr. No.</th>
+                    <th scope="col">Employee ID</th>
+                    <th scope="col">Month</th>
+                    <th scope="col">Net Salary</th>
+                    <th scope="col">Salary Slip</th>
+                    <th scope="col">Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sal in salary_details %}
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <td>{{sal.emp_user.username}}</td>
+                    <td>{{sal.month.month_name|slice:":-4:"}} {{sal.month.month_name|slice:"-4::"}}</td>
+                    <td> {% if basic_details.is_salaried == True %} {{sal.net_salary}} {% else %} {{sal.gross_salary}}
+                        {% endif %} 
+                    </td>
+                    <td>
+                        <a href="{% url 'self_salary' %}{{sal.id}}">
+                        <button type="button" class="btn btn-outline-primary  btn-sm" >Generate</button>
                     </a>
-                </td>
-            </tr>
+                        
+                    </td>
+                    <th>
+                        <span class="material-symbols-outlined mx-4" style="font-size:1.8rem;font-weight:700;">
+                            download
+                            </span>
+                    </th>
+                </tr>
+                {% endfor %}
 
-            {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
+
+    </div>
+</section>
 
 
 {% endblock %}
 
 
-
-
 {% block js %}
-
-<script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js"></script>
-
-
 <script>
-    document.getElementById('self-salary').classList.add('link1');
+    document.getElementById('self-attendance-history').classList.add('link1');
 </script>
-
-
-
-
 {% endblock %}
