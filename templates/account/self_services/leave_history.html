@@ -49,6 +49,8 @@
                 <th scope="col">End Date</th>
                 <th scope="col">No of Days</th>
                 <th scope="col">Leave Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Approved By</th>
             </tr>
         </thead>
 
@@ -62,6 +64,9 @@
                 <td>{{leaves.end_date}}</td>
                 <td>{{leaves.no_of_days}}</td>
                 <td>{{leaves.type}}</td>
+                <td>{% if leaves.is_approved == True %} Approved {% else %} Pending {% endif %} </td>
+                <td>{{leaves.approved_by.get_full_name}}</td>
+
             </tr>
             {% endfor %}
         </tbody>
