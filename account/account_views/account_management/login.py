@@ -38,3 +38,10 @@ class UserLogin(View):
         
         
         
+        
+class UserLogOut(View):
+    @method_decorator(login_required(login_url='login'))
+    def get(self, request):
+        auth.logout(request)
+        messages.success(request, "Successfully logged out")
+        return redirect("login")

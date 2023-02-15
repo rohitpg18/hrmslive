@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-from account.views import UserLogin
+from account.views import *
 
 urlpatterns = [
     path("",UserLogin.as_view(),name="login"),
+    path("/log-out",UserLogOut.as_view(),name="logout"),
     path("admin/", admin.site.urls),
     path("accounts/",include('account.urls')),
     path("payroll/",include('payroll.urls')),
