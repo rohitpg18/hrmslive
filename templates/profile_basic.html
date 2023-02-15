@@ -21,7 +21,7 @@
         color: #fff;
         background-color: #387EF9;
         transition: all 0.5s ease-out;
-        border:1px solid #fff;
+        border: 1px solid #fff;
     }
 
     .profile-navigations .profile-navigation-links .link1 svg {
@@ -133,7 +133,7 @@
 
     }
 
-    .profile-navigation-links li svg{
+    .profile-navigation-links li svg {
         fill: #387EF9;
         height: 1rem;
     }
@@ -161,7 +161,7 @@
         transition: all 0.5s ease-out;
     }
 
-    .profile-navigation-links li:hover  svg{
+    .profile-navigation-links li:hover svg {
         fill: #fff;
         transition: all 0.5s ease-out;
     }
@@ -225,21 +225,24 @@
         }
     }
 
-    .user_info ::-webkit-scrollbar{
+    .user_info ::-webkit-scrollbar {
         width: 1rem;
     }
-    .user_info ::-webkit-scrollbar-track{
+
+    .user_info ::-webkit-scrollbar-track {
         width: 1rem;
-        box-shadow: 8px 8px 0px 0px rgba(0,0,0,0.2);
+        box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.2);
     }
-    .user_info ::-webkit-scrollbar-thumb{
+
+    .user_info ::-webkit-scrollbar-thumb {
         outline: 1px solid #387EF9;
         background-color: #387EF9;
     }
 
 
-
-    
+    .profile-links-container::-webkit-scrollbar {
+        width: 1em;
+    }
 </style>
 
 
@@ -280,7 +283,7 @@
                     <li class="profile-navigation-link" id="self-detail">Details
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
-                            </span>
+                        </span>
                     </li>
                 </a>
 
@@ -288,7 +291,7 @@
                     <li class="profile-navigation-link" id="self-attendance">Attendance
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
-                            </span>
+                        </span>
                     </li>
                 </a>
 
@@ -296,7 +299,7 @@
                     <li class="profile-navigation-link" id="self-attendance-history">Attendance History
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
-                            </span>
+                        </span>
                     </li>
                 </a>
 
@@ -304,27 +307,27 @@
                     <li class="profile-navigation-link" id="self-leave">Leaves
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
-                            </span>
+                        </span>
                     </li>
                 </a>
 
                 <a href="{% url 'leave_history' %}">
                     <li class="profile-navigation-link" id="self-attendance-history">Leave History
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                            
+
                             <span class="material-symbols-outlined">
                                 keyboard_double_arrow_right
-                                </span>
+                            </span>
                     </li>
                 </a>
 
                 <a href="{% url 'self_salary' %}">
                     <li class="profile-navigation-link" id="self-salary">Salary
-                        
+
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
-                            </span>
-                        
+                        </span>
+
                     </li>
                 </a>
 
@@ -332,37 +335,31 @@
                     <li class="profile-navigation-link" id="self-salary">auth data
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
-                            </span>
-                        
+                        </span>
+
                     </li>
                 </a>
 
                 <a href="{% url 'self_salary' %}">
                     <li class="profile-navigation-link" id="self-salary">Policy
-                        
+
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
-                            </span>
-                        
+                        </span>
+
                     </li>
                 </a>
 
                 <a href="{% url 'logout' %}">
                     <li class="profile-navigation-link" id="self-salary">Logout
-                        
+
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
-                            </span>
-                        
+                        </span>
+
                     </li>
                 </a>
 
-                
-
-                
-
-                
-                
 
             </ul>
         </div>
@@ -380,12 +377,12 @@
             </button>
 
         </div>
-        
+
 
         {% block profile %}
-        
+
         {% endblock %}
-        
+
     </section>
 
 
@@ -393,4 +390,3 @@
 
 
 {%endblock%}
-
