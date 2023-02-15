@@ -114,16 +114,48 @@ class ApplyAttendance(View):
                 saturdays += 1
         weekdays = Decimal(sundays + saturdays)
         
-        absent_days = month_days - holiday_month_count - month_leaves_count - month_presenty_count - weekdays
+
+        today_date = datetime.today()
+        
+
+        # initializing dates ranges 
+        test_date1, test_date2 = first_date, today_date
+
+        # generating total days using busday_count()
+        res = np.busday_count(test_date1.strftime('%Y-%m-%d'),
+                              test_date2.strftime('%Y-%m-%d'))
+
+        num_days = int((today_date - first_date).days)
+        weekdays_ab = num_days - int(res)
+        
+        holiday_month_count_ab = Decimal(Holiday.objects.filter(date__gte = first_date, date__lte = today_date).count())
+        
+        month_full_day_leaves_ab = DailyLeave.objects.filter(emp_user_id = user_id, date__gte = first_date, date__lte = today_date).count()
+        month_half_day_leaves_ab = DailyLeave.objects.filter(emp_user_id = user_id, date__gte = first_date, date__lte = today_date, date_is_half = True).count()
+        if month_full_day_leaves_ab == 0:
+            month_leaves_count_ab = Decimal(month_half_day_leaves_ab*0.5)
+        else:
+            month_leaves_count_ab = Decimal(month_full_day_leaves_ab - (month_half_day_leaves_ab * 0.5))
+        
+        month_full_day_present_count_ab = DailyAttendance.objects.filter(emp_user_id = user_id, date__gte = first_date, date__lte = last_date, is_present = True).count()
+        month_half_day_present_count_ab = DailyAttendance.objects.filter(emp_user_id = user_id, date__gte = first_date, date__lte = last_date, is_present = True, is_half_day = True).count()
+        if month_full_day_present_count_ab == 0:
+            month_presenty_count_ab = Decimal(month_half_day_present_count_ab*0.5)
+        else:
+            month_presenty_count_ab = Decimal(month_full_day_present_count_ab - (month_half_day_present_count_ab*0.5))
+        
+        absent_days = Decimal(datetime.now().strftime('%d')) - holiday_month_count_ab - month_leaves_count_ab - month_presenty_count_ab - weekdays_ab
         
         working_days = month_days - holiday_month_count - weekdays
+        
+        
         
        
         
         context = {
             'can_mark_attendance':can_mark_attendance,
             'is_requested':is_requested,
-            'present_days': month_presenty_count,
+            'present_days': month_presenty_count,   
             'leaves': month_leaves_count,
             'holidays': holiday_month_count,
             'working_days': working_days,

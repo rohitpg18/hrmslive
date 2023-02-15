@@ -31,7 +31,7 @@ res = np.busday_count(test_date1.strftime('%Y-%m-%d'),
                       test_date2.strftime('%Y-%m-%d'))
 
 num_days = int((last_date - first_date).days)
-weekdays = num_days + 1 - int(res)
+weekdays = num_days - int(res)
 
 def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
     
@@ -402,12 +402,12 @@ def validate (input_type, value):
         regex = "^[A-Z]{5}[0-9]{4}[A-Z]{1}$"
         p = re.compile(regex)
         if(value == None):
-            return False  
+            return False
         if(re.search(p, value) and
            len(value) == 10):
             return True
         else:
-            return False 
+            return False
     
     # for uan & adhar number
     if input_type == 'aadhar': 
@@ -477,7 +477,7 @@ def validate (input_type, value):
         p = re.compile(regex)
         if (str(value) == None):
             return False
-        if(re.search(p, str(value))):
+        if (re.search(p, str(value))):
             return True
         else:
             return False
