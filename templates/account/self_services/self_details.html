@@ -33,24 +33,20 @@
 <section class="user-info">
     <div class="details">
 
-        <h1 class="main-heading">Basic Details</h1>
-        <div class="info">
-            <p class="info-title">Name</p>
-            <p class="info-description">
-                {{request.user.get_full_name}}
-            </p>
-        </div>
+        <h1 class="main-heading">Personal Details</h1>
 
+        <div class="info">
+            <p class="info-title">Department</p>
+            <p class="info-description">{{basic_detail.department}}</p>
+        </div>
+        
         <div class="info">
             <p class="info-title">Designation</p>
             <p class="info-description">{{basic_detail.designation}}</p>
 
         </div>
 
-        <div class="info">
-            <p class="info-title">Department</p>
-            <p class="info-description">{{basic_detail.department}}</p>
-        </div>
+        
 
         <div class="info">
             <p class="info-title">Shift Details</p>
@@ -69,19 +65,6 @@
             </p>
         </div>
 
-
-
-
-
-        <h1 class="main-heading">Additional Details</h1>
-
-
-        <div class="info">
-            <p class="info-title">gender</p>
-            <p class="info-description">{{additional_detail.gender}}
-            </p>
-        </div>
-
         <div class="info">
             <p class="info-title">mobile no</p>
             <p class="info-description">{{additional_detail.mobile_no}}
@@ -93,6 +76,7 @@
             <p class="info-description">{{additional_detail.date_of_birth}}
             </p>
         </div>
+
 
         <div class="info">
             <p class="info-title">pan number</p>
@@ -106,37 +90,12 @@
             </p>
         </div>
 
-        <div class="info">
-            <p class="info-title">blood_group </p>
-            <p class="info-description">{{additional_detail.blood_group}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">permanent address</p>
-            <p class="info-description">{{additional_detail.permanent_address}}
-            </p>
-        </div>
-        <div class="info">
+        <div class="info info-full">
             <p class="info-title">current address</p>
             <p class="info-description">{{additional_detail.current_address}}
             </p>
         </div>
-        <div class="info">
-            <p class="info-title">father name</p>
-            <p class="info-description">{{additional_detail.father_name}}
-            </p>
-        </div>
-        <div class="info">
-            <p class="info-title">mother name</p>
-            <p class="info-description">{{additional_detail.mother_name}}
-            </p>
-        </div>
-        <div class="info">
-            <p class="info-title">nationality</p>
-            <p class="info-description">{{additional_detail.nationality}}
-            </p>
-        </div>
+
 
 
         <h1 class="main-heading">Bank Details</h1>
@@ -165,172 +124,11 @@
             </p>
         </div>
 
-        <div class="info">
+        <div class="info ">
             <p class="info-title">account number</p>
             <p class="info-description">{{bank_detail.account_number}}
             </p>
         </div>
-
-
-        <h1 class="main-heading">Educational Details</h1>
-
-        <div class="info">
-            <p class="info-title">10th board name</p>
-            <p class="info-description">{{educational_details.ssc_board_name}}
-            </p>
-        </div>
-        
-        <div class="info">
-            <p class="info-title">10th school name</p>
-            <p class="info-description">{{educational_details.ssc_school_name}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">10th percentage</p>
-            <p class="info-description">{{educational_details.ssc_percentage}} %
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">10th passing year</p>
-            <p class="info-description">{{educational_details.ssc_passing_yr}}
-            </p>
-        </div>
-
-
-        {% if educational_details.hsc_board_name %}
-
-        <div class="info">
-            <p class="info-title">12th board name</p>
-            <p class="info-description">{{educational_details.hsc_board_name}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">12th school name</p>
-            <p class="info-description">{{educational_details.hsc_school_name}}
-            </p>
-        </div>
-        <div class="info">
-            <p class="info-title">12th percentage</p>
-            <p class="info-description">{{educational_details.hsc_percentage}} %
-            </p>
-        </div>
-        <div class="info">
-            <p class="info-title">12th passing year</p>
-            <p class="info-description">{{educational_details.hsc_passing_yr}}
-            </p>
-        </div>
-        <div class="info">
-            <p class="info-title">12th Stream</p>
-            <p class="info-description">{{educational_details.hsc_stream}}
-            </p>
-        </div>
-
-        {% endif %}
-
-        {% if educational_details.diploma_university  is not none %}
-
-        <div class="info">
-            <p class="info-title">diploma university</p>
-            <p class="info-description">{{educational_details.diploma_university}}
-            </p>
-        </div>
-        <div class="info">
-            <p class="info-title">diploma college name</p>
-            <p class="info-description">{{educational_details.diploma_college}}
-            </p>
-        </div>
-        <div class="info">
-            <p class="info-title">diploma branch</p>
-            <p class="info-description">{{educational_details.diploma_branch}}
-            </p>
-        </div>
-        <div class="info">
-            <p class="info-title">diploma duration</p>
-            <p class="info-description">{{educational_details.diploma_admission_yr}} - {{educational_details.diploma_passout_yr}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">diploma percentage</p>
-            <p class="info-description">{{educational_details.diploma_percentage}} %
-            </p>
-        </div>
-
-        {% endif %}
-
-        {% if educational_details.graduation_university is not None %}
-
-        <div class="info">
-            <p class="info-title">graduation university</p>
-            <p class="info-description">{{educational_details.graduation_university}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">graduation college name</p>
-            <p class="info-description">{{educational_details.graduation_college}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">graduation branch</p>
-            <p class="info-description">{{educational_details.graduation_branch}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">graduation duration</p>
-            <p class="info-description">{{educational_details.graduation_admission_yr}} - {{educational_details.graduation_passout_yr}} 
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">graduation percentage</p>
-            <p class="info-description">{{educational_details.graduation_percentage}} %
-            </p>
-        </div>
-
-        {% endif %}
-
-        {% if educational_details.pg_university is not none %}
-
-        <div class="info">
-            <p class="info-title">post graduation university</p>
-            <p class="info-description">{{educational_details.pg_university}} 
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">post graduation college name</p>
-            <p class="info-description">{{educational_details.pg_college}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">post graduation branch</p>
-            <p class="info-description">{{educational_details.pg_branch}}
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">post graduation duration</p>
-            <p class="info-description">{{educational_details.pg_admission_yr}} - {{educational_details.pg_passout_yr}} 
-            </p>
-        </div>
-
-        <div class="info">
-            <p class="info-title">post graduation percentage</p>
-            <p class="info-description">{{educational_details.pg_percentage}} %
-            </p>
-        </div>
-
-
-
-        {% endif %}
-
 
     </div>
 
