@@ -1,0 +1,39 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/dashboard.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Attendance History {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    .dashboard{
+        padding: 3rem;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+<section class="dashboard">
+    <div class="dashboard_options">
+        
+    </div>
+</section>
+
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    document.getElementById('dashboard').classList.add('link1');
+</script>
+{% endblock %}
