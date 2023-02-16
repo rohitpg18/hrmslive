@@ -10,6 +10,7 @@ urlpatterns = [
     path("additional-detail/", AdditionalDetail.as_view(), name="additional_details"),
     path("bank-detail/", BankDetail.as_view(), name="bank_details"),
     path("educational-detail/", EducationalDetail.as_view(), name="educational_details"),
+    path("previous-organization-detail/", PreviousOrganizationDetail.as_view(), name="previous_organization_details"),
     path("self-detail/", SelfDetail.as_view(), name="self_details"),
     path("self-leave/", ApplyLeave.as_view(), name="self_leave"),
     path("leave-history/", LeavesHistory.as_view(), name="leave_history"),

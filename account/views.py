@@ -4,6 +4,8 @@ from account.account_views.account_management.create_account import *
 from account.account_views.account_management.additional_detail import *
 from account.account_views.account_management.bank_detail import *
 from account.account_views.account_management.educational_detail import *
+from account.account_views.account_management.previous_organization_detail import *
+
 
 
 # user self services
