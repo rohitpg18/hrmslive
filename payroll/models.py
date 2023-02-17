@@ -115,7 +115,7 @@ class LeaveApplication (models.Model):
     start_date_is_second_half = models.BooleanField(default=False)
     
     is_requested = models.BooleanField(default=True)
-    
+
     end_date_is_half = models.BooleanField(default=False)
     end_date_is_first_half = models.BooleanField(default=False)
     end_date_is_second_half = models.BooleanField(default=False)
