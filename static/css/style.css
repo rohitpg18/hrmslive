@@ -1012,7 +1012,7 @@ margin: 0;
 .table tbody td {
   border: none;
   padding: 15px;
-  font-size: 14px;
+  font-size: 1rem;
   background: #fff;
   text-align: center;
 }
@@ -1020,4 +1020,33 @@ margin: 0;
 .table tbody td .close span {
   font-size: 12px;
   color: #dc3545;
+}
+
+
+/* title card design */
+
+
+.head-card{
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #387EF9;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  
+  
+}
+.head-card h4{
+  margin: 0;
+  color: #444;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+.head-card a{
+  color: #387EF9;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

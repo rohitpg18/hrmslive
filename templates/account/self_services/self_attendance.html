@@ -36,10 +36,16 @@
     justify-content: space-between;
     padding:0;
     padding-bottom: 0.5em;
-    border-bottom: 1px solid #ddd;
+    border:none;
 }
+.user_info .info .info-title{
+   color: #444;
+}
+
+
 .user_info .info .info-description{
     margin-right: 1rem;
+    border: none;
 
 }
 .user_info .info p{
@@ -53,24 +59,28 @@
 }
 
 .card{
-    border:1px solid #387EF9;
     border-radius:0px;
-    padding:1rem;
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 25px 10px -12px;
+    padding:1rem 2rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
     
 }
 .card p{
     margin:0;
     color: #444;
     font-weight: 500;
-    font-size: 1.1rem;
-    margin-left:1rem;
+    font-size: 0.8rem;
     
 }
+.card-items{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card-items h4{
+    color: #444;
+}
+
 
 
 
@@ -83,9 +93,13 @@
 
 <section class="user-info">
     <div class="basic_info">
-        <p class="main-heading">Monthly Details</p>
 
-        <div class="user_info">
+        <div class="head-card">
+            <h4>Attendance Details</h4>
+            <a href="{% url 'attendance_history' %}">History</a>
+        </div>
+
+        <div class="user_info my-lg-5">
 
             <div class="info">
                 <p class="info-title">Number of working days</p>
@@ -120,42 +134,60 @@
 
         {% if can_mark_attendance %}
 
-        <p class="main-heading">Daily Attendance</p>
-
         
-        <!-- {% if is_requested %} -->
+        {% if is_requested %}
         
 
         <div class="card">
-            <p class="info-title">Mark My Todays Out time</p>
+            <p class="day-and-date">Sunday , 15 Feb 2023</p>
+
+            <div class="card-items">
+            
+            <h4 class="info-title">Mark My Todays Out time</h4>
 
             <form action="{% url 'self_attendance' %}" method="post">{% csrf_token %}
                 <input type="hidden" value="{{request.user.id}}" name="user_id">
                 <button type="submit" class="next_btn2">Mark</button>
             </form>
+        </div>
 
         </div>
 
-        <!-- {% else %} -->
+        {% else %}
 
         <div class="card">
+            
+            <p class="day-and-date">Sunday , 15 Feb 2023</p>
+            <div class="card-items">
+                
+                
+                <h4 class="info-title">Mark My Todays Attendance</h4>
+                <form action="{% url 'self_attendance' %}" method="post">{% csrf_token %}
+                    <input type="hidden" value="{{request.user.id}}" name="user_id">
+                    <button type="submit" class="next_btn2">Mark</button>
+    
+                </form>
+    
+            </div>
 
-            <p class="info-title">Mark My Todays Attendance</p>
-            <form action="{% url 'self_attendance' %}" method="post">{% csrf_token %}
-                <input type="hidden" value="{{request.user.id}}" name="user_id">
-                <button type="submit" class="next_btn2">Mark</button>
-
-            </form>
+            
+            
+            
+            
 
         </div>
 
-        <!-- {% endif %} -->
+        {% endif %}
 
         {% endif %}
 
 
 
-        <p class="main-heading">Missing Attendance</p>
+        
+        <div class="head-card my-lg-5">
+            <h4>Missing Attendance</h4>
+            <a href="{% url 'missing_attendance_history' %}">History</a>
+        </div>
 
         <form class="user_input_form"  action="{% url 'missing_attendance' %}" method="post">{% csrf_token %}
 

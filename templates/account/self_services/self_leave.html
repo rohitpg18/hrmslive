@@ -68,9 +68,13 @@
 
 <section class="user-info">
     <div class="basic_info">
-        <p class="main-heading">Leave Balance - {{current_month}}</p>
 
-        <div class="user_info">
+        <div class="head-card">
+            <h4>Leave Details {{current_month}}</h4>
+            <a href="{% url 'leave_history' %}">History</a>
+        </div>
+
+        <div class="user_info my-lg-5">
             <div class="info">
                 <p class="info-title">Sick Leave (SL) </p>
                 <p class="info-description" id="sl">
