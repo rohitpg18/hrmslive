@@ -33,7 +33,7 @@
 
     <div class="info">
         <p class="info-title" id="payment_label">mobile number</p>
-        <input type="tel" pattern="[0-9]{10}" onkeypress='return ((event.keyCode >= 48 && event.keyCode <= 57 )|| event.key === " ")' class="form-control" id="mobile_no" name="mobile_no" placeholder="Enter mobile number"
+        <input type="tel" pattern="[0-9]{10}" onkeypress='return (event.keyCode >= 48 && event.keyCode <= 57  && event.key != " ")' class="form-control" id="mobile_no" name="mobile_no" placeholder="Enter mobile number"
             required onchange="validate('mobile_number',this.value,'mobile_number1','submit-btn1')">
 
         <small class="error" id="mobile_number1">Mobile number must be 10 digits</small>
@@ -56,7 +56,7 @@
 
     <div class="info">
         <p class="info-title">Aadhaar number</p>
-        <input type="number" maxlength="12" minlength="12" onkeypress='return ((event.keyCode >= 48 && event.keyCode <= 57 )|| event.key === " ")' class="form-control" id="aadhaar_number" name="aadhaar_number"
+        <input type="number" maxlength="12" minlength="12" onkeypress='return (event.keyCode >= 48 && event.keyCode <= 57  && event.key != " ")' class="form-control" id="aadhaar_number" name="aadhaar_number"
             placeholder="Enter aadhaar number" required onchange="validate('aadhaar_number',this.value,'aadhaar_card1','submit-btn1')">
 
         <small class="error" id="aadhaar_card1">Invalid aadhaar number</small>  
@@ -99,7 +99,7 @@
 
     <div class="info">
         <p class="info-title">emergency contact number</p>
-        <input type="number" onkeypress='return ((event.keyCode >= 48 && event.keyCode <= 57 )|| event.key === " ")' class="form-control" id="emergency_contact_no" name="emergency_contact_no"
+        <input type="number" onkeypress='return (event.keyCode >= 48 && event.keyCode <= 57  && event.key != " ")' class="form-control" id="emergency_contact_no" name="emergency_contact_no"
             placeholder="Enter emergency contact number" required onchange="validate('mobile_number',this.value,'mobile_number2','submit-btn1')">
             <small class="error" id="mobile_number2">Mobile number must be 10 digits</small>
     </div>

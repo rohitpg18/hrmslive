@@ -470,3 +470,24 @@ class AttendanceHistory(View):
     
         
         return render (request, "account/self_services/self_attendance_history.html", {'monthly_data':monthly_data, 'month':month_name})
+    
+    
+    
+    
+class MissingAttendanceHistory(View):
+
+    @method_decorator(login_required(login_url='login'))
+    
+    def get (self, request, *args, **kwargs):
+        
+        user_id = request.user.id 
+        print(user_id)
+        
+        missing_attendance_history = MissingAttendance.objects.filter(emp_user_id = user_id)
+        
+        context = {
+            'missing_attendance_history': missing_attendance_history
+        }
+        
+        
+        return render (request, 'account/self_services/self_missing_attendance_history.html', context)

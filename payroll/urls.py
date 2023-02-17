@@ -13,4 +13,6 @@ urlpatterns = [
     path("filter-salary/", filter_salary, name = "filter_salary"),
     path("payroll/<int:pk>/", SalarySlip.as_view(), name="salary_slip_payroll"),
     path("missing-attendance-applications/", MissingAttendanceApplications.as_view(), name = "missing_attendance_applications"),
+    
+    path("admin-dashboard/", AdminDashboard.as_view(), name = "admin_dashboard"),
 ]   

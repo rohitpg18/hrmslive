@@ -113,8 +113,8 @@
     <div class="basic_info">
 
         <div class="head-card">
-            <h4>Leave Applications</h4>
-            <a href="{% url 'self_leave' %}">
+            <h4>Missing Attendance</h4>
+            <a href="{% url 'self_attendance' %}">
                 Back
                 <span class="material-symbols-outlined mx-2">
                     undo
@@ -129,38 +129,53 @@
                 <tr>
                     <th scope="col">Sr. No.</th>
                     <th scope="col">Date of Apply</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">No of Days</th>
-                    <th scope="col">Leave Type</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Status</th>
                     <th scope="col">Approved By</th>
+
                 </tr>
             </thead>
             <tbody>
-                {% for leaves in leave_history %}
+                {% for missing_attendance in missing_attendance_history %}
+
                 <tr>
                     <th>{{forloop.counter}}</th>
-                    <td>{{leaves.date_of_apply}}</td>
-                    <td>{{leaves.start_date}}</td>
-                    <td>{{leaves.end_date}}</td>
-                    <td>{{leaves.no_of_days}}</td>
-                    <td>{{leaves.type}}</td>
+                    <td>{{missing_attendance.date}}</td>
+                    <td>{{missing_attendance.description | truncatechars:30}}</td>
+
+
+
+
                     <td>
-                        {% if leaves.is_approved == True %}
+                        {% if missing_attendance.is_requested %}
+
+                        <span class="material-symbols-outlined" style="font-size:1.8rem;font-weight:700;color:#FFB302">
+                            hourglass_top
+                        </span>
+
+                        {% endif %}
+
+
+                        {% if missing_attendance.is_requested == False  and missing_attendance.is_approved %}
+
                         <span class="material-symbols-outlined mx-2"
                             style="font-size:1.8rem;font-weight:700;color:rgb(12, 186, 12);">
                             task_alt
                         </span>
 
+                        {% endif %}
 
+
+                    </td>
+                    <td>{% if missing_attendance.approved_by is not none %}
+                        {{missing_attendance.approved_by.get_full_name| truncatechars:10}}
                         {% else %}
-                        <span class="material-symbols-outlined" style="font-size:1.8rem;font-weight:700;color:#FFB302">
-                            hourglass_top
-                        </span>
+                        <span class="material-symbols-outlined text-center" style="font-size:1.8rem;font-weight:700;color:#444">
+                            remove
+                            </span>
                         {% endif %}
                     </td>
-                    <td>{{leaves.approved_by.get_full_name|truncatechars:10}}</td>
+
 
                 </tr>
                 {% endfor %}
@@ -178,6 +193,6 @@
 
 {% block js %}
 <script>
-    document.getElementById('self-leave').classList.add('link1');
+    document.getElementById('self-attendance').classList.add('link1');
 </script>
 {% endblock %}

@@ -24,11 +24,11 @@ class AdditionalDetail(View):
         user_additional_detail= UserAdditionalDetail.objects.get(emp_user_id=user_id)
 
         
-        profile_pic= request.FILES['img']
+        profile_pic= request.FILES.get('img', None)
         
-        print(profile_pic)
 
         additional_details= request.POST
+        
 
         if profile_pic is not None and profile_pic != '':
             user_additional_detail.profile_photo= profile_pic
