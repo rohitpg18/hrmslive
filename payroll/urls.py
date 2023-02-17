@@ -9,6 +9,7 @@ urlpatterns = [
     path("attendance-applications/",ApproveAttendance.as_view(),name="attendance_applications"),
     path("department/",DepartmentDetails.as_view(),name="department"),
     path("designation/",DesignationDetails.as_view(),name="designation"),
+    path("teams/",Team.as_view(),name="teams"),
     path("payroll/", PayrollData.as_view(), name = "payroll"),
     path("filter-salary/", filter_salary, name = "filter_salary"),
     path("payroll/<int:pk>/", SalarySlip.as_view(), name="salary_slip_payroll"),
