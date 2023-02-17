@@ -16,6 +16,7 @@ urlpatterns = [
     path("all-users/", EmployeeList.as_view(), name = 'all_users'),
     path('emp-activate/<int:emp_id>/', EmpActivate, name="emp_activate"),
     path('emp-deactivate/<int:emp_id>/', EmpDeactivate, name="emp_deactivate"),
+    path("shift/", Shift.as_view(), name="shift"),
     
     path("admin-dashboard/", AdminDashboard.as_view(), name = "admin_dashboard"),
 ]   
