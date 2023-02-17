@@ -31,7 +31,7 @@ class BankDetail(View):
         if bank_details is None:
             bank_details = UserBankDetail.objects.create(emp_user_id=user_id)
         
-        bank_details.bank_name = branch_name
+        bank_details.bank_name = bank_name
         bank_details.branch_name = branch_name
         bank_details.account_type = account_type
         bank_details.ifsc_code = ifsc_code

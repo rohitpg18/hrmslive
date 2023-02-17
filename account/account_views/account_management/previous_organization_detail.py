@@ -20,26 +20,64 @@ class PreviousOrganizationDetail(View):
     def post(self, request):
         user_id = request.user.id
         
-        bank_name = request.POST.get('bank_name')
-        branch_name = request.POST.get('branch_name')
-        account_type = request.POST.get('account_type')
-        ifsc_code = request.POST.get('ifsc_code')
-        account_number = request.POST.get('account_number')
+        if_second_company_check = request.POST.get('if_second_company_check')
+        if_third_company_check = request.POST.get('if_third_company_check')
         
-        bank_details = UserBankDetail.objects.get(emp_user_id=user_id)
+        requests = request.POST
+    
+        organisation_details = PreviousOrganisationDetail.objects.filter(emp_user_id=user_id)
         
-        if bank_details is None:
-            bank_details = UserBankDetail.objects.create(emp_user_id=user_id)
+        organisation_details1 = PreviousOrganisationDetail.objects.get(emp_user_id=user_id, id = organisation_details[0].id )
         
-        bank_details.bank_name = branch_name
-        bank_details.branch_name = branch_name
-        bank_details.account_type = account_type
-        bank_details.ifsc_code = ifsc_code
-        bank_details.account_number = account_number
-        bank_details.is_completed_bank_details = True
         
-        bank_details.save()
+        organisation_details1.experience_in_years = requests["experience_in_years"]
+        organisation_details1.previous_organisation = requests["previous_organisation"]
+        organisation_details1.previous_organisation_designation = requests["previous_organisation_designation"]
+        organisation_details1.is_completed_previous_organisation_details = True
+        organisation_details1.save()
         
-        messages.success(request,"Bank Details added successfully")
+        previous_organization_docs1 = request.FILES.get('previous_organization_docs', None)
+        
+        previous_organization_doc = UserDocument.objects.filter(emp_user_id = user_id, doc_name = "Previous Organisation Docs")
+        
+        
+        if previous_organization_doc.count() != 0:
+            
+            previous_organization_doc[0].doc_file = previous_organization_docs1
+            
+            previous_organization_doc[0].save()
+            
+        else:
+            
+            UserDocument.objects.create(emp_user_id = user_id, doc_name = "Previous Organisation Docs", doc_file = previous_organization_docs1 )
+            
+        if if_second_company_check == 'True':
+            
+            organisation_details2 = PreviousOrganisationDetail.objects.get(emp_user_id=user_id, id = organisation_details[1].id )
+            
+            organisation_details2.experience_in_years = requests['experience_in_years2']
+            organisation_details2.previous_organisation = requests['previous_organisation2']
+            organisation_details2.previous_organisation_designation = requests['previous_organisation_designation2']
+            organisation_details2.is_completed_previous_organisation_details = True
+            organisation_details2.save()
+            
+            previous_organization_docs2 = request.FILES.get('previous_organization_docs', None)
+            
+            previous_organization_doc2 = UserDocument.objects.filter(emp_user_id = user_id, doc_name = "Previous Organisation Docs 2")
+        
+        if previous_organization_doc2.count() != 0:
+            
+            previous_organization_doc2[0].doc_file = previous_organization_docs2
+            
+            previous_organization_doc2[0].save() 
+            
+        else:
+            
+            UserDocument.objects.create(emp_user_id = user_id, doc_name = "Previous Organisation Docs 2", doc_file = previous_organization_docs2 )
+            
+        messages.success(request,"Organisation Details added successfully")
 
         return redirect(is_profile_complete(user_id))
+        
+        
+        

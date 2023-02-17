@@ -54,3 +54,239 @@
         <div id='right'>
          <a href="{% url 'filter_salary' %}" class="next-btn2" > Filter Salary Data</a>
         </div>
+
+
+
+
+===============================================================================================================================================================================================================================================
+
+
+
+
+
+
+
+
+{% extends 'basic.html' %}
+{% load static %}
+
+
+
+
+<title>{% block title %} HRMS : SignUp{% endblock %}</title>
+
+
+
+{% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+</style>
+
+
+{% endblock %}
+
+
+
+
+{%block body%}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Sr. No</th>
+        <th scope="col">User ID</th>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Email ID</th>
+        <th scope="col">Department</th>
+        <th scope="col">Designation</th>
+        <th scope="col">Joining Date</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Action</th>
+        <!-- <th scope="col">Actions</th> -->
+
+        
+      </tr>
+    </thead>
+    {% for emp in emps %}
+    <tbody>
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{emp.emp_user.username}}</td>
+          <td>{{emp.emp_user.first_name}} {{emp.emp_user.last_name}}</td>
+          <td>{{emp.emp_user.email}}</td>
+          <td>{{emp.department}}</td>
+          <td>{{emp.designation}}</td>
+          <td>{{emp.date_of_joining}}</td>
+          <td>{{emp.salary}}</td> 
+          <td>
+            <!-- shows to the new employee added in the list -->
+            {% if emp.status == 0 %}                         
+            <a href="{% url 'emp_activate' emp_id=emp.id %}" class="btn btn-success">Activate</button>
+            <a href="{% url 'emp_deactivate' emp_id=emp.id %}" class="btn btn-danger">Deactivate</button>
+
+
+            <!-- Activate the Employee -->
+            {% elif emp.status == 1 %}
+            <button class="btn btn-success" disabled="disabled">Activate</button>
+            <a href="{% url 'emp_deactivate' emp_id=emp.id %}"><button class="btn btn-danger">Deactivate</button></a>
+            <p>Employee is Active</p>
+            
+
+            <!-- Deactivate the Employee -->
+            {% else %}
+            <a href="{% url 'emp_activate' emp_id=emp.id %}"><button class="btn btn-success">Activate</button></a>
+            <button class="btn btn-danger" disabled="disabled">Deactivate</button>
+            <p>Employee is Deactive</p>
+      
+            {% endif %}
+          </td> 
+        </tr>
+    {% endfor %}    
+
+{%endblock%}
+
+
+
+{% block js %}
+<script>
+
+
+</script>
+{% endblock %}
+
+
+===============================================================================================================================================================================================================================================
+
+def EmpActivate(request, emp_id):
+    emp = UserBasicDetails.objects.get(id=emp_id)
+    emp.status = 1
+    emp.save()
+    return redirect("emplist")
+
+def EmpDeactivate(request, emp_id):
+    emp = UserBasicDetails.objects.get(id=emp_id)
+    emp.status = 2
+    emp.save()
+    return redirect("emplist")
+
+===============================================================================================================================================================================================================================================
+
+class UserBasicDetails(models.Model):
+    emp_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_basics')
+    designation = models.ForeignKey(Designation, on_delete=models.CASCADE, to_field='designation_name', null=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, to_field='department_name', null=True)
+    shift_details = models.ForeignKey(UserShiftDetails, on_delete=models.CASCADE, to_field='shift_name', null=True)
+    date_of_joining = models.DateField(auto_now=True, null=True)
+    salary = models.DecimalField(max_digits=7, decimal_places=2, null=True)
+    uan_number = models.BigIntegerField(null=True)
+    pf_number = models.CharField(max_length=10, null=True)
+    experience_status = models.CharField (choices=(("Fresher", "Fresher"), ("Experienced", "Experienced")), max_length=50, null=True)
+    is_salaried = models.BooleanField(default=True)   #if salaried is True deduction part for employee will be calculated eg. PF.
+    is_active = models.BooleanField(default=True)
+    is_approved = models.BooleanField(default=False)
+    is_verify = models.BooleanField(default=False)
+    is_requested = models.BooleanField(default=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employee_created_by', null=True)
+    approved_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employee_approved_by', null=True)
+    is_completed_basic_details = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    status = models.IntegerField(default=0)                        # 0=enable activate & deactivate both     1=activate      2=deactivate
+
+    ===================================================================================================================================================================
+    
+{% extends 'basic.html' %}
+{% load static %}
+
+
+
+
+<title>{% block title %} HRMS : SignUp{% endblock %}</title>
+
+
+
+{% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+</style>
+
+
+{% endblock %}
+
+
+
+
+{%block body%}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Sr. No</th>
+        <th scope="col">User ID</th>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Email ID</th>
+        <th scope="col">Department</th>
+        <th scope="col">Designation</th>
+        <th scope="col">Joining Date</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Action</th>
+        <!-- <th scope="col">Actions</th> -->
+
+        
+      </tr>
+    </thead>
+    
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{emp.username}}</td>
+          <td>{{emp.get_full_name}}</td>
+          <td>{{emp.email}}</td>
+          <td>{{emp.user_basics.department.department_name}}</td>
+          <td>{{emp.user_basics.designation.designation_name}}</td>
+          <td>{{emp.user_basics.date_of_joining}}</td>
+          <td>{{emp.user_basics.salary}}</td> 
+          <td>
+            <!-- shows to the new employee added in the list -->
+            
+            <!-- Activate the Employee -->
+            {% if emp.is_active == True %}
+            <button class="btn btn-success" disabled="disabled">Activate</button>
+            <a href="{% url 'emp_deactivate' emp_id=emp.id %}"><button class="btn btn-danger">Deactivate</button></a>
+            <p>Employee is Active</p>
+            
+
+            <!-- Deactivate the Employee -->
+            {% else %}
+            <a href="{% url 'emp_activate' emp_id=emp.id %}"><button class="btn btn-success">Activate</button></a>
+            <button class="btn btn-danger" disabled="disabled">Deactivate</button>
+            <p>Employee is Deactive</p>
+      
+            {% endif %}
+          </td> 
+        </tr>
+        {% endfor %}
+    </tbody>
+   
+
+{%endblock%}
+
+
+
+{% block js %}
+<script>
+
+
+</script>
+{% endblock %}

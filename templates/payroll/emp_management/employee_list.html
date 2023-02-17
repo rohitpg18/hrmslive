@@ -1,0 +1,216 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : All Employees {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    .user-info {
+        padding: 2rem;
+        overflow: auto;
+    }
+
+    .user_info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .basic_info {
+        width: 100%;
+    }
+
+    .main-heading {
+        margin: 0;
+        padding: 2.5rem 1rem;
+    }
+
+    .user_info .info {
+        max-width: 40%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user_info .info .info-description {
+        margin-right: 1rem;
+
+    }
+
+    .user_info .info p {
+        margin: 0;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+
+    .details {
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .info_card {
+        border: 1px solid #387EF9;
+        padding: 1em;
+        padding-bottom: 0;
+        width: 100%;
+
+    }
+
+    .table thead tr {
+        color: #387EF9;
+        font-weight: 100;
+        font-size:20;
+        border: none;
+    }
+
+    .table tbody td {
+        border: none;
+        padding: 15px;
+        font-size: 0.9rem;
+        background: #fff;
+        text-align: center;
+        font-weight: 350;
+    }
+
+    .table thead tr th {
+        border: none;
+    }
+
+    .table .next-btn2 {
+        margin: 0;
+        padding: 0.2em 1em;
+        font-size: 1em;
+        font-weight: 500;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+
+    .table .next-btn2:hover {
+        background: #fff;
+        color: #387EF9;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+
+    .table thead tr:hover {
+        color: #fff;
+        background-color: #387EF9;
+        transition: 0.3s linear;
+        
+    }
+        
+    .emplist_head{
+        display : flex;
+
+    }
+    .emp_details{
+        padding: 2rem;
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        overflow: auto;
+}
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+<section class="user-info">
+    <div class="basic_info">
+        <div class="emplist_head">
+        <p class="main-heading">Employees List</p> 
+        <form class="emp_details" action="{% url 'all_users' %}" method="GET" enctype="multipart/form-data"> {% csrf_token %}   
+        <select class="options" id="department_name" name="department_name" >
+            <option selected disabled>All Departments</option>
+              {% for dept in departments %}
+              <option value="{{dept.department_name}}">{{dept.department_name}}</option>
+              {% endfor %}
+          </select> 
+          <button type="submit" class="btn btn-primary btn-sm mx-3">Filter Data</button>
+
+        </form>
+        </div>
+
+
+        <table class="table">
+            <thead >
+                <tr>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Joining Date</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in employees %}
+                <tr>
+                    <td>{{emp.username}}</td>
+                    <td>{{emp.get_full_name}}</td>
+                    <td>{{emp.user_basics.department.department_name}}</td>
+                    <td>{{emp.user_basics.designation.designation_name}}</td>
+                    <td>{{emp.user_basics.date_of_joining}}</td>
+                    <td>{{emp.user_basics.salary}}</td> 
+                    <td>
+                      <!-- shows to the new employee added in the list -->
+
+                      <!-- Activate the Employee -->
+                      {% if emp.is_active == True %}
+                      <span class="material-symbols-outlined" disabled="disabled" style="font-size:2rem;font-weight:900;color:rgb(12, 186, 12)">
+                        person
+                        </span>
+                      <a href="{% url 'emp_deactivate' emp_id=emp.id %}"><span class="material-symbols-outlined" style="color:red">
+                        person_off
+                        </span></a>
+                      
+
+                    
+                      <!-- Deactivate the Employee -->
+                      {% else %}
+                      <a href="{% url 'emp_activate' emp_id=emp.id %}"><span class="material-symbols-outlined" style="color:rgb(12, 186, 12)">
+                        person
+                        </span></a>
+                        <span class="material-symbols-outlined" disabled="disabled" style="font-size:2rem;font-weight:900;color:red">
+                            person_off
+                            </span>
+                      
+                    
+                    {% endif %}
+                  </td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    document.getElementById('self-salary').classList.add('link1');
+</script>
+{% endblock %}

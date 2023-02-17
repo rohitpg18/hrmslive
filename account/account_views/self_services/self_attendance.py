@@ -351,13 +351,14 @@ class AttendanceHistory(View):
     @method_decorator(login_required(login_url='login'))
     def get (self, request):
         user_id = request.user.id
+       
+        month_format = str(get_month_year())
+        month_name = month_format[0:-4] + ' ' +  month_format[-4:]
         
-        attendance_history = DailyAttendance.objects.filter(emp_user_id = user_id, month = get_month_year())
-        month_name = attendance_history[0].month.month_name[0:-4] + ' ' + attendance_history[0].month.month_name[-4:]
     
         months = {month: index for index, month in enumerate(month_abbr) if month}
-        month = int(months[attendance_history[0].month.month_name[0:3]])
-        year = int(attendance_history[0].month.month_name[-4:])
+        month = int(months[month_format[0:3]])
+        year = int(month_format[-4:])
         end_date = get_end_date_of_month(year, month)
         first_date = end_date.replace(day = 1).date()
         

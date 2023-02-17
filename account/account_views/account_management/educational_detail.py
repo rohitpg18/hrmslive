@@ -46,7 +46,7 @@ class EducationalDetail(View):
             
             if ssc_doc_file is not None:
                 
-                user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "SSC Marksheet")
+                user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "SSC Marksheet")
                 
                 if user_document is None:
                     user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "SSC Marksheet", doc_file = ssc_doc_file)
@@ -68,7 +68,7 @@ class EducationalDetail(View):
             
                 if hsc_doc_file is not None:
                 
-                    user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "HSC Marksheet")
+                    user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "HSC Marksheet")
                 
                     if user_document is None:
                         user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "HSC Marksheet", doc_file = hsc_doc_file)
@@ -92,7 +92,7 @@ class EducationalDetail(View):
             
                 if diploma_doc_file is not None:
                 
-                    user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Diploma Marksheet")
+                    user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "Diploma Marksheet")
                 
                     if user_document is None:
                         user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Diploma Marksheet", doc_file = diploma_doc_file)
@@ -116,7 +116,7 @@ class EducationalDetail(View):
             
                 if graduation_doc_file is not None:
                 
-                    user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Graduation Marksheet")
+                    user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "Graduation Marksheet")
                 
                     if user_document is None:
                         user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Graduation Marksheet", doc_file = graduation_doc_file)
@@ -140,7 +140,7 @@ class EducationalDetail(View):
             
                 if pg_doc_file is not None:
                 
-                    user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Post Graduation Marksheet")
+                    user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "Post Graduation Marksheet")
                 
                     if user_document is None:
                         user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Post Graduation Marksheet", doc_file = pg_doc_file)

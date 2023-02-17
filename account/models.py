@@ -56,15 +56,15 @@ class UserBasicDetails(models.Model):
     
 class PreviousOrganisationDetail(models.Model):
     emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_previous_details')
-    experience_in_years = models.IntegerField()
-    previous_organisation = models.CharField(max_length=255)
-    previous_organisation_designation = models.CharField(max_length=100)
+    experience_in_years = models.IntegerField(null=True)
+    previous_organisation = models.CharField(max_length=255, null=True)
+    previous_organisation_designation = models.CharField(max_length=100, null=True)
     is_completed_previous_organisation_details = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__ (self):
-        return self.emp_user.username +' '+ self.previous_organisation
+        return self.emp_user.username
     
 class UserAdditionalDetail(models.Model):
     emp_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_additional_details')
@@ -108,7 +108,7 @@ class UserBankDetail(models.Model):
 class UserDocument(models.Model):
     emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_docs")
     doc_name = models.CharField(max_length=200, default='document')
-    doc_file = models.FileField(upload_to='media/userdocs')
+    doc_file = models.FileField(upload_to='userdocs')
     is_completed_docs = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -186,34 +186,103 @@ class EmployeePermissions(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    # for senior hr all permissions
+    # for tl can approve attendance permission
+    # for junior hr can manage teams, can manage holiday, can verify emp details.
+    
+    def is_team_leader (request):
+        team_leader_permissions = EmployeePermissions.objects.get(emp_user = request.user)
+        is_tl = UserBasicDetails.objects.filter(emp_user = request.user, designation__designation_name__icontains = 'Leader')
+        teams = Teams.objects.filter(leader_name = request.user)
+        
+        if team_leader_permissions is None:
+            return False
+        
+        elif team_leader_permissions.can_approve_attendance == True and is_tl.count()>0 and teams.count()>0:
+            return True
+        
+        else:
+            return False
+        
+    def is_senior_hr (request):
+        hr_permissions = EmployeePermissions.objects.get(emp_user = request.user)
+        is_hr = UserBasicDetails.objects.filter(emp_user = request.user, department__department_name__icontains = 'Human')
+        
+        if hr_permissions is None:
+            return False
+        
+        elif hr_permissions.can_approve_attendance == True and hr_permissions.can_approve_leaves == True and hr_permissions.can_manage_employee == True and hr_permissions.can_manage_teams == True and hr_permissions.can_manage_holiday == True and hr_permissions.can_manage_salary == True and hr_permissions.can_manage_shifts == True and hr_permissions.can_verify_emp_details == True and is_hr.count()>0 :
+            return True
+
+        else:
+            return False
+        
+    def is_junior_hr (request):
+        hr_permissions = EmployeePermissions.objects.get(emp_user = request.user)
+        is_hr = UserBasicDetails.objects.filter(emp_user = request.user, department__department_name__icontains = 'Human')
+        
+        if hr_permissions is None:
+            return False
+        
+        if hr_permissions.can_approve_attendance == False and hr_permissions.can_approve_leaves == False and hr_permissions.can_manage_employee == False and hr_permissions.can_manage_teams == True and hr_permissions.can_manage_holiday == True and hr_permissions.can_manage_salary == False and hr_permissions.can_verify_emp_details == True and hr_permissions.can_manage_shifts == True and is_hr.count()>0:
+            return True
+        
+        else:
+            return False
     
     def __str__ (self):
-        return self.emp_user.username   
+        return self.emp_user.username
     
-
+    class Notification(models.Model):
+        emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_notifications')  
+        title = models.CharField(max_length=255, null=True)
+        description = models.TextField(null=True)
+        notification_date = models.DateField(auto_now_add=True)
+        notification_time = models.TimeField(auto_now_add=True)
+        created_at = models.DateTimeField(auto_now_add=True)
+        updated_at = models.DateTimeField(auto_now=True)
+        
+        def __str__ (self):
+            return self.emp_user.username + ' ' + self.title
+        
+    
 @receiver(post_save, sender=User)
 def update_sal_signal(sender, instance, created, **kwargs):
     if created:
         UserBasicDetails.objects.create(emp_user=instance).save()
         
 @receiver(post_save, sender=User)
-def update_sal_signal(sender, instance, created, **kwargs):
+def create_additional_detail_signal(sender, instance, created, **kwargs):
     if created:
         UserAdditionalDetail.objects.create(emp_user=instance).save()
         
 @receiver(post_save, sender=User)
-def update_sal_signal(sender, instance, created, **kwargs):
+def create_bank_detail_signal(sender, instance, created, **kwargs):
     if created:
         UserBankDetail.objects.create(emp_user=instance).save()
         
 @receiver(post_save, sender=User)
-def update_sal_signal(sender, instance, created, **kwargs):
+def create_educational_detail_signal(sender, instance, created, **kwargs):
     if created:
         UserEducationDetails.objects.create(emp_user=instance).save()
         
 @receiver(post_save, sender=User)
-def update_sal_signal(sender, instance, created, **kwargs):
+def create_emp_permissions_signal(sender, instance, created, **kwargs):
     if created:
         EmployeePermissions.objects.create(emp_user=instance).save()
+        
+@receiver(post_save, sender=User)
+def create_organisation_detail_signal(sender, instance, created, **kwargs):
+    if created:
+        PreviousOrganisationDetail.objects.create(emp_user=instance).save()
+        
+@receiver(post_save, sender=User)
+def create_organisation_detail_signal(sender, instance, created, **kwargs):
+    if created:
+        PreviousOrganisationDetail.objects.create(emp_user=instance).save()
+
+
+        
+
 
 
