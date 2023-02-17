@@ -56,15 +56,15 @@ class UserBasicDetails(models.Model):
     
 class PreviousOrganisationDetail(models.Model):
     emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_previous_details')
-    experience_in_years = models.IntegerField()
-    previous_organisation = models.CharField(max_length=255)
-    previous_organisation_designation = models.CharField(max_length=100)
+    experience_in_years = models.IntegerField(null=True)
+    previous_organisation = models.CharField(max_length=255, null=True)
+    previous_organisation_designation = models.CharField(max_length=100, null=True)
     is_completed_previous_organisation_details = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__ (self):
-        return self.emp_user.username +' '+ self.previous_organisation
+        return self.emp_user.username
     
 class UserAdditionalDetail(models.Model):
     emp_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_additional_details')
@@ -108,7 +108,7 @@ class UserBankDetail(models.Model):
 class UserDocument(models.Model):
     emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_docs")
     doc_name = models.CharField(max_length=200, default='document')
-    doc_file = models.FileField(upload_to='media/userdocs')
+    doc_file = models.FileField(upload_to='userdocs')
     is_completed_docs = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -215,5 +215,22 @@ def update_sal_signal(sender, instance, created, **kwargs):
 def update_sal_signal(sender, instance, created, **kwargs):
     if created:
         EmployeePermissions.objects.create(emp_user=instance).save()
+        
+@receiver(post_save, sender=User)
+def update_sal_signal(sender, instance, created, **kwargs):
+    if created:
+        PreviousOrganisationDetail.objects.create(emp_user=instance).save()
+        
+@receiver(post_save, sender=User)
+def update_sal_signal(sender, instance, created, **kwargs):
+    if created:
+        PreviousOrganisationDetail.objects.create(emp_user=instance).save()
+
+@receiver(post_save, sender=User)
+def update_sal_signal(sender, instance, created, **kwargs):
+    if created:
+        PreviousOrganisationDetail.objects.create(emp_user=instance).save()
+        
+
 
 

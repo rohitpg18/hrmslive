@@ -47,6 +47,7 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
             additional_detail= UserAdditionalDetail.objects.get(emp_user_id= user_id)
             bank_detail= UserBankDetail.objects.get(emp_user_id= user_id)
             education_detail= UserEducationDetails.objects.get(emp_user_id= user_id)
+            previous_organisation_detail = PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
             
             if basic_detail is None:
                 basic_detail= UserBasicDetails.objects.create(emp_user_id= user_id)
@@ -58,9 +59,12 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
                 bank_detail = UserBankDetail.objects.create(emp_user_id= user_id)
 
             if education_detail is None:
-                education_detail= UserEducationDetails.objects.filter(emp_user_id= user_id)
+                education_detail= UserEducationDetails.objects.create(emp_user_id= user_id)
+                
+            if previous_organisation_detail is None:
+                previous_organisation_detail= PreviousOrganisationDetail.objects.create(emp_user_id= user_id)
             
-            return {"basic_detail":basic_detail,"additional_detail":additional_detail,"bank_detail":bank_detail,"education_detail":education_detail}
+            return {"basic_detail":basic_detail,"additional_detail":additional_detail,"bank_detail":bank_detail,"education_detail":education_detail,'previous_organisation_detail':previous_organisation_detail}
             
         elif detail == 1:
             basic_detail= UserBasicDetails.objects.get(emp_user_id= user_id)
@@ -97,6 +101,14 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
             
             return education_detail
         
+        elif detail == 5:
+            previous_organisation_detail= PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
+            
+            if previous_organisation_detail is None:
+                previous_organisation_detail= PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
+            return previous_organisation_detail
+        
+        
         else:
             return None
     
@@ -129,6 +141,10 @@ def is_profile_complete(user_id,**kwargs):
             elif user_detail["education_detail"].is_completed_academics == False:
                 return 'educational_details'
             
+            elif user_detail["previous_organisation_detail"][0].is_completed_previous_organisation_details == False and  user_detail["previous_organisation_detail"][1].is_completed_previous_organisation_details == False and user_detail["previous_organisation_detail"][2].is_completed_previous_organisation_details ==False and user_detail["basic_detail"].experience_status == "Experienced":
+    
+                return 'previous_organization_details'
+                
             else:
                 return 'self_details'
         
