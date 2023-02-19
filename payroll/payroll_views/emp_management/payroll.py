@@ -4,22 +4,9 @@ class PayrollData(View):
     
     def get (self, request):
         
-        salary = Salary.objects.all()
-        
-        context = {'salary':salary}
-        
-        return render (request, 'payroll\emp_management\payroll.html', context )
-    
-    
-def filter_salary (request):
-    
-    if request.method == 'POST':
-        
-        name = request.POST.get('name')
-        username = request.POST.get('username')
-        month = request.POST.get('month')
-        
-        
+        name = request.GET.get('name')
+        username = request.GET.get('username')
+        month = request.GET.get('month')
         
         salary = Salary.objects.all()
         
@@ -31,20 +18,13 @@ def filter_salary (request):
             
         if month:
             salary = salary.filter(month__month_name__icontains = month)
-            
-        context = {
-            'salary':salary,
-        }
-       
         
-        return render (request, 'payroll\emp_management\payroll.html',context)
-    
-    elif request.method == 'GET':
+        context = {'salary':salary,
+                   'months' : Month.objects.all()
+                   }
         
-        return render (request, "payroll\emp_management\salary_filter.html", {'months' : Month.objects.all()})
-    
-    else:
-        return HttpResponse('An Exception Occurred')
+        return render (request, 'payroll\emp_management\payroll.html', context )
+
     
     
 
