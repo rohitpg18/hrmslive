@@ -1,95 +1,27 @@
-
 {% extends 'profile_basic.html' %}
 {% load static %}
 
 {% block tag %}
 <link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : All Employees Salary {% endblock %}</title>
+<title>{% block title %} HRMS : Payroll {% endblock %}</title>
+
 
 {% block style %}
 
 <style>
-    .user-info {
-        padding: 2rem;
-        overflow: auto;
+    .profile-navigations .profile-navigation-links .link1 {
+        color: #fff;
+        background-color: #387EF9;
+        transition: all 0.5s ease-out;
     }
 
-    .user_info {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 1rem;
+    .profile-navigations .profile-navigation-links .link1 svg {
+        fill: #fff;
+        transition: all 0.5s ease-out;
     }
-
-    .basic_info {
-        width: 100%;
-    }
-
-    .main-heading {
-        margin: 0;
-        padding: 2.5rem 1rem;
-    }
-
-    .user_info .info {
-        max-width: 40%;
-        display: flex;
-        justify-content: space-between;
-        padding: 0;
-        padding-bottom: 0.5em;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .user_info .info .info-description {
-        margin-right: 1rem;
-
-    }
-
-    .user_info .info p {
-        margin: 0;
-    }
-
-    .info-full {
-        max-width: 100%;
-        padding: 0 1rem;
-
-    }
-
-    .details {
-        padding: 0;
-        margin-top: 0;
-    }
-
-    .info_card {
-        border: 1px solid #387EF9;
-        padding: 1em;
-        padding-bottom: 0;
-        width: 100%;
-
-    }
-
-    .table thead tr {
-        color: #387EF9;
-        font-weight: 100;
-        font-size:20;
-        border: none;
-    }
-
-    .table tbody td {
-        border: none;
-        padding: 15px;
-        font-size: 0.9rem;
-        background: #fff;
-        text-align: center;
-        font-weight: 350;
-    }
-
-    .table thead tr th {
-        border: none;
-    }
-
     .table .next-btn2 {
         margin: 0;
         padding: 0.2em 1em;
@@ -99,156 +31,92 @@
         transition: 0.2s linear;
     }
 
-    .table .next-btn2:hover {
-        background: #fff;
-        color: #387EF9;
-        border: 2px solid #387EF9;
-        transition: 0.2s linear;
-    }
-
-    .table thead tr:hover {
-        color: #fff;
-        background-color: #387EF9;
-        transition: 0.3s linear;
-        
-    }
-        
-    .emplist_head{
-        display : flex;
-
-    }
-    .emp_details{
-        padding: 2rem;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        overflow: auto;
-        gap:1em;
-    }
-    .emp_details input{
-        width: 10rem;   
-        height:2.6rem; 
-    border: none;
-    outline: none;
-    border: 1px solid #ddd;
-    border-radius:0;
-    }
-
-    .options{
-        border: none;
-    outline: none;
-    border: 1px solid #ddd;
-    padding: 0.5em;
-    color: #444;
-    cursor: pointer;
-    }
-
-    .next_btn1 {
-        padding: 0.5em 1.5rem;
-        border: none;
-        outline: none;
-        color: #387EF9;
-        border: 1px solid #387EF9;
-        cursor: pointer;
-        margin:0;
-        font-weight: 600;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .emp_details input select {
-        vertical-align: middle;
-        margin: 5px 10px 5px 0;
-        padding: 10px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-    }
-
-    @media (max-width: 800px) {
-        .emp_details input {
-          margin: 10px 0;
-        }
-      
-        .emp_details {
-          flex-direction: column;
-          align-items: stretch;
-        }
-    }
-
-
-    
-
-
+    #left, #center, #right {
+        position: relative;
+        display: inline-block;
+        margin: 1em 0.1em 0.1em 0.8%;
+        padding: 0.1em;
+        background: #ebebfb;
+        border: 2px solid blue;
+       }
+       #left {
+        width: 22%;
+        height: 20em;
+       }
+       #center {
+        width: 52%;
+        height: 30em;
+       }
+       #right {
+        width: 16.2%;
+        height: 20em;
+       }
 </style>
+
 
 {% endblock %}
 
 {% block profile %}
 
-<section class="user-info">
-    <div class="basic_info">
-        <div class="emplist_head">
-        <p class="main-heading">Salary Data</p> 
-        <form class="emp_details " action="{% url 'payroll' %}" method="GET" enctype="multipart/form-data"> {% csrf_token %}
 
-                        
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" >
-            <select class="options" id="month" name="month" >
-                <option selected disabled>All Months..</option>
-                  {% for month in months %}
-                  <option value="{{month.month_name}}">{{month.month_name|slice:"0:-4"}} {{month.month_name|slice:"-4:"}}</option>
-                  {% endfor %}
-            </select> 
-            <button type="submit" class="next_btn1 ">Filter Data</button>
-
-        </form>
-        </div>
-
-
-        <table class="table">
-            <thead >
-                    <tr>
-                        <th scope="col">Employee ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Monthly CTC</th>
-                        <th scope="col">Gross Pay</th>
-                        <th scope="col">PF Employer</th>
-                        <th scope="col">Net Salary</th>
-                        <th scope="col">Preview Salary Slip</th>
-                    </tr>
-            </thead>
-            <tbody>
-                {% for s in salary %}
-                <tr>
-                    <th scope="row">{{s.emp_user.username}}</th>
-                    <td>{{s.emp_user.get_full_name}}</td>
-                    <td>{{s.current_month_ctc}}</td>
-                    <td>{{s.gross_salary}}</td>
-                    <td>{{s.pf_employer}}</td>
-                    <td>{{s.net_salary}}</td>
-                    <td style="padding:8px"><a href="{% url 'self_salary' %}{{s.id}}">
-                        <span class="material-symbols-outlined" style="font-size:1.8rem;font-weight:700;">
-                            description
-                        </span>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}  
-            </tbody>
-        </table>
+<div>
+    <p class="main-heading">Payroll Data </p> <span style="position:fixed; right:200px; top:45px"> <a href="{% url 'filter_salary' %}"><button type="submit" class="next-btn2">Filter Salary Data</button></a> </span>
+</div>
+    
+        
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Employee ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Monthly CTC</th>
+                <th scope="col">Gross Pay</th>
+                <th scope="col">PF Employer</th>
+                <th scope="col">Net Salary</th>
+                <th scope="col">Generate Salary Slip</th>
+            </tr>
+        </thead>
 
 
-    </div>
-</section>
+        <tbody>
+            {% for s in salary %}
+            <tr>
+                <th scope="row">{{s.emp_user.username}}</th>
+                <td>{{s.emp_user.first_name}} {{s.emp_user.last_name}}</td>
+                <td>{{s.current_month_ctc}}</td>
+                <td>{{s.gross_salary}}</td>
+                <td>{{s.pf_employer}}</td>
+                <td>{{s.net_salary}}</td>
+                <td><a href="{% url 'payroll' %}{{s.id}}">
+                    <button type="submit" class="next-btn2">Generate</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}  
+        </tbody>
+    </table>
+
 
 
 {% endblock %}
 
 
+
+
 {% block js %}
+
+<script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js"></script>
+
 <script>
     document.getElementById('payroll').classList.add('link1');
 </script>
+
+
+
+
+
 {% endblock %}

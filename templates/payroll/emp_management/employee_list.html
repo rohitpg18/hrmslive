@@ -154,6 +154,7 @@
                 <tr>
                     <th scope="col">User ID</th>
                     <th scope="col">Employee Name</th>
+                    <th scope="col">Department</th>
                     <th scope="col">Designation</th>
                     <th scope="col">Joining Date</th>
                     <th scope="col">Salary</th>
@@ -165,10 +166,11 @@
                 <tr>
                     <td>{{emp.username}}</td>
                     <td>{{emp.get_full_name}}</td>
+                    <td>{{emp.user_basics.department.department_name}}</td>
                     <td>{{emp.user_basics.designation.designation_name}}</td>
                     <td>{{emp.user_basics.date_of_joining}}</td>
                     <td>{{emp.user_basics.salary}}</td> 
-                    <td style="padding:8px">
+                    <td>
                       <!-- shows to the new employee added in the list -->
 
                       <!-- Activate the Employee -->

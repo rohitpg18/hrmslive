@@ -72,7 +72,7 @@
     <td>{{basic_salary1}}</td>
     <td>{{salary_details.basic_salary}}</td>
     <td>PROV. FUND</td>
-    <td>{% if basic_details.is_salaried == False %} 0.00 {% else %} {{pf_employee1}} {% endif %}</td>
+    <td>{{pf_employee1}}</td>
     <td>{{salary_details.pf_employee}}</td>
     
   </tr>
@@ -116,9 +116,9 @@
   <tr>
     <td>Total Earnings</td>
     <td>{{gross1}}</td>
-    <td>{% if basic_details.is_salaried == False %} {{salary_details.net_salary}} {% else %} {{salary_details.gross_salary}} {% endif %}</td>
+    <td>{{salary_details.gross_salary}}</td>
     <td>Total Deductions</td>
-    <td>{% if basic_details.is_salaried == False %} 0.00 {% else %} {{pf_employee1}} {% endif %}</td>
+    <td>{{pf_employee1}}</td>
     <td>{{salary_details.deductions}}</td>
   </tr>
 

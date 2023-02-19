@@ -133,18 +133,19 @@
                     <th>{{forloop.counter}}</th>
                     <td>{{sal.emp_user.username}}</td>
                     <td>{{sal.month.month_name|slice:":-4:"}} {{sal.month.month_name|slice:"-4::"}}</td>
-                    <td> {% if basic_details.is_salaried == True %} {{sal.net_salary}} {% else %} {{sal.gross_salary}} {% endif %} </td>
-                    <td style="padding:12px">
+                    <td> {% if basic_details.is_salaried == True %} {{sal.net_salary}} {% else %} {{sal.gross_salary}}
+                        {% endif %} 
+                    </td>
+                    <td>
                         <a href="{% url 'self_salary' %}{{sal.id}}">
-                            <span class="material-symbols-outlined" style="font-size:1.8rem;font-weight:700;">
-                                description
-                            </span>
-                        </a> 
+                        <button type="button" class="btn btn-outline-primary  btn-sm" >Generate</button>
+                    </a>
+                        
                     </td>
                     <th>
                         <span class="material-symbols-outlined mx-4" style="font-size:1.8rem;font-weight:700;">
                             download
-                        </span>
+                            </span>
                     </th>
                 </tr>
                 {% endfor %}

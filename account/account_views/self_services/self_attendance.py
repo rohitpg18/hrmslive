@@ -159,9 +159,7 @@ class ApplyAttendance(View):
             'leaves': month_leaves_count,
             'holidays': holiday_month_count,
             'working_days': working_days,
-            'absent_days':absent_days,
-            'date':date,
-            'day_name':day_name
+            'absent_days':absent_days
             }
             
         return render(request,"account/self_services/self_attendance.html", context)
