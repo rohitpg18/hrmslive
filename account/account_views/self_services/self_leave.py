@@ -14,7 +14,7 @@ class ApplyLeave(View):
             return redirect('self_leave')
             
         data={
-            "current_month": create_month_year_formate(),
+            "current_month": (str(create_month_year_formate())[0:-4] + ' ' + str(create_month_year_formate())[-4:]),
             "leave_count":leave_count
         }
         
