@@ -3,10 +3,10 @@
 
 {% block tag %}
 <link href="{%static 'css/self-details.css'%}" rel="stylesheet">
-<link href="{%static 'css/form.css'%}" rel="stylesheet">
+<link href="{%static 'css/forms.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : Approve Attendance {% endblock %}</title>
+<title>{% block title %} HRMS : Attendance History {% endblock %}</title>
 
 {% block style %}
 
@@ -70,9 +70,13 @@
 
     }
 
-    .table thead tr th {
+    .table thead tr {
         color: #387EF9;
         font-weight: 600;
+        border: none;
+    }
+
+    .table thead tr th {
         border: none;
     }
 
@@ -91,6 +95,13 @@
         border: 2px solid #387EF9;
         transition: 0.2s linear;
     }
+
+    .table thead tr:hover {
+        color: #fff;
+        background-color: #387EF9;
+        transition: 0.3s linear;
+
+    }
 </style>
 
 {% endblock %}
@@ -100,32 +111,21 @@
 
 <section class="user-info">
     <div class="basic_info">
-        <p class="main-heading">Attendance Applications Info</p>
-
-        <div class="user_info">
-            <div class="info">
-                <p class="info-title">Total Applications</p>
-                <p class="info-description" id="sl">
-                    {{ employees_count }}
-                </p>
-            </div>
-
-            <div class="info">
-                <p class="info-title">Pending Applications</p>
-                <p class="info-description" id="lop">
-                    1
-                </p>
-            </div>
-        </div>
 
         
+        <div class="head-card">
+            <h4>Salary Details</h4>
+            <a href="{% url 'admin_dashboard' %}">
+                Back
+                <span class="material-symbols-outlined mx-2">
+                    undo
+                </span>
+            </a>
+        </div>
 
 
-        <!-- <p class="main-heading text-center my-lg-5" style="color:red">Leave Applications are not available</p>-->
 
-
-        <p class="main-heading">Pending Applications</p>
-        <table class="table">
+        <table class="table my-lg-5">
             <thead>
                 <tr>
                     <th scope="col">Id</th>
@@ -135,35 +135,46 @@
                     <th scope="col">Approve</th>
                 </tr>
             </thead>
-
-
             <tbody>
                 {% for emp in employees %}
                 <tr>
-                    
                     <td>{{emp.emp_user.username}}</td>
                     <td>{{emp.emp_user.get_full_name}}</td>
+
                     {% if emp.is_half_day %}
-                    <td >Half({% if emp.is_first_half %}first {% endif %} {% if emp.is_second_half %} Second {% endif %})</td>
+
+                    <td>Half({% if emp.is_first_half %}first {% endif %} {% if emp.is_second_half %} Second {% endif %})</td>
+
                     {% else %}
-                    <td >Full</td>
+
+                    <td>Full</td>
+                    
                     {% endif %}
 
-
                     <td>{{emp.login_time}}</td>
+
                     <td>
                         <form action="{% url 'attendance_applications' %}" method="post">{% csrf_token %}
-                            <input type="hidden" name="application_id" value="{{emp.id}}" >
-                            <button type="submit" class="next-btn2">Approve</button>
+                            <input type="hidden" name="application_id" value="{{emp.id}}">
+                            <button type="submit" class="btn btn-outline-primary  btn-sm">Approve</button>
                         </form>
-
                     </td>
+
                 </tr>
                 {% endfor %}
 
+
+
+
+
+
+
+
+
+
+
             </tbody>
         </table>
-
 
 
     </div>
@@ -175,6 +186,6 @@
 
 {% block js %}
 <script>
-    document.getElementById('attendance-requests').classList.add('link1');
+    document.getElementById('dashboard').classList.add('link1');
 </script>
 {% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Attendance History {% endblock %}</title>
+
+{% block style %}
+
+<style>
+     .team-members {
+          width: 100%;
+          min-height: 100vh;
+          height: 100%;
+          overflow: auto;
+          padding: 2em;
+     }
+
+     .members {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 2rem;
+          width: 100%;
+          height: 100%;
+     }
+
+
+
+     .profile-card {
+          flex: 1 1 30%;
+          min-width: 24rem;
+          background: #fff;
+          padding: 20px 30px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          border-radius: 4px;
+          box-shadow: 0 0 2px 0 #ccc;
+          transition: .3s;
+     }
+     .profile-info{
+          padding-top: 1rem;
+          width: 100%;
+     }
+
+     .profile-card:hover {
+          transform: scale(1.1);
+          box-shadow: 0 0 25px -5px #ccc;
+     }
+
+     .profile-icon {
+          height: 100px;
+          width: 100px;
+          object-fit: cover;
+          border-radius: 10%;
+          margin-right: 2rem;
+     }
+
+     .profile-name {
+          font-size: 1.3em;
+          font-weight: bold;
+     }
+
+     .profile-position {
+          font-size: 14px;
+          color: #777;
+     }
+
+     .button {
+          margin: 10px 0 0 0;
+          padding: 10px 20px;
+          color: #999;
+          font-size: 0.7em;
+          text-decoration: none;
+          border: 1px solid #999;
+          border-radius: 4px;
+          float: right;
+     }
+
+     .button:hover {
+          color: #fff;
+          background: #748dff;
+          border: 1px solid #748dff;
+     }
+
+     @media screen and (max-width: 1000px) {
+          .profile-name {
+               font-size: 18px;
+          }
+     }
+
+     @media screen and (max-width: 800px) {
+          .profile-card {
+               padding: 20px 15px;
+          }
+
+          .profile-name {
+               font-size: 16px;
+          }
+     }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="team-members">
+     <div class="head-card">
+          <h4>Team Members</h4>
+          <a href="{% url 'admin_dashboard' %}">
+              Back
+              <span class="material-symbols-outlined mx-2">
+                  undo
+              </span>
+          </a>
+      </div>
+
+     <div class="members my-lg-5">
+          
+
+               {% for member in members %}
+               <div class="profile-card">
+                    <img src="{{member.user_additional_details.profile_photo.url}}" alt="image1" class="profile-icon" />
+                    <div class="profile-info">
+                         <div class="profile-name">{{member.get_full_name}}</div>
+                         <div class="profile-position">{{member.user_basics.department}} ( {{member.user_basics.designation}} )</div>
+                         <a href="#" class="button">Message</a>
+                    </div>
+                    
+               </div>
+
+               {% endfor %}
+               
+          
+
+     </div>
+</section>
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+     document.getElementById('dashboard').classList.add('link1');
+</script>
+{% endblock %}

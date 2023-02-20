@@ -192,14 +192,13 @@ class EmployeePermissions(models.Model):
     
     def is_team_leader (request):
         team_leader_permissions = EmployeePermissions.objects.get(emp_user = request.user)
-        is_tl = UserBasicDetails.objects.filter(emp_user = request.user, designation__designation_name__icontains = 'Leader')
         teams = Teams.objects.filter(leader_name = request.user)
         
         if team_leader_permissions is None:
             return False
         
-        elif team_leader_permissions.can_approve_attendance == True and is_tl.count()>0 and teams.count()>0:
-            return True
+        elif team_leader_permissions.can_approve_attendance == True and  teams.count()>0:
+            return teams
         
         else:
             return False
@@ -233,17 +232,17 @@ class EmployeePermissions(models.Model):
     def __str__ (self):
         return self.emp_user.username
     
-    class Notification(models.Model):
-        emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_notifications')  
-        title = models.CharField(max_length=255, null=True)
-        description = models.TextField(null=True)
-        notification_date = models.DateField(auto_now_add=True)
-        notification_time = models.TimeField(auto_now_add=True)
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
-        
-        def __str__ (self):
-            return self.emp_user.username + ' ' + self.title
+class Notification(models.Model):
+    emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_notifications')  
+    title = models.CharField(max_length=255, null=True)
+    description = models.TextField(null=True)
+    notification_date = models.DateField(auto_now_add=True)
+    notification_time = models.TimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__ (self):
+        return self.emp_user.username + ' ' + self.title
         
     
 @receiver(post_save, sender=User)

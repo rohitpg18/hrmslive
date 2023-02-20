@@ -70,6 +70,26 @@
 
     }
 
+    .modal{
+        --bs-modal-width: 40rem;
+    }
+
+    .modal-content{
+        border-radius: 0;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    }
+
+    .modal-header{
+        display: block;
+    }
+    .modal-header .head-card{
+        border: none;
+        box-shadow: none;
+        padding: 1rem;
+    }
+    
+
+
     .modal-body {
         max-height: 18rem;
         overflow: auto;
@@ -99,11 +119,13 @@
     .emp_profile_list h2 {
         color: #334454;
         font-size: 1rem;
+        margin-bottom: 0.4em;
     }
 
     .emp_profile_list p {
         color: #a1b2bc;
         font-size: 0.7rem;
+        margin: 0;
     }
 </style>
 
@@ -149,7 +171,7 @@
 
                         <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
                             data-bs-target="#TeamMember{{team.id}}">
-                            View
+                            Members
                         </a>
 
                     </td>
@@ -165,7 +187,10 @@
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title fs-5 px-3" id="staticBackdropLabel">{{team.team_name}}</h4>
+                                
+                                <div class="head-card">
+                                    <h4>{{team.team_name}}</h4>
+                                </div>
                             </div>
                             <div class="modal-body">
 
@@ -173,11 +198,11 @@
 
 
                                 <div class="emp_profile_list">
-                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                                    <img src="{{emp.user_additional_details.profile_photo.url}}"
                                         alt="people" />
                                     <div class="emp_profile_list_text">
-                                        <h2>{{emp.get_full_name}}</h2>
-                                        <p>by <b>Joseph Therrien</b></p>
+                                        <h2>{{emp.get_full_name}} ({{emp.username}}) </h2>
+                                        <p><b>{{emp.user_basics.designation}}</b></p>
                                     </div>
                                 </div>
 
@@ -185,7 +210,7 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="next_btn2" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
 
