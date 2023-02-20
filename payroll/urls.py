@@ -4,6 +4,7 @@ from account.views import SalarySlip
 
 
 urlpatterns = [
+    path("verify-details/",VerifyDetails.as_view(),name="verify_details"),
     path("leave-applications/",LeaveApplications.as_view(),name="leave_applications"),
     path("leave-applications/<int:pk>",ApproveLeaves.as_view(),name="approve_leaves"),
     
@@ -14,6 +15,7 @@ urlpatterns = [
     path("team-members/",TeamMembers.as_view(),name="team_members"),
     path("payroll/", PayrollData.as_view(), name = "payroll"),
     path("missing-attendance-applications/", MissingAttendanceApplications.as_view(), name = "missing_attendance_applications"),
+    path("missing-attendance-history/", MissingAttendanceApplicationsHistory.as_view(), name = "missing_attendance_application_history"),
     path("all-users/", EmployeeList.as_view(), name = 'all_users'),
     path('emp-activate/<int:emp_id>/', EmpActivate, name="emp_activate"),
     path('emp-deactivate/<int:emp_id>/', EmpDeactivate, name="emp_deactivate"),
