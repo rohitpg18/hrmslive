@@ -7,26 +7,33 @@ class ApproveAttendance(View):
         user_id = request.user.id
         date = datetime.today().date()
         
-        team = Teams.objects.filter(leader_name_id=user_id)
+        teams = Teams.objects.filter(leader_name_id=user_id)
         
-        if not team.exists():
+        if not teams.exists():
             messages.warning(request, 'team does not exists')
             return redirect('self_details')
         else:
-            team = Teams.objects.get(leader_name_id=user_id)
-        team_employees =team.employees.all()
+            teams = Teams.objects.filter(leader_name_id=user_id)
+            
         
-        emps_list=[]
+        team_employees=set()
         
-        for emp in team_employees:
-            if DailyAttendance.objects.filter(emp_user=emp,is_requested=True,date=date).exists():
-                emps_list.append(DailyAttendance.objects.get(emp_user=emp,date=date))
+        for team in teams:
+            team_employees=team_employees.union(team.employees.values_list('id', flat=True))
+            
+        
+                
+        
+        emp_list=set()
+        
+        
+        for emp_id in team_employees:
+            emp_list=emp_list.union(DailyAttendance.objects.filter(emp_user_id=emp_id,is_requested=True))
         
         data={
-            'employees':emps_list,
-            'employees_count': len(emps_list)
+            'employees':emp_list,
+            'employees_count': len(emp_list)
             }
-        
         
         
         return render(request,'payroll/emp_management/approve_attendance.html',data)

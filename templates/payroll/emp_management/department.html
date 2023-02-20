@@ -11,6 +11,14 @@
 {% block style %}
 
 <style>
+    *,
+    *::after,
+    *::before {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
     .user-info {
         padding: 2rem;
         overflow: auto;
@@ -113,7 +121,8 @@
         vertical-align: baseline;
         border: none;
     }
-    .table tr{
+
+    .table tr {
         border-bottom: 1px solid #ddd;
     }
 
@@ -138,7 +147,7 @@
         outline: none;
         border: none;
         border: 1px solid #ddd;
-        background:#ddd;
+        background: #ddd;
         color: #444;
         border-radius: 50%;
     }
@@ -148,8 +157,6 @@
         color: #444;
         cursor: pointer;
     }
-
-
 </style>
 
 
@@ -169,7 +176,7 @@
 
             <div class="input_box ">
                 <p class="input_title">Department Name</p>
-                <input type="hidden" name="dept_id" >
+                <input type="hidden" name="dept_id">
                 <input type="text" class="input_value" id="reason" name="dept_name" placeholder="Enter a department"
                     required>
             </div>
@@ -182,7 +189,7 @@
     </div>
 
 
-{% if departments %}
+    {% if departments %}
 
     <p class="main-heading">Department list</p>
     <table class="table">
@@ -205,26 +212,31 @@
                     <td id="dept_inputs{{dept.id}}">
 
                         <input type="hidden" name="dept_id" value="{{dept.id}}" disabled>
-                        <input type="text"  class="input_item" name="dept_name" value="{{dept.department_name}}" required disabled>
+                        <input type="text" class="input_item" name="dept_name" value="{{dept.department_name}}" required
+                            disabled>
 
                     </td>
 
-                    <td class="form_action_btns" >
+                    <td class="form_action_btns">
 
-                        <div class="buttons_div display_hidden" id="dept_update_buttons{{dept.id}}" >
-                            <button type="submit" class="icon_button" name="type" value="update"><span class="material-symbols-outlined" style="color:#387EF9">upgrade</span></button>
-                            <button type="submit" class="icon_button" name="type" value="delete"><span class="material-symbols-outlined" style="color:red">delete</span></button>
+                        <div class="buttons_div display_hidden" id="dept_update_buttons{{dept.id}}">
+                            <button type="submit" class="icon_button" name="type" value="update"><span
+                                    class="material-symbols-outlined" style="color:#387EF9">upgrade</span></button>
+                            <button type="submit" class="icon_button" name="type" value="delete"><span
+                                    class="material-symbols-outlined" style="color:red">delete</span></button>
                         </div>
-                        
 
-                        <span class="material-symbols-outlined cancel_button display_hidden icon_button" id="cancel_button{{dept.id}}" onclick="editDept('{{dept.id}}','cancel')">
+
+                        <span class="material-symbols-outlined cancel_button display_hidden icon_button"
+                            id="cancel_button{{dept.id}}" onclick="editDept('{{dept.id}}','cancel')">
                             close
                         </span>
 
-                        <span class="material-symbols-outlined edit_button icon_button" id="edit_button{{dept.id}}" onclick="editDept('{{dept.id}}','update')">
-                            
-                                drive_file_rename_outline
-                                
+                        <span class="material-symbols-outlined edit_button icon_button" id="edit_button{{dept.id}}"
+                            onclick="editDept('{{dept.id}}','update')">
+
+                            drive_file_rename_outline
+
                         </span>
                     </td>
 
@@ -236,7 +248,7 @@
         </tbody>
     </table>
 
-{% endif %}
+    {% endif %}
 
 </section>
 
