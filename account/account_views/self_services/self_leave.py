@@ -85,6 +85,8 @@ class ApplyLeave(View):
         return redirect('self_leave')
     
 class LeavesHistory(View):
+    
+    @method_decorator(login_required(login_url='login'))
     def get (self, request, *args, **kwargs):
         
         user_id = request.user.id 
