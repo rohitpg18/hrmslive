@@ -29,6 +29,11 @@ class PayrollData(View):
 
         return render(request, 'payroll\emp_management\payroll.html', context)
 
+
+class Policy(View):
+    def get(self, request, *args, **kwargs):
+        
+        return render(request, 'payroll\emp_management\policy.html')
     
 
 
