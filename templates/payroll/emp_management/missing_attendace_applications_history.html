@@ -88,7 +88,6 @@
 
 
 
-
     .emp_profile_list {
         background-color: #fff;
         border: 1px solid #ddd;
@@ -131,7 +130,7 @@
     <div class="basic_info">
 
         <div class="head-card">
-            <h4>Missing Attendance Requests <h4>
+            <h4>Missing Applications Details</h4>
             <a href="{% url 'admin_dashboard' %}">
                 Back
                 <span class="material-symbols-outlined mx-2">
@@ -155,7 +154,7 @@
             </thead>
 
             <tbody>
-                {% for app in applications %}
+                {% for app in missing_applications_list %}
                 <tr>
                     <th>{{forloop.counter}}</th>
                     <td>{{app.emp_user.username}}</td>
@@ -195,7 +194,7 @@
                 <!-- Modal -->
                 <div class="modal fade" id="TeamMember{{team.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog  modal-dialog-centered">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
 
@@ -218,7 +217,7 @@
                                         <p class="info-description">{{app.created_at.date}}</p>
                                     </div>
 
-
+                                    
                                     <div class="info info_full">
                                         <p class="info-title">Type</p>
                                         <p class="info-description">
@@ -251,11 +250,7 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="next_btn1" data-bs-dismiss="modal">Close</button>
-                                <form action="{% url 'missing_attendance_applications' %}" method="post">{% csrf_token %}
-                                    <input type="hidden" name="user_id" value="{{app.emp_user_id}}">
-                                    <button type="submit" class="next_btn2" data-bs-dismiss="modal">Approve</button>
-                                </form>
+                                <button type="button" class="next_btn2" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
 

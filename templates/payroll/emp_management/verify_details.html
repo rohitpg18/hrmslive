@@ -1,0 +1,607 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Attendance History {% endblock %}</title>
+
+{% block style %}
+
+<style>
+     .user-info {
+          padding: 2rem;
+          overflow: auto;
+     }
+
+     .user_info {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 1rem;
+     }
+
+     .basic_info {
+          width: 100%;
+     }
+
+     .main-heading {
+          margin: 0;
+          padding: 2.5rem 1rem;
+     }
+
+
+
+
+     .user-details .info .info-title {
+          margin-bottom: 0.6em;
+     }
+
+
+     .user-details {
+          display: flex;
+          padding: 0 1em;
+          flex-wrap: wrap;
+          justify-content: space-evenly;
+     }
+
+     .user-details .info {
+          min-width: 100%;
+          width: 100%;
+          margin-bottom: 0.3em;
+     }
+
+     .details {
+          padding: 0;
+          margin-top: 0;
+     }
+
+     .info_card {
+          border: 1px solid #387EF9;
+          padding: 1em;
+          padding-bottom: 0;
+          width: 100%;
+
+     }
+
+     .modal {
+          --bs-modal-width: 40rem;
+     }
+
+     .modal-content {
+          border-radius: 0;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+     }
+
+     .modal-header {
+          display: block;
+     }
+
+     .modal-header .head-card {
+          border: none;
+          box-shadow: none;
+          padding: 1rem;
+     }
+
+
+
+     .modal-body {
+
+          overflow: auto;
+     }
+
+
+     .emp_profile_list {
+          background-color: #fff;
+          border: 1px solid #ddd;
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          margin-bottom: 0.5em;
+
+     }
+
+     .emp_profile_list img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-position: center;
+          object-fit: cover;
+          margin-right: 10px;
+     }
+
+
+     .emp_profile_list h2 {
+          color: #334454;
+          font-size: 1rem;
+          margin-bottom: 0.4em;
+     }
+
+     .emp_profile_list p {
+          color: #a1b2bc;
+          font-size: 0.7rem;
+          margin: 0;
+     }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+     <div class="basic_info">
+
+          <div class="head-card">
+               <h4>Teams Details</h4>
+               <a href="{% url 'admin_dashboard' %}">
+                    Back
+                    <span class="material-symbols-outlined mx-2">
+                         undo
+                    </span>
+               </a>
+          </div>
+
+
+
+          <table class="table my-lg-5">
+               <thead>
+                    <tr>
+                         <th scope="col">#</th>
+                         <th scope="col">Employee ID</th>
+                         <th scope="col">Name</th>
+                         <th scope="col">Date</th>
+                         <th scope="col"></th>
+                    </tr>
+               </thead>
+               <tbody>
+
+                    {% for app in verify_emp_list %}
+                    <tr>
+                         <th>{{forloop.counter}}</th>
+                         <td>{{app.emp_user.username}}</td>
+                         <td>{{app.emp_user.get_full_name}}</td>
+                         <td>{{app.updated_at.date}}</td>
+
+                         <th>
+                              <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                                   data-bs-target="#userDetails{{app.id}}">
+                                   Details
+                              </a>
+                         </th>
+                    </tr>
+
+
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="userDetails{{app.id}}" data-bs-backdrop="static"
+                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                         aria-hidden="true">
+                         <div class="modal-dialog modal-dialog-scrollable">
+                              <div class="modal-content">
+                                   <div class="modal-header">
+
+                                        <div class="head-card">
+                                             <h4>{{app.emp_user.get_full_name}} ( {{app.emp_user.username}} )</h4>
+                                        </div>
+                                   </div>
+                                   <div class="modal-body">
+                                        <div class="user-details">
+
+                                             <div class="info">
+                                                  <p class="info-title">Name</p>
+                                                  <p class="info-description">{{app.emp_user.get_full_name}}</p>
+                                             </div>
+
+
+                                             <div class="info">
+                                                  <p class="info-title">Designation</p>
+                                                  <p class="info-description">{{app.emp_user.user_basics.designation}}
+                                                  </p>
+
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">Department</p>
+                                                  <p class="info-description">{{app.emp_user.user_basics.department}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">Shift Details</p>
+                                                  <p class="info-description">{{app.emp_user.user_basics.shift_details}}
+                                                       ({{app.emp_user.user_basics.shift_details.in_time}} to
+                                                       {{app.emp_user.user_basics.shift_details.out_time}}) </p>
+                                             </div>
+
+
+                                             <div class="info">
+                                                  <p class="info-title">Date of joining</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_basics.date_of_joining}}</p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">salary</p>
+                                                  <p class="info-description">{{app.emp_user.user_basics.salary}}
+                                                  </p>
+                                             </div>
+
+
+                                             <div class="info">
+                                                  <p class="info-title">gender</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.gender}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">mobile no</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.mobile_no}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">date of birth</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.date_of_birth}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">pan number</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.pan_number}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">aadhaar number</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.aadhaar_number}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">blood_group </p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.blood_group}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">permanent address</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.permanent_address}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">current address</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.current_address}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">father name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.father_name}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">mother name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.mother_name}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">nationality</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_additional_details.nationality}}
+                                                  </p>
+                                             </div>
+
+
+
+
+
+                                             <h1 class="main-heading">Bank Details</h1>
+
+
+
+                                             <div class="info">
+                                                  <p class="info-title">bank name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_bank_details.bank_name}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">branch name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_bank_details.bank_name}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">account type</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_bank_details.account_type}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">ifsc code</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_bank_details.ifsc_code}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">account number</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_bank_details.account_number}}
+                                                  </p>
+                                             </div>
+
+
+
+
+
+
+
+                                             <h1 class="main-heading">Educational Details</h1>
+
+                                             <div class="info">
+                                                  <p class="info-title">10th board name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.ssc_board_name}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">10th school name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.ssc_school_name}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">10th percentage</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.ssc_percentage}} %
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">10th passing year</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.ssc_passing_yr}}
+                                                  </p>
+                                             </div>
+
+
+
+                                             {% if app.emp_user.user_academics.hsc_board_name %}
+
+                                             <div class="info">
+                                                  <p class="info-title">12th board name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.hsc_board_name}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">12th school name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.hsc_school_name}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">12th percentage</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.hsc_percentage}} %
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">12th passing year</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.hsc_passing_yr}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">12th Stream</p>
+                                                  <p class="info-description">{{app.emp_user.user_academics.hsc_stream}}
+                                                  </p>
+                                             </div>
+
+                                             {% endif %}
+
+
+
+
+
+
+                                             {% if app.emp_user.user_academics.diploma_university  is not none %}
+
+                                             <div class="info">
+                                                  <p class="info-title">diploma university</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.diploma_university}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">diploma college name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.diploma_college}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">diploma branch</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.diploma_branch}}
+                                                  </p>
+                                             </div>
+                                             <div class="info">
+                                                  <p class="info-title">diploma duration</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.diploma_admission_yr}} -
+                                                       {{app.emp_user.user_academics.diploma_passout_yr}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">diploma percentage</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.diploma_percentage}} %
+                                                  </p>
+                                             </div>
+
+                                             {% endif %}
+
+
+
+                                             {% if app.emp_user.user_academics.graduation_university is not None %}
+
+                                             <div class="info">
+                                                  <p class="info-title">graduation university</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.graduation_university}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">graduation college name</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.graduation_college}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">graduation branch</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.graduation_branch}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">graduation duration</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.graduation_admission_yr}} -
+                                                       {{app.emp_user.user_academics.graduation_passout_yr}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">graduation percentage</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.graduation_percentage}} %
+                                                  </p>
+                                             </div>
+
+                                             {% endif %}
+
+
+
+                                             {% if app.emp_user.user_academics.pg_university is not none %}
+
+                                             <div class="info">
+                                                  <p class="info-title">post graduation university</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.pg_university}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">post graduation college name</p>
+                                                  <p class="info-description">{{app.emp_user.user_academics.pg_college}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">post graduation branch</p>
+                                                  <p class="info-description">{{app.emp_user.user_academics.pg_branch}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">post graduation duration</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.pg_admission_yr}} -
+                                                       {{app.emp_user.user_academics.pg_passout_yr}}
+                                                  </p>
+                                             </div>
+
+                                             <div class="info">
+                                                  <p class="info-title">post graduation percentage</p>
+                                                  <p class="info-description">
+                                                       {{app.emp_user.user_academics.pg_percentage}} %
+                                                  </p>
+                                             </div>
+
+
+
+                                             {% endif %}
+
+
+
+                                             {% for doc in app.emp_user.user_docs.all %}
+                                             
+                                             <div class="info">
+                                                  <p class="info-title">{{doc.doc_name}}</p>
+                                                  <p class="info-description">
+                                                       <a href="{{doc.doc_file.url}}" target="_blank">{{doc.doc_file}}</a>
+                                                  </p>
+                                             </div>
+
+                                             {% endfor %}
+                                        
+
+
+                                        </div>
+
+
+
+
+                                   </div>
+                                   <div class="modal-footer">
+                                        <button type="button" class="next_btn1" data-bs-dismiss="modal">Close</button>
+                                        <form action="{% url 'verify_details' %}" method="post">{% csrf_token %}
+                                             <input type="hidden" name="user_id" value="{{app.emp_user_id}}">
+                                             <button type="submit" class="next_btn2" data-bs-dismiss="modal">Approve</button>
+                                        </form>
+                                        
+                                   </div>
+                              </div>
+
+                         </div>
+                    </div>
+
+
+
+
+                    {% endfor %}
+
+               </tbody>
+          </table>
+
+
+
+
+     </div>
+
+</section>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+     document.getElementById('self-salary').classList.add('link1');
+</script>
+{% endblock %}

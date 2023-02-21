@@ -94,7 +94,7 @@ class UserAdditionalDetail(models.Model):
 class UserBankDetail(models.Model):
     emp_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_bank_details')
     bank_name = models.CharField(max_length=255, null=True)
-    branch_name = models.CharField(max_length=100)
+    branch_name = models.CharField(max_length=100,null=True)
     account_type = models.CharField(choices=(('Current', 'Current'), ('Saving', 'Saving')), max_length=25, null=True)
     ifsc_code = models.CharField(max_length=11, null=True)
     account_number = models.BigIntegerField(null=True)

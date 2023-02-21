@@ -33,6 +33,7 @@
      .profile-card {
           flex: 1 1 30%;
           min-width: 24rem;
+          max-width: 30rem;
           background: #fff;
           padding: 20px 30px;
           display: flex;
@@ -42,7 +43,8 @@
           box-shadow: 0 0 2px 0 #ccc;
           transition: .3s;
      }
-     .profile-info{
+
+     .profile-info {
           padding-top: 1rem;
           width: 100%;
      }
@@ -113,30 +115,31 @@
      <div class="head-card">
           <h4>Team Members</h4>
           <a href="{% url 'admin_dashboard' %}">
-              Back
-              <span class="material-symbols-outlined mx-2">
-                  undo
-              </span>
+               Back
+               <span class="material-symbols-outlined mx-2">
+                    undo
+               </span>
           </a>
-      </div>
+     </div>
 
      <div class="members my-lg-5">
-          
 
-               {% for member in members %}
-               <div class="profile-card">
-                    <img src="{{member.user_additional_details.profile_photo.url}}" alt="image1" class="profile-icon" />
-                    <div class="profile-info">
-                         <div class="profile-name">{{member.get_full_name}}</div>
-                         <div class="profile-position">{{member.user_basics.department}} ( {{member.user_basics.designation}} )</div>
-                         <a href="#" class="button">Message</a>
-                    </div>
-                    
+
+          {% for member in members %}
+          <div class="profile-card">
+               <img src="{{member.user_additional_details.profile_photo.url}}" alt="image1" class="profile-icon" />
+               <div class="profile-info">
+                    <div class="profile-name">{{member.get_full_name}}</div>
+                    <div class="profile-position">{{member.user_basics.department}} ( {{member.user_basics.designation}}
+                         )</div>
+                    <a href="#" class="button">Message</a>
                </div>
 
-               {% endfor %}
-               
-          
+          </div>
+
+          {% endfor %}
+
+
 
      </div>
 </section>

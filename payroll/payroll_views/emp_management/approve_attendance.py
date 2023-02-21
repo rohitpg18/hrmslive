@@ -25,11 +25,15 @@ class ApproveAttendance(View):
         emp_list = set()
 
         for emp_id in team_employees:
-            emp_list = emp_list.union(DailyAttendance.objects.filter(
-                emp_user_id=emp_id, is_requested=True))
-
-        data = {
-            'employees': emp_list,
+            emp_list=emp_list.union(DailyAttendance.objects.filter(emp_user_id=emp_id,is_requested=True))
+            
+            
+        if len(emp_list) <= 0:
+            messages.warning(request, "Daily attendance applications not available")
+            return redirect('admin_dashboard')
+        
+        data={
+            'employees':emp_list,
             'employees_count': len(emp_list)
         }
 
