@@ -10,8 +10,17 @@ class PreviousOrganizationDetail(View):
         redirect_url = is_profile_complete(user_id)
         
         if  redirect_url == "previous_organization_details":
+            
+            organisation_details = PreviousOrganisationDetail.objects.filter(emp_user_id=user_id)
+            
+            context = {
+        
+            'organisation_details1' : PreviousOrganisationDetail.objects.get(emp_user_id=user_id, id = organisation_details[0].id ),
+            'organisation_details2' : PreviousOrganisationDetail.objects.get(emp_user_id=user_id, id = organisation_details[1].id )
+            
+            }
                 
-            return render(request, "account/profile_complete/previous_organization_detail.html")
+            return render(request, "account/profile_complete/previous_organization_detail.html", context)
         else:
             return redirect(redirect_url)
         

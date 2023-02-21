@@ -18,6 +18,7 @@ urlpatterns = [
     path('emp-activate/<int:emp_id>/', EmpActivate, name="emp_activate"),
     path('emp-deactivate/<int:emp_id>/', EmpDeactivate, name="emp_deactivate"),
     path("shift/", Shift.as_view(), name="shift"),
+    path("update-employee/<int:pk>",UpdateEmployee.as_view(), name="update_employee" ),
     
     path("admin-dashboard/", AdminDashboard.as_view(), name = "admin_dashboard"),
 ]   

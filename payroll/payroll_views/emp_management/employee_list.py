@@ -27,10 +27,10 @@ def EmpActivate(request, emp_id):
     emp = User.objects.get(id=emp_id)
     emp.is_active = True
     emp.save()
-    return redirect("all_users")
+    return redirect(f"all_users")
 
 def EmpDeactivate(request, emp_id):
     emp = User.objects.get(id=emp_id)
     emp.is_active = False
     emp.save()
-    return redirect("all_users")
+    return redirect(f"all_users")

@@ -1,3 +1,36 @@
+<td>
+                      <!-- shows to the new employee added in the list -->
+
+                      <!-- Activate the Employee -->
+                      {% if emp.is_active == True %}
+                      <span class="material-symbols-outlined" disabled="disabled" style="font-size:2rem;font-weight:900;color:rgb(12, 186, 12)">
+                        person
+                        </span>
+                      <a href="{% url 'emp_deactivate' emp_id=emp.id %}"><span class="material-symbols-outlined" style="color:red">
+                        person_off
+                        </span></a>
+                      
+
+                    
+                      <!-- Deactivate the Employee -->
+                      {% else %}
+                      <a href="{% url 'emp_activate' emp_id=emp.id %}"><span class="material-symbols-outlined" style="color:rgb(12, 186, 12)">
+                        person
+                        </span></a>
+                        <span class="material-symbols-outlined" disabled="disabled" style="font-size:2rem;font-weight:900;color:red">
+                            person_off
+                            </span>
+                      
+                    
+                    {% endif %}
+                  </td> 
+
+
+
+
+================================================================================================================================
+
+
 {% block style %}
 
 <style>

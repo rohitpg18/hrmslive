@@ -15,8 +15,6 @@ class SelfDetail(View):
             "additional_detail": UserAdditionalDetail.objects.get(emp_user_id=user_id),
             "educational_details": UserEducationDetails.objects.get(emp_user_id=user_id),
             "bank_detail": UserBankDetail.objects.get(emp_user_id=user_id),
-
-
         }
 
         return render(request, 'account/self_services/self_details.html', data)

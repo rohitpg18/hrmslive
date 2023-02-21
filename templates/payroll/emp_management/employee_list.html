@@ -157,7 +157,7 @@
                     <th scope="col">Department</th>
                     <th scope="col">Designation</th>
                     <th scope="col">Joining Date</th>
-                    <th scope="col">Salary</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -169,33 +169,13 @@
                     <td>{{emp.user_basics.department.department_name}}</td>
                     <td>{{emp.user_basics.designation.designation_name}}</td>
                     <td>{{emp.user_basics.date_of_joining}}</td>
-                    <td>{{emp.user_basics.salary}}</td> 
+                    <td style="padding:8px">
+                        {% if emp.is_active == True %} <span class="material-symbols-outlined" disabled="disabled" style="font-size:2rem;font-weight:900;color:rgb(12, 186, 12)"> person </span> 
+                        {% else %} <span class="material-symbols-outlined" disabled="disabled" style="font-size:2rem;font-weight:900;color:red"> person_off</span> {% endif %}
+                    </td> 
                     <td>
-                      <!-- shows to the new employee added in the list -->
-
-                      <!-- Activate the Employee -->
-                      {% if emp.is_active == True %}
-                      <span class="material-symbols-outlined" disabled="disabled" style="font-size:2rem;font-weight:900;color:rgb(12, 186, 12)">
-                        person
-                        </span>
-                      <a href="{% url 'emp_deactivate' emp_id=emp.id %}"><span class="material-symbols-outlined" style="color:red">
-                        person_off
-                        </span></a>
-                      
-
-                    
-                      <!-- Deactivate the Employee -->
-                      {% else %}
-                      <a href="{% url 'emp_activate' emp_id=emp.id %}"><span class="material-symbols-outlined" style="color:rgb(12, 186, 12)">
-                        person
-                        </span></a>
-                        <span class="material-symbols-outlined" disabled="disabled" style="font-size:2rem;font-weight:900;color:red">
-                            person_off
-                            </span>
-                      
-                    
-                    {% endif %}
-                  </td> 
+                        <a href="{% url 'update_employee' pk=emp.id %}"><span class="material-symbols-outlined" style="font-size:1.5rem;font-weight:900;color:blue"> drive_file_rename_outline </span></a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
