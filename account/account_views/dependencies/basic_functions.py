@@ -44,13 +44,10 @@ def user_details(user_id, is_detail_required=False, detail=0, **kwargs):
         if detail == 0:
 
             basic_detail = UserBasicDetails.objects.get(emp_user_id=user_id)
-            additional_detail = UserAdditionalDetail.objects.get(
-                emp_user_id=user_id)
+            additional_detail = UserAdditionalDetail.objects.get(emp_user_id=user_id)
             bank_detail = UserBankDetail.objects.get(emp_user_id=user_id)
-            education_detail = UserEducationDetails.objects.get(
-                emp_user_id=user_id)
-            previous_organisation_detail = PreviousOrganisationDetail.objects.filter(
-                emp_user_id=user_id)
+            education_detail = UserEducationDetails.objects.get(emp_user_id=user_id)
+            previous_organisation_detail = PreviousOrganisationDetail.objects.filter(emp_user_id=user_id)
 
             if basic_detail is None:
                 basic_detail = UserBasicDetails.objects.create(
@@ -77,18 +74,15 @@ def user_details(user_id, is_detail_required=False, detail=0, **kwargs):
         elif detail == 1:
             basic_detail = UserBasicDetails.objects.get(emp_user_id=user_id)
             if basic_detail is None:
-                basic_detail = UserBasicDetails.objects.create(
-                    emp_user_id=user_id)
+                basic_detail = UserBasicDetails.objects.create(emp_user_id=user_id)
 
             return basic_detail
 
         elif detail == 2:
-            additional_detail = UserAdditionalDetail.objects.get(
-                emp_user_id=user_id)
+            additional_detail = UserAdditionalDetail.objects.get(emp_user_id=user_id)
 
             if additional_detail is None:
-                additional_detail = UserAdditionalDetail.objects.create(
-                    emp_user_id=user_id)
+                additional_detail = UserAdditionalDetail.objects.create(emp_user_id=user_id)
 
             return additional_detail
 
@@ -96,28 +90,23 @@ def user_details(user_id, is_detail_required=False, detail=0, **kwargs):
             bank_detail = UserBankDetail.objects.get(emp_user_id=user_id)
 
             if bank_detail is None:
-                bank_detail = UserBankDetail.objects.create(
-                    emp_user_id=user_id)
+                bank_detail = UserBankDetail.objects.create(emp_user_id=user_id)
 
             return bank_detail
 
         elif detail == 4:
-            education_detail = UserEducationDetails.objects.get(
-                emp_user_id=user_id)
+            education_detail = UserEducationDetails.objects.get(emp_user_id=user_id)
 
             if education_detail is None:
-                education_detail = UserEducationDetails.objects.filter(
-                    emp_user_id=user_id)
+                education_detail = UserEducationDetails.objects.filter(emp_user_id=user_id)
 
             return education_detail
 
         elif detail == 5:
-            previous_organisation_detail = PreviousOrganisationDetail.objects.filter(
-                emp_user_id=user_id)
+            previous_organisation_detail = PreviousOrganisationDetail.objects.filter(emp_user_id=user_id)
 
             if previous_organisation_detail is None:
-                previous_organisation_detail = PreviousOrganisationDetail.objects.filter(
-                    emp_user_id=user_id)
+                previous_organisation_detail = PreviousOrganisationDetail.objects.filter(emp_user_id=user_id)
             return previous_organisation_detail
 
         else:
@@ -167,7 +156,7 @@ def create_month_year_formate(date=0, is_current_month=True, month=0):
 
         else:
             date = datetime.now()
-            date = date + relativedelta(months=+month)
+            date = date + relativedelta(months=-month)
 
             return str(date.strftime('%B')) + str(date.year)
 
@@ -203,12 +192,14 @@ def monthly_leave_count(user_id, month_name=0):
 
     leave_count = LeaveCount.objects.filter(emp_user_id=user_id, month=month)
 
+
     if not leave_count.exists():
 
         preview_month = get_month_year(create_month_year_formate(month=1))
-
         pre_month_leave_count = LeaveCount.objects.filter(emp_user_id=user_id, month=preview_month.id)
 
+        print(pre_month_leave_count)
+        
         if not pre_month_leave_count.exists():
             leave_count = LeaveCount.objects.create(emp_user_id=user_id, month=get_month_year(), sl_count=2, pl_count=2, cl_count=2)
             return leave_count
@@ -219,7 +210,6 @@ def monthly_leave_count(user_id, month_name=0):
             cl_count = 2 + pre_month_leave_count[0].cl_count
 
             leave_count = LeaveCount.objects.create(emp_user_id=user_id, month=get_month_year(), sl_count=sl_count, pl_count=pl_count, cl_count=cl_count)
-
             return leave_count
 
     else:
