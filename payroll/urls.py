@@ -23,6 +23,13 @@ urlpatterns = [
     path("update-employee/<int:pk>",UpdateEmployee.as_view(), name="update_employee" ),
     path("policy/", Policy.as_view(), name="policy"),
     path("employee-leave-history/", EmployeeLeavesHistory.as_view(), name="employee_leave_history"),
+    path("attendance-list/", AttendanceList.as_view(), name="attendance_list"),
+    path("emp-attendance-history/<str:pk>/", AttendanceHistoryEmp.as_view(), name="emp_attendance_history"),
+    path("team-leader-dashboard/", AdminDashboard.as_view(), name = "team_leader_dashboard"),
     
-    path("admin-dashboard/", AdminDashboard.as_view(), name = "admin_dashboard"),
-]   
+    # HR dashboards
+    path("ems-dashboard/", HREMSDashboard.as_view(), name = "ems_dashboard"),
+    path("leaves-dashboard/", HRLeavesDashboard.as_view(), name='leaves_dashboard'),
+    path("attendance-dashboard/", HRAttendanceDashboard.as_view(), name='attendance_dashboard'),
+    
+]

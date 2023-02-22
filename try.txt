@@ -1,3 +1,27 @@
+font-family: "Lucida Grande", monospace;
+
+
+
+
+
+============================================================================================================================================================================================
+
+       <div class="emplist_head">
+        <p class="main-heading"></p> 
+        <form class="emp_details" action="{% url 'all_users' %}" method="GET" enctype="multipart/form-data"> {% csrf_token %}   
+        <select class="options" id="department_name" name="department_name" >
+            <option selected disabled>All Departments</option>
+              {% for dept in departments %}
+              <option value="{{dept.department_name}}">{{dept.department_name}}</option>
+              {% endfor %}
+          </select> 
+          <button type="submit" class="btn btn-primary btn-sm mx-3">Filter Data</button>
+
+        </form>
+        </div>
+
+
+===============================================================================================================================================================================================
 <td>
                       <!-- shows to the new employee added in the list -->
 

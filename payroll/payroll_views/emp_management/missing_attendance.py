@@ -43,9 +43,9 @@ class MissingAttendanceApplicationsHistory(View):
             missing_applications_list=missing_applications_list.union(MissingAttendance.objects.filter(emp_user_id=emp_id))
             
             
-        if len(missing_applications_list) <= 0:
+        if len(missing_applications_list) < 1:
             messages.warning(request, "Missing attendance applications not available")
-            return redirect('admin_dashboard')
+            return redirect('team_leader_dashboard')
         
         data={
             'missing_applications_list':missing_applications_list,

@@ -1,4 +1,4 @@
-{% extends 'profile_basic.html' %}
+{% extends 'hr_profile_basic.html' %}
 {% load static %}
 
 {% block tag %}
@@ -77,7 +77,6 @@
 
 
     .table thead tr th {
-        color: #387EF9;
         font-weight: 600;
         border: none;
     }
@@ -145,7 +144,6 @@
 
     .material-symbols-outlined {
         padding: 0.3em;
-        color: #444;
         cursor: pointer;
     }
 
@@ -162,13 +160,21 @@
 <section class="user-info">
     <div class="basic_info">
 
-        <p class="main-heading">Shift Details</p>
+        <div class="head-card">
+            <h4>Shift Details</h4>
+            <a href="{% url 'ems_dashboard' %}">
+                Back
+                <span class="material-symbols-outlined mx-2">
+                    undo
+                </span>
+            </a>
+        </div>
 
-        <form class="user_input_form" action="{% url 'shift' %}" method="post">{% csrf_token %}
+        <form class="user_input_form my-lg-5" action="{% url 'shift' %}" method="post">{% csrf_token %}
 
 
             <div class="input_box ">
-                <p class="input_title">Designation Name</p>
+                <p class="input_title">Shift Name</p>
                 <input type="hidden" name="des_id" >
                 <input type="text" class="input_value" id="reason" name="sh_name" placeholder="Enter a shift"
                     required>
@@ -200,7 +206,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Sr. No.</th>
                 <th scope="col">Shift Name</th>
                 <th scope="col">In time</th>
                 <th scope="col">Out time</th>
@@ -272,6 +278,9 @@
 
 {% block js %}
 <script>
+
+    document.getElementById('dashboard').classList.add('link1');
+
     function editDes(id, action) {
         var edit_button = document.getElementById('edit_button' + id);
         var cancel_button = document.getElementById('cancel_button' + id);

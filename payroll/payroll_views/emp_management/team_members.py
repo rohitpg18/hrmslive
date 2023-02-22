@@ -7,8 +7,8 @@ class TeamMembers(View):
         teams = EmployeePermissions.is_team_leader(request)
         if  teams == False:
             messages.warning(request, 'Teams Not Exists')
-            return redirect('admin_dashboard')
-        
+            return redirect('team_leader_dashboard')
+        print(teams)
         team_employees=set()
         
         for team in teams:

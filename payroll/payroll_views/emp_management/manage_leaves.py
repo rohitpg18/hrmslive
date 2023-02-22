@@ -46,7 +46,7 @@ class ApproveLeaves(View):
         
         if not leave_application.exists():
             messages.error(request, 'Leave application not found')
-            return redirect('leave_applications')
+            return redirect('employee_leave_history')
         else:
             leave_application = LeaveApplication.objects.get(id=pk)
         
@@ -151,10 +151,10 @@ class ApproveLeaves(View):
             
 
             messages.success(request, "leave application approved")
-            return redirect('leave_applications')
+            return redirect('employee_leave_history')
             
         else:
             messages.warning(request, "Invalid Operation")
-            return redirect('leave_applications')
+            return redirect('employee_leave_history')
         
-        return redirect('leave_applications')
+        return redirect('employee_leave_history')

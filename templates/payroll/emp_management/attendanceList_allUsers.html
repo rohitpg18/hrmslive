@@ -6,7 +6,7 @@
 <link href="{%static 'css/forms.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : Leaves Applications {% endblock %}</title>
+<title>{% block title %} HRMS : Employees Attendance History {% endblock %}</title>
 
 {% block style %}
 
@@ -72,8 +72,18 @@
 
     .table thead tr {
         color: #387EF9;
-        font-weight: 600;
+        font-weight: 100;
+        font-size:20;
         border: none;
+    }
+
+    .table tbody td {
+        border: none;
+        padding: 15px;
+        font-size: 0.9rem;
+        background: #fff;
+        text-align: center;
+        font-weight: 350;
     }
 
     .table thead tr th {
@@ -100,8 +110,22 @@
         color: #fff;
         background-color: #387EF9;
         transition: 0.3s linear;
+        
+    }
+        
+    .emplist_head{
+        display : flex;
 
     }
+    .emp_details{
+        padding: 2rem;
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        overflow: auto;
+}
 </style>
 
 {% endblock %}
@@ -113,8 +137,8 @@
     <div class="basic_info">
 
         <div class="head-card">
-            <h4>Leave Applications</h4>
-            <a href="{% url 'leaves_dashboard' %}">
+            <h4>Employees Attendance</h4>
+            <a href="{% url 'attendance_dashboard' %}">
                 Back
                 <span class="material-symbols-outlined mx-2">
                     undo
@@ -123,56 +147,43 @@
         </div>
 
 
+        <div class="emplist_head">
+            <!-- <p class="main-heading">Employees List</p>  -->
+            <form class="emp_details" action="{% url 'attendance_list' %}" method="GET" enctype="multipart/form-data"> {% csrf_token %}   
+            <select class="options" id="department_name" name="department_name" >
+                <option selected disabled>All Departments</option>
+                  {% for dept in departments %}
+                  <option value="{{dept.department_name}}">{{dept.department_name}}</option>
+                  {% endfor %}
+              </select> 
+              <button type="submit" class="btn btn-primary btn-sm mx-3">Filter Data</button>
+    
+            </form>
+            </div>
 
-        <table class="table my-lg-5">
-            <thead>
+
+        <table class="table">
+            <thead >
                 <tr>
-                    <th scope="col">Emp ID</th>
-                    <th scope="col">Date of Apply</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">No of Days</th>
-                    <th scope="col">Leave Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Approved By</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                {% for leaves in leave_history %}
+                {% for emp in employees %}
                 <tr>
-                    <th>{{leaves.emp_user.username}}</th>
-                    <td>{{leaves.date_of_apply}}</td>
-                    <td>{{leaves.start_date}}</td>
-                    <td>{{leaves.end_date}}</td>
-                    <td>{{leaves.no_of_days}}</td>
-                    <td>{{leaves.type}}</td>
+                    <td>{{emp.username}}</td>
+                    <td>{{emp.get_full_name}}</td>
+                    <td>{{emp.user_basics.department.department_name}}</td>
+                    <td>{{emp.user_basics.designation.designation_name}}</td>
                     <td>
-                        {% if leaves.is_approved == True %}
-                        <span class="material-symbols-outlined mx-2"
-                            style="font-size:1.8rem;font-weight:700;color:rgb(12, 186, 12);">
-                            task_alt
-                        </span>
-
-
-                        {% else %}
-                        <span class="material-symbols-outlined" style="font-size:1.8rem;font-weight:700;color:#FFB302">
-                            hourglass_top
-                        </span>
-                        {% endif %}
+                        <a href="{% url 'emp_attendance_history' pk=emp.username %}"><button type="button" class="btn btn-success btn-sm">View Attendance</button></a>
                     </td>
-                    <td>
-                        {% if leaves.is_approved == True %}
-                        {{leaves.approved_by.get_full_name|truncatechars:10}}
-                        {% else %}
-                        <a href="{% url 'leave_applications' %}{{leaves.id}}"><span class="material-symbols-outlined" style="font-size:1.8rem;font-weight:700;color:#008080;">
-                            visibility
-                        </span></a>
-                        {% endif %}
-                    </td>
-
                 </tr>
                 {% endfor %}
-
             </tbody>
         </table>
 
@@ -180,12 +191,11 @@
     </div>
 </section>
 
-
 {% endblock %}
 
 
 {% block js %}
 <script>
-    document.getElementById('leaves_dashboard').classList.add('link1');
+    document.getElementById('attendance_dashboard').classList.add('link1');
 </script>
 {% endblock %}

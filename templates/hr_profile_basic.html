@@ -279,16 +279,34 @@
         <div class="profile-navigations">
             <ul class="profile-navigation-links">
 
-                <a href="{% url 'self_details' %}">
-                    <li class="profile-navigation-link" id="self-detail">Details
+                <a href="#">
+                    <li class="profile-navigation-link" id="ems">HR Analytics
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
                         </span>
                     </li>
                 </a>
 
-                <a href="{% url 'self_attendance' %}">
-                    <li class="profile-navigation-link" id="self-attendance">Attendance
+                <a href="{% url 'ems_dashboard' %}">
+                    <li class="profile-navigation-link" id="dashboard">EMS
+                        <span class="material-symbols-outlined">
+                            keyboard_double_arrow_right
+                        </span>
+                    </li>
+                </a>
+
+                <a href="{% url 'signup' %}">
+                    <li class="profile-navigation-link" id="create-account">Create Account
+
+                        <span class="material-symbols-outlined">
+                            keyboard_double_arrow_right
+                        </span>
+
+                    </li>
+                </a>
+
+                <a href="{% url 'payroll' %}">
+                    <li class="profile-navigation-link" id="payroll">Payroll
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
                         </span>
@@ -296,8 +314,8 @@
                 </a>
 
 
-                <a href="{% url 'self_leave' %}">
-                    <li class="profile-navigation-link" id="self-leave">Leaves
+                <a href="{% url 'leaves_dashboard' %}">
+                    <li class="profile-navigation-link" id="leaves_dashboard">Leaves Approval
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
                         </span>
@@ -305,8 +323,8 @@
                 </a>
 
 
-                <a href="{% url 'self_salary' %}">
-                    <li class="profile-navigation-link" id="self-salary">Salary
+                <a href="{% url 'attendance_dashboard' %}">
+                    <li class="profile-navigation-link" id="attendance_dashboard">Attendance Data
 
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right
@@ -315,36 +333,10 @@
                     </li>
                 </a>
                     
-                {% if request.user.employee_permissions_user.can_approve_attendance == True %}
 
-                <a href="{% url 'team_leader_dashboard' %}">
-                    <li class="profile-navigation-link" id="dashboard">Team Details
-                        <span class="material-symbols-outlined">
-                            keyboard_double_arrow_right
-                        </span>
 
-                    </li>
-                </a>
-                
-                {% endif %}
-
-                
-                {% if request.user.user_basics.department.department_name == "Human Resource" %}
-                
-                <a href="{% url 'ems_dashboard' %}">
-                    <li class="profile-navigation-link" id="policy">Dashboard
-                        
-                        <span class="material-symbols-outlined">
-                            keyboard_double_arrow_right
-                        </span>
-                        
-                    </li>
-                </a>
-                
-                {% endif %}
-
-                <a href="{% url 'policy' %}">
-                    <li class="profile-navigation-link" id="policy">Policy
+                <a href="{% url 'self_details' %}">
+                    <li class="profile-navigation-link" id="attendance_dashboard">Back to Profile
 
                         <span class="material-symbols-outlined">
                             keyboard_double_arrow_right

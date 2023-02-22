@@ -1,4 +1,4 @@
-{% extends 'profile_basic.html' %}
+{% extends 'hr_profile_basic.html' %}
 {% load static %}
 
 {% block tag %}
@@ -6,7 +6,7 @@
 <link href="{%static 'css/forms.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : Attendance History {% endblock %}</title>
+<title>{% block title %} HRMS : Teams {% endblock %}</title>
 
 {% block style %}
 
@@ -139,7 +139,7 @@
 
         <div class="head-card">
             <h4>Teams Details</h4>
-            <a href="{% url 'admin_dashboard' %}">
+            <a href="{% url 'ems_dashboard' %}">
                 Back
                 <span class="material-symbols-outlined mx-2">
                     undo
@@ -238,6 +238,6 @@
 
 {% block js %}
 <script>
-    document.getElementById('self-salary').classList.add('link1');
+    document.getElementById('dashboard').classList.add('link1');
 </script>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'profile_basic.html' %}
+{% extends 'hr_profile_basic.html' %}
 {% load static %}
 
 {% block tag %}
@@ -120,7 +120,7 @@
     .emp_details{
         padding: 2rem;
         display: flex;
-        justify-content:flex-end;
+        justify-content:end;
         align-items: center;
         flex-wrap: wrap;
         width: 100%;
@@ -134,8 +134,19 @@
 
 <section class="user-info">
     <div class="basic_info">
+
+        <div class="head-card">
+            <h4>Employee List</h4>
+            <a href="{% url 'ems_dashboard' %}">
+                Back
+                <span class="material-symbols-outlined mx-2">
+                    undo
+                </span>
+            </a>
+        </div>
+
         <div class="emplist_head">
-        <p class="main-heading">Employees List</p> 
+        <p class="main-heading"></p> 
         <form class="emp_details" action="{% url 'all_users' %}" method="GET" enctype="multipart/form-data"> {% csrf_token %}   
         <select class="options" id="department_name" name="department_name" >
             <option selected disabled>All Departments</option>
@@ -191,6 +202,6 @@
 
 {% block js %}
 <script>
-    document.getElementById('self-salary').classList.add('link1');
+    document.getElementById('dashboard').classList.add('link1');
 </script>
 {% endblock %}

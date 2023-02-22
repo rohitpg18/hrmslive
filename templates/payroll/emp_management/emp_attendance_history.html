@@ -1,0 +1,149 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Attendance History {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    .user-info {
+        padding: 2rem;
+        overflow: auto;
+    }
+
+    .user_info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .basic_info {
+        width: 100%;
+    }
+
+    .main-heading {
+        margin: 0;
+        padding: 2.5rem 1rem;
+    }
+
+    .user_info .info {
+        max-width: 40%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user_info .info .info-description {
+        margin-right: 1rem;
+
+    }
+
+    .user_info .info p {
+        margin: 0;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+
+    .details {
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .info_card {
+        border: 1px solid #387EF9;
+        padding: 1em;
+        padding-bottom: 0;
+        width: 100%;
+
+    }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <div class="basic_info">
+
+        <div class="head-card">
+            <h4>Attendance History ( {{month}} )</h4>
+            <a href="{% url 'attendance_list' %}">
+                Back
+                <span class="material-symbols-outlined mx-2">
+                    undo
+                </span>
+            </a>
+        </div>
+
+        <div class="user_info my-lg-5">
+            <div class="info">
+                <p class="info-title">Present Days</p>
+                <p class="info-description" id="sl">
+                    7
+                </p>
+            </div>
+
+            <div class="info">
+                <p class="info-title">Absent Days</p>
+                <p class="info-description" id="lop">
+                    0
+                </p>
+            </div>
+        </div> 
+
+        <table class="table my-lg-5">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Day</th>
+                    <th scope="col">In Time</th>
+                    <th scope="col">Out Time</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                {% for data in monthly_data %}
+                <tr>
+                    <td>{{data.date}}</td>
+                    <td>{{data.day}}</td>
+                    <td>{{data.login_time}}</td>
+                    <td>{{data.logout_time}}</td>
+                    <td>{{data.status}}</td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    document.getElementById('self-attendance').classList.add('link1');
+</script>
+{% endblock %}
+
+emp_attendance_history.html

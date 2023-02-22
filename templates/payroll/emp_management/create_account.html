@@ -1,4 +1,4 @@
-{% extends 'profile_basic.html' %}
+{% extends 'hr_profile_basic.html' %}
 {% load static %}
 
 {% block tag %}
@@ -75,7 +75,7 @@
     <form class="details" action="{% url 'signup' %}" method="post">{% csrf_token %}
 
         <div class="heading">
-            <h3 class="user-profile-update-title">Create Employee Account ( Sign Up)</h3>
+            <h3 class="user-profile-update-title">Create Employee Account</h3>
         </div>
     
         <div class="info">

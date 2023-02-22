@@ -192,12 +192,12 @@ class EmployeePermissions(models.Model):
     
     def is_team_leader (request):
         team_leader_permissions = EmployeePermissions.objects.get(emp_user = request.user)
-        teams = Teams.objects.filter(leader_name = request.user)
+        teams = Teams.objects.filter(leader_name_id = request.user.id)
         
         if team_leader_permissions is None:
             return False
         
-        elif team_leader_permissions.can_approve_attendance == True and  teams.count()>0:
+        elif team_leader_permissions.can_approve_attendance == True and teams.count()>0:
             return teams
         
         else:

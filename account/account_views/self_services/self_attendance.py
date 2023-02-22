@@ -352,6 +352,8 @@ class AttendanceHistory(View):
     @method_decorator(login_required(login_url='login'))
     def get(self, request):
         user_id = request.user.id
+        
+        print(user_id)
 
         month_format = str(get_month_year())
         month_name = month_format[0:-4] + ' ' + month_format[-4:]
