@@ -42,8 +42,7 @@ class ApproveAttendance(View):
     @method_decorator(login_required(login_url='login'))
     def post(self, request):
         application_id = request.POST.get('application_id')
-        daily_attendance = DailyAttendance.objects.filter(
-            id=application_id).exists()
+        daily_attendance = DailyAttendance.objects.filter(id=application_id).exists()
         if daily_attendance:
             application = DailyAttendance.objects.get(id=application_id)
             application.approved_by_id = request.user.id

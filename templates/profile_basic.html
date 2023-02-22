@@ -315,6 +315,9 @@
                     </li>
                 </a>
 
+                
+                {% if request.user.employee_permissions_user.can_approve_attendance == True %}                                     
+
                 <a href="{% url 'admin_dashboard' %}">
                     <li class="profile-navigation-link" id="dashboard">Dashboard
                         <span class="material-symbols-outlined">
@@ -323,6 +326,8 @@
 
                     </li>
                 </a>
+
+                {% endif %}
 
                 <a href="{% url 'policy' %}">
                     <li class="profile-navigation-link" id="policy">Policy
