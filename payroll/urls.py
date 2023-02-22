@@ -22,6 +22,7 @@ urlpatterns = [
     path("shift/", Shift.as_view(), name="shift"),
     path("update-employee/<int:pk>",UpdateEmployee.as_view(), name="update_employee" ),
     path("policy/", Policy.as_view(), name="policy"),
+    path("employee-leave-history/", EmployeeLeavesHistory.as_view(), name="employee_leave_history"),
     
     path("admin-dashboard/", AdminDashboard.as_view(), name = "admin_dashboard"),
 ]   

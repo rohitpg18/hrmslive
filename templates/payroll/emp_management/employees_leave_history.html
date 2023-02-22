@@ -1,0 +1,191 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/forms.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Attendance History {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    .user-info {
+        padding: 2rem;
+        overflow: auto;
+    }
+
+    .user_info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .basic_info {
+        width: 100%;
+    }
+
+    .main-heading {
+        margin: 0;
+        padding: 2.5rem 1rem;
+    }
+
+    .user_info .info {
+        max-width: 40%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user_info .info .info-description {
+        margin-right: 1rem;
+
+    }
+
+    .user_info .info p {
+        margin: 0;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+
+    .details {
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .info_card {
+        border: 1px solid #387EF9;
+        padding: 1em;
+        padding-bottom: 0;
+        width: 100%;
+
+    }
+
+    .table thead tr {
+        color: #387EF9;
+        font-weight: 600;
+        border: none;
+    }
+
+    .table thead tr th {
+        border: none;
+    }
+
+    .table .next-btn2 {
+        margin: 0;
+        padding: 0.2em 1em;
+        font-size: 1em;
+        font-weight: 500;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+
+    .table .next-btn2:hover {
+        background: #fff;
+        color: #387EF9;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+
+    .table thead tr:hover {
+        color: #fff;
+        background-color: #387EF9;
+        transition: 0.3s linear;
+
+    }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <div class="basic_info">
+
+        <div class="head-card">
+            <h4>Leave Applications</h4>
+            <a href="{% url 'self_leave' %}">
+                Back
+                <span class="material-symbols-outlined mx-2">
+                    undo
+                </span>
+            </a>
+        </div>
+
+
+
+        <table class="table my-lg-5">
+            <thead>
+                <tr>
+                    <th scope="col">Emp ID</th>
+                    <th scope="col">Date of Apply</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">No of Days</th>
+                    <th scope="col">Leave Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Approved By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leaves in leave_history %}
+                <tr>
+                    <th>{{leaves.emp_user.username}}</th>
+                    <td>{{leaves.date_of_apply}}</td>
+                    <td>{{leaves.start_date}}</td>
+                    <td>{{leaves.end_date}}</td>
+                    <td>{{leaves.no_of_days}}</td>
+                    <td>{{leaves.type}}</td>
+                    <td>
+                        {% if leaves.is_approved == True %}
+                        <span class="material-symbols-outlined mx-2"
+                            style="font-size:1.8rem;font-weight:700;color:rgb(12, 186, 12);">
+                            task_alt
+                        </span>
+
+
+                        {% else %}
+                        <span class="material-symbols-outlined" style="font-size:1.8rem;font-weight:700;color:#FFB302">
+                            hourglass_top
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if leaves.is_approved == True %}
+                        {{leaves.approved_by.get_full_name|truncatechars:10}}
+                        {% else %}
+                        <a href="{% url 'leave_applications' %}{{leaves.id}}"><span class="material-symbols-outlined" style="font-size:1.8rem;font-weight:700;color:#008080;">
+                            visibility
+                        </span></a>
+                        {% endif %}
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    document.getElementById('self-leave').classList.add('link1');
+</script>
+{% endblock %}

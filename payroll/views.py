@@ -11,6 +11,7 @@ from payroll.payroll_views.emp_management.employee_list import *
 from payroll.payroll_views.emp_management.shift import *
 from payroll.payroll_views.emp_management.update_employee import *
 from payroll.payroll_views.emp_management.verify_details import *
+from payroll.payroll_views.emp_management.employees_leave_history import *
 
 
 from payroll.payroll_views.admin_dashboards.admin_dashboard import *
