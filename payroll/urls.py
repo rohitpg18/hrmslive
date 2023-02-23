@@ -26,10 +26,13 @@ urlpatterns = [
     path("attendance-list/", AttendanceList.as_view(), name="attendance_list"),
     path("emp-attendance-history/<str:pk>/", AttendanceHistoryEmp.as_view(), name="emp_attendance_history"),
     path("team-leader-dashboard/", AdminDashboard.as_view(), name = "team_leader_dashboard"),
+    path('add-team/', AddTeam.as_view(), name = "add_team"),
+    path("delete-team/<int:id>/", DeleteTeam.as_view(), name="delete_team"),
     
     # HR dashboards
     path("ems-dashboard/", HREMSDashboard.as_view(), name = "ems_dashboard"),
     path("leaves-dashboard/", HRLeavesDashboard.as_view(), name='leaves_dashboard'),
     path("attendance-dashboard/", HRAttendanceDashboard.as_view(), name='attendance_dashboard'),
+    
     
 ]

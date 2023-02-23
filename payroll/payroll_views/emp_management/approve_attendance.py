@@ -30,7 +30,8 @@ class ApproveAttendance(View):
             
         if len(emp_list) < 1:
             messages.warning(request, "Daily attendance applications not available")
-            return redirect('team_leader_dashboard')
+            
+            return redirect('team_leader_dashboard')    
         
         data={
             'employees':emp_list,

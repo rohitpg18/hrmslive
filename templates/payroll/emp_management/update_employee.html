@@ -72,11 +72,19 @@
 
 
 <section class="user-info">
-    <form class="details" action="{% url 'update_employee' pk=emp_user.id %}" method="post">{% csrf_token %}
+    <div class="basic_info">
 
-        <div class="heading">
-            <h3 class="user-profile-update-title">Update Employee Details</h3>
-        </div>
+    <div class="head-card">
+        <h4>Update Employee Details</h4>
+        <a href="{% url 'all_users' %}">
+            Back
+            <span class="material-symbols-outlined mx-2">
+                undo
+            </span>
+        </a>
+    </div>
+
+    <form class="details" action="{% url 'update_employee' pk=emp_user.id %}" method="post">{% csrf_token %}
     
         <div class="info">
             <p class="info-title">First Name</p>
@@ -266,6 +274,7 @@
         </div>
     
     </form>
+    </div>
 </section>
 
 
@@ -277,7 +286,7 @@
 
     document.getElementById('dashboard').classList.add('link1');
 
-    document.getElementById('create-account').classList.add('link1');
+
     window.load= paymentType();
 
     function paymentType(){
