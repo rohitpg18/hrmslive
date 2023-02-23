@@ -37,9 +37,7 @@ class UpdateEmployee(View):
             last_name = request.POST['last_name']
 
             designation = request.POST['designation']
-            print(f"designation - {designation}")
             department = request.POST['department']
-            print()
             shift_details = request.POST['shift_details']
 
             date_of_joining = request.POST['date_of_joining']

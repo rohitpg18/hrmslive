@@ -27,7 +27,9 @@ urlpatterns = [
     path("emp-attendance-history/<str:pk>/", AttendanceHistoryEmp.as_view(), name="emp_attendance_history"),
     path("team-leader-dashboard/", AdminDashboard.as_view(), name = "team_leader_dashboard"),
     path('add-team/', AddTeam.as_view(), name = "add_team"),
+    path("update-team/<int:id>/",UpdateTeam.as_view(), name="update_team"),
     path("delete-team/<int:id>/", DeleteTeam.as_view(), name="delete_team"),
+    path("today-attendance-list/", TodayAttendanceList.as_view(), name="today_attendance_list"),
     
     # HR dashboards
     path("ems-dashboard/", HREMSDashboard.as_view(), name = "ems_dashboard"),
