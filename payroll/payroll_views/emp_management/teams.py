@@ -18,7 +18,7 @@ class Team(View):
     
 class AddTeam(View):
     template_name = "payroll/emp_management/add_team.html"
-
+    @method_decorator(login_required(login_url='login'))
     def get(self ,request):
 
         user_id = request.user.id

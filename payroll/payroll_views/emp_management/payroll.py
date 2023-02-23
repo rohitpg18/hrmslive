@@ -31,6 +31,7 @@ class PayrollData(View):
 
 
 class Policy(View):
+    @method_decorator(login_required(login_url='login'))
     def get(self, request, *args, **kwargs):
         
         return render(request, 'payroll\emp_management\policy.html')

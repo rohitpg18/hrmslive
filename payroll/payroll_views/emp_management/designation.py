@@ -3,12 +3,12 @@ from account.account_views.dependencies.basic_functions import *
 
 
 class DesignationDetails(View):
-    
+    @method_decorator(login_required(login_url='login'))
     def get(self, request):
         designation= Designation.objects.all()
         return render(request,'payroll/emp_management/designation.html',{'designations': designation})
     
-
+    @method_decorator(login_required(login_url='login'))
     def post(self, request):
         
         data=request.POST

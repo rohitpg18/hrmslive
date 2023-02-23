@@ -2,11 +2,12 @@ from account.account_views.dependencies.basic_functions import *
 
 
 class Shift(View):
+    @method_decorator(login_required(login_url='login'))
     def get(self, request):
         Shift = UserShiftDetails.objects.all()
         return render(request,'payroll/emp_management/shift.html',{'Shift':Shift})
 
-
+    @method_decorator(login_required(login_url='login'))
     def post(self, request):
         data = request.POST
         
