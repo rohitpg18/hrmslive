@@ -1,7 +1,7 @@
 from account.account_views.dependencies.basic_functions import *
 
 class MissingAttendanceApplications(View):
-    
+    @method_decorator(login_required(login_url='login'))
     def get(self, request):
         
         user_id = request.user.id
@@ -22,7 +22,7 @@ class MissingAttendanceApplications(View):
         
         
 class MissingAttendanceApplicationsHistory(View):
-    
+    @method_decorator(login_required(login_url='login'))
     def get(self, request):
         
         teams = EmployeePermissions.is_team_leader(request)
