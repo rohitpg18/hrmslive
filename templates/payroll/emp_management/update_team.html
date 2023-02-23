@@ -1,0 +1,127 @@
+{% extends 'hr_profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Create Team {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    .profile-navigations .profile-navigation-links .link1 {
+        color: #fff;
+        background-color: #387EF9;
+        transition: all 0.5s ease-out;
+    }
+
+    .profile-navigations .profile-navigation-links .link1 svg {
+        fill: #fff;
+        transition: all 0.5s ease-out;
+    }
+    .details{
+        margin-top: 0;
+        padding-top: 2rem;
+    } 
+
+    .details .permissions {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .details .permissions p {
+        color: #387EF9;
+        font-weight: 500;
+        margin-bottom: 1em;
+        text-transform: uppercase;
+    }
+
+    .details .permissions .check-box-info {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 1rem;
+    }
+
+    .details .permissions .check-box {
+        max-width: 22rem;
+        overflow: hidden;
+    }
+
+    .check-box-square {
+        width: 1.3rem;
+        height: 1.3rem;
+        transform: translateY(25%);
+        margin-right: 1rem;
+    }
+
+    .check-box-label:hover {
+        cursor: pointer;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <form class="details" action="{% url 'add_team' %}" method="POST">{% csrf_token %}
+
+        <div class="heading">
+            <h3 class="user-profile-update-title">Create Team</h3>
+        </div>
+    
+        <div class="info">
+            <p class="info-title">Team Name</p>
+            <input type="text" minlength="2" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))' class="form-control" id="team_name" name="team_name" placeholder="Enter team name"
+                required>
+            <!-- <small class="error" *ngIf="Profile.value['address_line1']==0">Address Line1 is required</small> -->
+        </div>
+    
+        <div class="info">
+            <p for="tl_name" class="info-title">Team Leader</p>
+            <select class="options" name="tl_name" required>
+                <option selected disabled>Choose TL......</option>
+                {% for tl in team_leaders %}
+                <option value = "{{tl.id}}"> {{tl.emp_user.username}} {{tl.emp_user.get_full_name}} {{tl.designation}}</option>
+                {% endfor %}
+            </select>
+            <!-- <small class="error" *ngIf="Profile.value['state']=='S'">State is required</small> -->
+        </div>
+    
+    
+        <div class="permissions">
+            <div class="check-box-info">
+                <p class="info-title">Select Team Members</p>
+    
+                {% for tm in team_members %}
+                <div class="check-box">
+                    <input type="checkbox" class="check-box-square" id="team_members" name={{tm.username}} value={{tm.id}}>
+                    <label class="check-box-label" for="team_members"><b>{{tm.username}}</b> {{tm.first_name}} {{tm.last_name}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>   
+        <!-- disabled -->
+        <div class="btns">
+            <button type="submit" class="next-btn2">Create Team</button>
+        </div>
+    
+    </form>
+</section>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    document.getElementById('dashboard').classList.add('link1');
+</script>
+{% endblock %}

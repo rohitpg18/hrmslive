@@ -30,7 +30,6 @@
 
     .main-heading {
         margin: 0;
-        padding: 2.5rem 1rem;
     }
 
     .user_info .info {
@@ -76,12 +75,6 @@
 
 
 
-    .table thead tr th {
-        font-weight: 600;
-        border: none;
-    }
-
-
     .table .next-btn2 {
         margin: 0;
         padding: 0.2em 1em;
@@ -106,12 +99,17 @@
         color: #444;
 
     }
+    .table thead th {
+        text-align: left;
+    }
 
     .table tbody td {
-        padding: 0.5em 0.3em;
-        vertical-align: baseline;
+        padding: 0.5em 25px;
+        vertical-align: middle; 
         border: none;
+        text-align: left;
     }
+
     .table tr{
         border-bottom: 1px solid #ddd;
     }
@@ -142,8 +140,9 @@
         border-radius: 50%;
     }
 
-    .material-symbols-outlined {
+    .table .material-symbols-outlined {
         padding: 0.3em;
+        color: #444;
         cursor: pointer;
     }
 
@@ -190,7 +189,6 @@
 
 {% if designations %}
 
-    <p class="main-heading">Designation list</p>
     <table class="table">
         <thead>
             <tr>

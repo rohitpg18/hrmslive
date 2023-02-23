@@ -180,7 +180,7 @@
                     <td>{{emp.user_basics.department.department_name}}</td>
                     <td>{{emp.user_basics.designation.designation_name}}</td>
                     <td>
-                        <a href="{% url 'emp_attendance_history' pk=emp.username %}"><button type="button" class="btn btn-success btn-sm">View Attendance</button></a>
+                        <a href="{% url 'emp_attendance_history' pk=emp.username %}"><img src="/static/images/list_icon.png" width="28" height="28" alt=""></a>
                     </td>
                 </tr>
                 {% endfor %}

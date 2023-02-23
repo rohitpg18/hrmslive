@@ -9,12 +9,12 @@ class VerifyDetails(View):
         
         if request.user.employee_permissions_user.can_verify_emp_details == False:
             messages.warning(request, "You don't have permission")
-            return redirect('admin_dashboard')
+            return redirect('ems_dashboard')
         
         verify_emp_list = UserBasicDetails.objects.filter(is_requested=True,is_verify=False)
-        if verify_emp_list.count() <= 0:
+        if verify_emp_list.count() < 1:
             messages.warning(request, 'applications not found')
-            return redirect('admin_dashboard')
+            return redirect('ems_dashboard')
         
 
         
