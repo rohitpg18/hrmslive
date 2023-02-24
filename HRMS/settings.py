@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "account",
     "payroll",
-    "crispy_forms",
 ]
 
 CRISPY_TEMPLATE_PACK="bootstrap4"

@@ -1,6 +1,5 @@
 {% extends 'hr_profile_basic.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
 
 {% block tag %}
 <link href="{%static 'css/self-details.css'%}" rel="stylesheet">
@@ -22,10 +21,11 @@
         fill: #fff;
         transition: all 0.5s ease-out;
     }
-    .details{
+
+    .details {
         margin-top: 0;
         padding-top: 2rem;
-    } 
+    }
 
     .details .permissions {
         width: 100%;
@@ -73,52 +73,72 @@
 
 
 
+
 <section class="user-info">
-    <form class="details"  action="{% url 'update_team' team.id %}"method="POST">{% csrf_token %}
+    <form class="details" method="POST" action="{% url 'update_team' team.id %}">{% csrf_token %}
 
-    <div class="heading">
-        <h3 class="user-profile-update-title">Create Team</h3>
-    </div>
+        <div class="heading">
+            <h3 class="user-profile-update-title">Update Team</h3>
+        </div>
 
-    <div class="mb-3">
-        <label for="team_name" class="form-label">Team Name</label>
-        <input type="text" class="form-control" id="team_name" name="team_name" value="{{team.team_name}}">
-    </div>
+        <div class="info">
+            <p class="info-title">Team Name</p>
+            <input type="text" name="team_name" value="{{team.team_name}}" maxlength="100" placeholder="Enter team name"
+                id="id_team_name" required>
+        </div>
 
-    <div class="mb-3">
-        <label for="tl_name" class="form-label">Team Leader</label>
-        <select class="form-select" id="tl_name" name="tl_name" value="{{team.tl_name}}" required>
-          {% for tl in team_leaders %}
-          <option value = "{{tl.id}}"> {{tl.emp_user.username}}  -  {{tl.emp_user.get_full_name}}  -  {{tl.designation}}</option>
-          {% endfor %}
-        </select>
-      </div>
+        <div class="info">
+            <p for="leader_name" class="info-title">Team Leader</p>
+
+            <select class="options" name="leader_name" required id="id_leader_name">
+                <option value="" disabled>---------</option>
+                {% for leader in employees %}
+
+                {% if leader == team.leader_name %}
+
+                <option value="{{leader.id}}" selected><span style="padding-right:1rem;"> {{leader.get_full_name}}
+                    </span> ( {{leader}} )</option>
+                {% else %}
+                <option value="{{leader.id}}"><span style="padding-right:1rem;"> {{leader.get_full_name}} </span> (
+                    {{leader}} )</option>
+                {% endif %}
+
+                {% endfor %}
+            </select>
+
+        </div>
 
 
-      <div class="mb-3">
-        <label for="team_members" class="form-label">Team Members</label>
-        <ul>
-        {% for tm in team_members %}
 
-        {% if tm in seleted_team_members %}
-        
-        <li><input type='checkbox' name={{tm.username}} value={{tm.id}} checked >{{tm.username}}-{{tm.first_name}}{{tm.last_name}}</li>
 
-        {%else %}
-        <li><input type='checkbox' name={{tm.username}} value={{tm.id}} >{{tm.username}}-{{tm.first_name}}{{tm.last_name}}</li>
-        {% endif %}
-        {% endfor %}
-        </ul>
-      </div>
+        <div class="permissions">
+            <div class="check-box-info">
+                <p class="info-title">Select Team Members</p>
+                
+                {% for employee in employees %}
+                <div class="check-box">
 
-        
+                    {% if employee in team.employees.all %}
 
-    
-        
-    <div class="btns">
-        <button type="submit" class="next-btn2">Update Team</button>
-    </div>
-    
+                    <input type="checkbox" checked class="check-box-square" id="employee{{employee.id}}" name={{employee.username}} value="True">
+
+                    {% else %}
+
+                    <input type="checkbox" class="check-box-square" id="employee{{employee.id}}" name={{employee.username}} value="True">
+
+                    {% endif %}
+
+                    <label class="check-box-label" for="employee{{employee.id}}">{{employee.get_full_name}} ( {{employee.username}} )</label>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- disabled -->
+        <div class="btns">
+            <button type="submit" class="next-btn2">Update</button>
+        </div>
+
     </form>
 </section>
 

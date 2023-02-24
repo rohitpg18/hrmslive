@@ -33,7 +33,7 @@ class AddTeam(View):
 
             context = {
                 'team_leaders': team_leaders ,
-                'team_members' : team_members
+                'team_members' : team_members ,
             }
             print(context["team_leaders"])
             return render (request, self.template_name , context)
@@ -47,8 +47,10 @@ class AddTeam(View):
         name_of_team = request.POST.get("team_name")
         name_of_tl = request.POST.get('tl_name')
         print(f"this will get from post {name_of_tl}")
+        
         name_of_team_members = [x.username for x in User.objects.all()]
         print(f'name = {name_of_team_members}')
+        
         emp_ids = []
         for x in name_of_team_members:
             emp_ids.append(int(request.POST.get(x))) if request.POST.get(x) else print("")
@@ -79,54 +81,100 @@ class DeleteTeam(View):
     
     
     
-class UpdateTeam(View):
+# class UpdateTeam(View):
 
-    def get(self, request, id):
+#     def get(self, request, id):
 
-        team = Teams.objects.get(id=id)
+#         team = Teams.objects.get(id=id)
 
-        seleted_team_members= team.employees.all()
-        # print(f' members = {seleted_team_members.user_id}')
+#         seleted_team_members= team.employees.all()
+#         # print(f' members = {seleted_team_members.user_id}')
 
-        team_leaders = UserBasicDetails.objects.filter(designation__designation_name__iendswith='Leader')
+#         team_leaders = UserBasicDetails.objects.filter(designation__designation_name__iendswith='Leader')
 
-        team_members = User.objects.all()
+#         team_members = User.objects.all()
         
 
-        return render(request, 'payroll/emp_management/update_team.html' , {'team' : team, 'team_leaders' : team_leaders, 'team_members' : team_members,"seleted_team_members":seleted_team_members})
+#         return render(request, 'payroll/emp_management/update_team.html' , {'team' : team, 'team_leaders' : team_leaders, 'team_members' : team_members,"seleted_team_members":seleted_team_members})
 
-    def post(self, request, id):
+#     def post(self, request, id):
 
-        team = Teams.objects.get(id=id) 
+#         team = Teams.objects.get(id=id) 
 
-        team.team_name = request.POST.get("team_name")
-        team.leader_name_id = request.POST.get('tl_name')
-        team.employees = [x.username for x in User.objects.all()]
-        print(f'name = {team.employees}')
-        emp_ids = []
-        for x in team.employees:
-            emp_ids.append(int(request.POST.get(x))) if request.POST.get(x) else print("")
-        print(emp_ids)
-        team.save()
+#         team.team_name = request.POST.get("team_name")
+#         team.leader_name_id = request.POST.get('tl_name')
+#         team.employees = [x.username for x in User.objects.all()]
+#         print(f'name = {team.employees}')
+#         emp_ids = []
+#         for x in team.employees:
+#             emp_ids.append(int(request.POST.get(x))) if request.POST.get(x) else print("")
+#         print(emp_ids)
+#         team.save()
 
-        # create_team = Teams.objects.create(team_name = team.name_of_team,tl_name_id = team.name_of_tl)
-        # for x in emp_ids:
-        #     create_team.employees.add(User.objects.get(id = x))
-        # print(create_team)   
+#         # create_team = Teams.objects.create(team_name = team.name_of_team,tl_name_id = team.name_of_tl)
+#         # for x in emp_ids:
+#         #     create_team.employees.add(User.objects.get(id = x))
+#         # print(create_team)   
 
-        # return render(request, 'accounts/user_data/team_list.html' , {'team' : team})
-        return redirect("teams")
+#         # return render(request, 'accounts/user_data/team_list.html' , {'team' : team})
+#         return redirect("teams")
             
-# def UpdateView(request,id,*args,**kwargs):
-#     context = {}
+def UpdateView(request,id,*args,**kwargs):
+    context = {}
     
-#     obj = get_object_or_404(Teams,id=id)
     
-#     form=TeamsForm(request.POST or None,instance=obj)  
     
-#     if form.is_valid():
-#         form.save()
-#         return HttpResponse("Save")
-#     context['form'] = form
     
-#     return render(request, 'payroll/emp_management/update_team.html',context)
+    obj = get_object_or_404(Teams,id=id)
+    
+    form=TeamsForm(request.POST or None,instance=obj)  
+    
+    if form.is_valid():
+        form.save()
+        return redirect('teams')
+    context['form'] = form
+    
+    return render(request, 'payroll/emp_management/update_team.html',context)
+
+
+
+class UpdateTeam(View):
+    
+    def get(self, request, id):
+        
+        
+        
+        data={
+            "team": Teams.objects.get(id=id),
+            'employees':User.objects.all()
+        }
+    
+        return render(request, 'payroll/emp_management/update_team.html',data) 
+        
+    def post(self, request, id):
+        
+        data = request.POST
+        
+        team = Teams.objects.filter(id=id)
+        
+        team.update(team_name= data['team_name'],leader_name=data['leader_name'],is_completed_teams=True)
+
+
+        if not team.exists():
+            messages.error(request,'Team not found')
+            return redirect('teams')
+        
+        for emp in team[0].employees.all():
+            team[0].employees.remove(emp)
+        
+        
+        for key, value in data.items():
+           
+            
+            if data[key] == "True":
+                a=User.objects.get(username=key)
+                team[0].employees.add(a)
+            
+        messages.success(request,'Team Update successfully')
+        
+        return redirect('teams')

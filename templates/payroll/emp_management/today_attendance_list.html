@@ -174,7 +174,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for emp in obj %}
+                {% for emp in present_users %}
                 {% if emp.is_present == True %}
                     <tr>
                         <td>{{forloop.counter}}</td>

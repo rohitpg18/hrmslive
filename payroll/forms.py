@@ -3,5 +3,6 @@ from account.models import Teams
 
 class TeamsForm(forms.ModelForm):
     class Meta:
-        model= Teams
+        model = Teams
         fields = ["team_name", "leader_name", "employees"]
+        

@@ -128,7 +128,7 @@ class AttendanceHistoryEmp(View):
             else:
                 leave = DailyLeave.objects.filter(emp_user__username = pk, date=date)
                 attendance = DailyAttendance.objects.filter(emp_user__username = pk, date=date, is_present=True)
-                print(f"{attendance} today ")
+
                 if  leave.exists() and attendance.exists():
                     
                     if leave[0].date_is_half == True:
@@ -192,14 +192,24 @@ class AttendanceHistoryEmp(View):
                     data["status"]="AB"
                     data["login_time"]="-"
                     data["logout_time"]="-"
-                        
-                
-            
+                    
+                    
+                if leave.exists() and attendance.exists():
+                    user = leave[0].emp_user.username
+                elif leave.exists():
+                    user = leave[0].emp_user.username
+                elif attendance.exists():
+                    user = attendance[0].emp_user.username
+                else:
+                    user = None
+                    
+                    
+
             monthly_data.append(data)
             
     
         
-        return render (request, "payroll/emp_management/emp_attendance_history.html", {'monthly_data':monthly_data, 'month':month_name})
+        return render (request, "payroll/emp_management/emp_attendance_history.html", {'monthly_data':monthly_data, 'month':month_name, 'username':user})
     
     
 class TodayAttendanceList(View):

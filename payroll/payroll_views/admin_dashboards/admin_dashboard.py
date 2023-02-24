@@ -1,13 +1,13 @@
 from account.account_views.dependencies.basic_functions import *
 
 
-class AdminDashboard(View):
+class TeamLeaderDashboard(View):
     @method_decorator(login_required(login_url='login'))
     def get(self, request):
         
         print(EmployeePermissions.is_team_leader(request))
     
-        return render(request, 'payroll/admin_dashboards/admin_dashboard.html')
+        return render(request, 'payroll/admin_dashboards/team_leader_dashboard.html')
     
 class HREMSDashboard(View):
     @method_decorator(login_required(login_url='login'))
