@@ -132,54 +132,7 @@
 
         </div>
 
-        {% if can_mark_attendance %}
 
-        
-        {% if is_requested %}
-        
-
-        <div class="card">
-            <p class="day-and-date">{{day_name}}, {{date}}</p>
-
-            <div class="card-items">
-            
-            <h4 class="info-title">Mark My Todays Out time</h4>
-
-            <form action="{% url 'self_attendance' %}" method="post">{% csrf_token %}
-                <input type="hidden" value="{{request.user.id}}" name="user_id">
-                <button type="submit" class="next_btn2">Mark</button>
-            </form>
-        </div>
-
-        </div>
-
-        {% else %}
-
-        <div class="card">
-            
-            <p class="day-and-date">{{day_name}}, {{date}}</p>
-            <div class="card-items">
-                
-                
-                <h4 class="info-title">Mark My Todays Attendance</h4>
-                <form action="{% url 'self_attendance' %}" method="post">{% csrf_token %}
-                    <input type="hidden" value="{{request.user.id}}" name="user_id">
-                    <button type="submit" class="next_btn2">Mark</button>
-    
-                </form>
-    
-            </div>
-
-            
-            
-            
-            
-
-        </div>
-
-        {% endif %}
-
-        {% endif %}
 
 
 

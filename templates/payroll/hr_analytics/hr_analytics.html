@@ -1,105 +1,89 @@
-{% extends 'basic.html' %}
+{% extends 'hr_profile_basic.html' %}
 {% load static %}
 
-
 {% block tag %}
-<link href="{%static 'css/hr_analytics.css'%}" rel="stylesheet">
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/dashboard.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %}HR Analytics{% endblock %}</title>
+<title>{% block title %} HRMS : Employee Management System {% endblock %}</title>
 
+{% block style %}
 
-
-{% block css %}
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
 
-    }
-
-    #Navbar {
-        display: none !important;
-    }
-    iframe{
-        height: 80vh;
-        width: 100%;
-        padding: 5rem;
-    }
+.attendance{
+    border: 1px solid red;
+    display: flex;
+}
+.attendance-graph{
+    border: 1px solid blue;
+}
 
 </style>
 
-
 {% endblock %}
 
+{% block profile %}
 
-{%block body%}
-
-
-<section class="analytics">
-
-    <iframe src="https://cdn8.vidstreamjp.cloud/gogoanime/watch/one-piece-episode-1" title="video" id="myiFrame"></iframe>
+<section class="hr-analytics">
 
 
-
+    <div class="attendance">
+        <div class="attendance-graph">
+            <canvas id="myChart" style="width:100%;max-width:700px;height:18rem;"></canvas>
+        </div>
+        <div class="attendance-info">
+            <h2>Total - {{total}}</h2>
+            <h2>Present - {{present}}</h2>
+            <h2>Absent - {{absent}}</h2>
+            <h2>Leave - {{leave}}</h2>
+        </div>
+        
+    </div>
+    
 </section>
 
 
 
-
-
-
-
-<!-- <canvas id="myChart" style="width:100%;max-width:700px"></canvas> -->
-
-{%endblock%}
-
+{% endblock %}
 
 
 {% block js %}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+<script>
+    document.getElementById('hr-analytics').classList.add('link1');
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 
 <script>
-    const ctx = document.getElementById('myChart');
+    var xValues = ["Present", "Leave", "Absent"];
+    var yValues = {{data}};
+    var barColors = [
+        "#00aba9",
+        "#f89b9b",
+        "#ddd"
+    ];
 
-    new Chart(ctx, {
-        type: 'bar',
+    new Chart("myChart", {
+        type: "pie",
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: xValues,
             datasets: [{
-                label: '# of Votes',
-                colors: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
+                backgroundColor: barColors,
+                data: yValues
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+            responsive: true,
+            title: {
+                display: false,
+            },
+            legend: {
+                display: false,
+            },
+            
         }
     });
-</script>
-    
-
-<script>
-    let myiFrame = document.getElementById("myiFrame");
-    window.onload = function() {
-        let myiFrame = document.getElementById("myiFrame");
-        let doc = myiFrame.contentDocument;
-        console.log(myiFrame.contentWindow.document)
-        //console.log(myiFrame.contents().find('body'))
-        //doc.body.innerHTML = doc.body.innerHTML + '<style>/******* Put your styles here *******</style>';
-
-
-    }
-
-
-    document.getElementById("plyr-seek-5667").style.color = "red";
 </script>
 {% endblock %}

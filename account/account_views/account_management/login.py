@@ -21,6 +21,15 @@ class UserLogin(View):
 
                     user_id = request.user.id
 
+
+                    date = datetime.today()
+
+                    day= DailyAttendance.objects.filter(emp_user_id= user_id,date=date)
+                    month = get_month_year()
+
+                    if not day.exists():
+                        DailyAttendance.objects.create(emp_user_id=user_id,month=month,login_time=date.time(),is_present=True)
+
                     return redirect(is_profile_complete(user_id))
                     
                 else:
@@ -42,6 +51,18 @@ class UserLogin(View):
 class UserLogOut(View):
     @method_decorator(login_required(login_url='login'))
     def get(self, request):
+        
+        user_id = request.user.id
+
+
+        date = datetime.today()
+        day= DailyAttendance.objects.filter(emp_user_id= user_id,date=date)
+        month = get_month_year
+        if day.exists():
+            DailyAttendance.objects.filter(emp_user_id= user_id,date=date).update(logout_time=date.time())
+        
+
+
         auth.logout(request)
         messages.success(request, "Successfully logged out")
         return redirect("login")
