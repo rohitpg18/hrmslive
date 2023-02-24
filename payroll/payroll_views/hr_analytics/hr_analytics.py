@@ -17,7 +17,16 @@ class HrAnalytics(View):
         data[1]= leave
         data[2]= users - (attendance+ leave)
         
+        show= {
+            "total":users,
+            "present":attendance,
+            "leave":leave,
+            'absent':data[2],
+            'data':data
+        }
         
         
         
-        return render(request,'payroll/hr_analytics/hr_analytics.html',{'data':data})
+        
+        
+        return render(request,'payroll/hr_analytics/hr_analytics.html',show)
