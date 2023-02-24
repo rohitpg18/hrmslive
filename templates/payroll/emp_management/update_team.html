@@ -6,7 +6,7 @@
 <link href="{%static 'css/form.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : Create Team {% endblock %}</title>
+<title>{% block title %} HRMS : Update Team {% endblock %}</title>
 
 {% block style %}
 
@@ -21,10 +21,11 @@
         fill: #fff;
         transition: all 0.5s ease-out;
     }
-    .details{
+
+    .details {
         margin-top: 0;
         padding-top: 2rem;
-    } 
+    }
 
     .details .permissions {
         width: 100%;
@@ -71,49 +72,73 @@
 {% block profile %}
 
 
+
+
 <section class="user-info">
-    <form class="details" action="{% url 'add_team' %}" method="POST">{% csrf_token %}
+    <form class="details" method="POST" action="{% url 'update_team' team.id %}">{% csrf_token %}
 
         <div class="heading">
-            <h3 class="user-profile-update-title">Create Team</h3>
+            <h3 class="user-profile-update-title">Update Team</h3>
         </div>
-    
+
         <div class="info">
             <p class="info-title">Team Name</p>
-            <input type="text" minlength="2" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))' class="form-control" id="team_name" name="team_name" placeholder="Enter team name"
-                required>
-            <!-- <small class="error" *ngIf="Profile.value['address_line1']==0">Address Line1 is required</small> -->
+            <input type="text" name="team_name" value="{{team.team_name}}" maxlength="100" placeholder="Enter team name"
+                id="id_team_name" required>
         </div>
-    
+
         <div class="info">
-            <p for="tl_name" class="info-title">Team Leader</p>
-            <select class="options" name="tl_name" required>
-                <option selected disabled>Choose TL......</option>
-                {% for tl in team_leaders %}
-                <option value = "{{tl.id}}"> {{tl.emp_user.username}} {{tl.emp_user.get_full_name}} {{tl.designation}}</option>
+            <p for="leader_name" class="info-title">Team Leader</p>
+
+            <select class="options" name="leader_name" required id="id_leader_name">
+                <option value="" disabled>---------</option>
+                {% for leader in employees %}
+
+                {% if leader == team.leader_name %}
+
+                <option value="{{leader.id}}" selected><span style="padding-right:1rem;"> {{leader.get_full_name}}
+                    </span> ( {{leader}} )</option>
+                {% else %}
+                <option value="{{leader.id}}"><span style="padding-right:1rem;"> {{leader.get_full_name}} </span> (
+                    {{leader}} )</option>
+                {% endif %}
+
                 {% endfor %}
             </select>
-            <!-- <small class="error" *ngIf="Profile.value['state']=='S'">State is required</small> -->
+
         </div>
-    
-    
+
+
+
+
         <div class="permissions">
             <div class="check-box-info">
                 <p class="info-title">Select Team Members</p>
-    
-                {% for tm in team_members %}
+                
+                {% for employee in employees %}
                 <div class="check-box">
-                    <input type="checkbox" class="check-box-square" id="team_members" name={{tm.username}} value={{tm.id}}>
-                    <label class="check-box-label" for="team_members"><b>{{tm.username}}</b> {{tm.first_name}} {{tm.last_name}}</label>
+
+                    {% if employee in team.employees.all %}
+
+                    <input type="checkbox" checked class="check-box-square" id="employee{{employee.id}}" name={{employee.username}} value="True">
+
+                    {% else %}
+
+                    <input type="checkbox" class="check-box-square" id="employee{{employee.id}}" name={{employee.username}} value="True">
+
+                    {% endif %}
+
+                    <label class="check-box-label" for="employee{{employee.id}}">{{employee.get_full_name}} ( {{employee.username}} )</label>
+
                 </div>
                 {% endfor %}
             </div>
-        </div>   
+        </div>
         <!-- disabled -->
         <div class="btns">
-            <button type="submit" class="next-btn2">Create Team</button>
+            <button type="submit" class="next-btn2">Update</button>
         </div>
-    
+
     </form>
 </section>
 

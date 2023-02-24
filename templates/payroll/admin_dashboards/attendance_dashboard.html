@@ -120,15 +120,15 @@
                 <div class="box box-down cyan">
                     <h2>Employees Attendance History</h2>
                     <p>Keeps record of employees attendance at a workplace</p>
-                    <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+                    <img src="{% static 'Logos/attendance_list.png' %}" alt="">
                 </div>
             </a>
 
-            <a href="#">
+            <a href="{% url 'today_attendance_list' %}">
                 <div class="box red">
                     <h2>Todays Attendance Status</h2>
                     <p>List of employees present at a workplace</p>
-                    <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+                    <img src="{% static 'Logos/attendies.png' %}" alt="">
                 </div>
             </a>
 

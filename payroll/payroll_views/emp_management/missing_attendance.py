@@ -21,6 +21,10 @@ class MissingAttendanceApplications(View):
             return redirect('self-details')
         
         
+        
+        
+        
+        
 class MissingAttendanceApplicationsHistory(View):
     @method_decorator(login_required(login_url='login'))
     def get(self, request):

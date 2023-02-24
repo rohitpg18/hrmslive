@@ -94,7 +94,7 @@ class UserAdditionalDetail(models.Model):
 class UserBankDetail(models.Model):
     emp_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_bank_details')
     bank_name = models.CharField(max_length=255, null=True)
-    branch_name = models.CharField(max_length=100,null=True)
+    branch_name = models.CharField(max_length=100, null=True)
     account_type = models.CharField(choices=(('Current', 'Current'), ('Saving', 'Saving')), max_length=25, null=True)
     ifsc_code = models.CharField(max_length=11, null=True)
     account_number = models.BigIntegerField(null=True)
@@ -246,27 +246,27 @@ class Notification(models.Model):
         
     
 @receiver(post_save, sender=User)
-def update_sal_signal(sender, instance, created, **kwargs):
+def create_signal(sender, instance, created, **kwargs):
     if created:
         UserBasicDetails.objects.create(emp_user=instance).save()
         
 @receiver(post_save, sender=User)
-def create_additional_detail_signal(sender, instance, created, **kwargs):
+def create_signal(sender, instance, created, **kwargs):
     if created:
         UserAdditionalDetail.objects.create(emp_user=instance).save()
         
 @receiver(post_save, sender=User)
-def create_bank_detail_signal(sender, instance, created, **kwargs):
+def create_signal(sender, instance, created, **kwargs):
     if created:
         UserBankDetail.objects.create(emp_user=instance).save()
         
 @receiver(post_save, sender=User)
-def create_educational_detail_signal(sender, instance, created, **kwargs):
+def create_signal(sender, instance, created, **kwargs):
     if created:
         UserEducationDetails.objects.create(emp_user=instance).save()
         
 @receiver(post_save, sender=User)
-def create_emp_permissions_signal(sender, instance, created, **kwargs):
+def create_signal(sender, instance, created, **kwargs):
     if created:
         EmployeePermissions.objects.create(emp_user=instance).save()
         

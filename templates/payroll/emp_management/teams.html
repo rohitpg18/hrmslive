@@ -147,15 +147,6 @@
             </a>
         </div>
 
-        <div class="user_input_form my-lg-5">
-            
-            <h3 style="color:#444444">Add Teams</h3>
-            
-            <a href="{% url 'add_team' %}" class="next_btn2"> Add+ </a>
-
-        </div>
-
-
 
         <table class="table my-lg-5">
             <thead>
@@ -181,7 +172,7 @@
                     </td>
                 
                 <td>
-                    <a href="#"><span class="material-symbols-outlined" style="font-size:1.5rem;font-weight:900;color:blue"> drive_file_rename_outline </span></a>
+                    <a href="{% url 'update_team' team.id %}"><span class="material-symbols-outlined" style="font-size:1.5rem;font-weight:900;color:blue"> drive_file_rename_outline </span></a>
 
                     <a href="{% url 'delete_team' team.id %}"><span class="material-symbols-outlined" style="font-size:1.5rem;font-weight:900;color:red">delete</span></a>
                 </td>
@@ -233,6 +224,12 @@
 
             </tbody>
         </table>
+
+        <div class="user_input_form my-lg-5">
+            
+            <a href="{% url 'add_team' %}" class="next_btn2"> Add Teams </a>
+
+        </div>
 
 
 

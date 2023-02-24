@@ -128,7 +128,7 @@ class AttendanceHistoryEmp(View):
             else:
                 leave = DailyLeave.objects.filter(emp_user__username = pk, date=date)
                 attendance = DailyAttendance.objects.filter(emp_user__username = pk, date=date, is_present=True)
-                print(f"{attendance} today ")
+
                 if  leave.exists() and attendance.exists():
                     
                     if leave[0].date_is_half == True:
@@ -192,11 +192,43 @@ class AttendanceHistoryEmp(View):
                     data["status"]="AB"
                     data["login_time"]="-"
                     data["logout_time"]="-"
-                        
-                
-            
+                    
+                    
+                if leave.exists() and attendance.exists():
+                    user = leave[0].emp_user.username
+                elif leave.exists():
+                    user = leave[0].emp_user.username
+                elif attendance.exists():
+                    user = attendance[0].emp_user.username
+                else:
+                    user = None
+                    
+                    
+
             monthly_data.append(data)
             
     
         
-        return render (request, "payroll/emp_management/emp_attendance_history.html", {'monthly_data':monthly_data, 'month':month_name})
+        return render (request, "payroll/emp_management/emp_attendance_history.html", {'monthly_data':monthly_data, 'month':month_name, 'username':user})
+    
+    
+class TodayAttendanceList(View):
+    
+    def get(self, request, *args, **kwargs):
+
+        department_name = request.GET.get('department_name')
+      
+
+        present_users = DailyAttendance.objects.all()
+        
+        present_users = present_users.filter(date = datetime.now().date())
+
+        if department_name:
+            present_users = present_users.filter(emp_user__user_basics__department__department_name__icontains=department_name)
+
+        context = {
+            "present_users" : present_users,
+            "departments" : Department.objects.all(),
+        }
+
+        return render(request, 'payroll/emp_management/today_attendance_list.html', context)

@@ -1,4 +1,4 @@
-{% extends 'profile_basic.html' %}
+{% extends 'hr_profile_basic.html' %}
 {% load static %}
 
 {% block tag %}
@@ -80,7 +80,7 @@
     <div class="basic_info">
 
         <div class="head-card">
-            <h4>Attendance History ( {{month}} )</h4>
+            <h4>Attendance History ({{month}})- {{username}} </h4>
             <a href="{% url 'attendance_list' %}">
                 Back
                 <span class="material-symbols-outlined mx-2">
@@ -142,7 +142,7 @@
 
 {% block js %}
 <script>
-    document.getElementById('self-attendance').classList.add('link1');
+    document.getElementById('attendance_dashboard').classList.add('link1');
 </script>
 {% endblock %}
 

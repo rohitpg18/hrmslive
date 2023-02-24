@@ -1,5 +1,51 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+    <form method="POST">
+                  {% csrf_token %}
 
+
+                        {{ form.as_p }}
+
+                    <input type="submit" value="Create" 
+                           style="margin-left: 100px;">
+    </form>
+
+
+
+
+
+</body>
+</html>
+
+=======================================================================================================================================================================================================
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+    <form method="POST">{% csrf_token %}
+
+        {% render_field form.team_name class+="form-control" placeholder="Enter Team Name" %}
+
+        {% render_field form.employees class+="form-control" placeholder="Enter Team Name" %}
+
+        {% render_field form.leader_name class+="form-control" placeholder="Enter Team Name" %}
+
+        <input type="submit" value="Update" style="margin-left: 100px;">
+
+    </form>
+</body>
+</html>
+
+========================================================================================================================================================================================================
 {% load static %}
 
 

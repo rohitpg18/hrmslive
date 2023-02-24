@@ -181,7 +181,7 @@
 
 
                         <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#TeamMember{{team.id}}">
+                            data-bs-target="#TeamMember{{app.emp_user.id}}">
                             View
                         </a>
 
@@ -193,7 +193,7 @@
 
 
                 <!-- Modal -->
-                <div class="modal fade" id="TeamMember{{team.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+                <div class="modal fade" id="TeamMember{{app.emp_user.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog  modal-dialog-centered">
                         <div class="modal-content">
@@ -253,7 +253,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="next_btn1" data-bs-dismiss="modal">Close</button>
                                 <form action="{% url 'missing_attendance_applications' %}" method="post">{% csrf_token %}
-                                    <input type="hidden" name="user_id" value="{{app.emp_user_id}}">
+                                    <input type="hidden" name="app_id" value="{{app.id}}">
                                     <button type="submit" class="next_btn2" data-bs-dismiss="modal">Approve</button>
                                 </form>
                             </div>
