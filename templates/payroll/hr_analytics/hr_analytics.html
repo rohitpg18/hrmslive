@@ -13,12 +13,13 @@
 <style>
 
 .attendance{
-    border: 1px solid red;
     display: flex;
 }
-.attendance-graph{
-    border: 1px solid blue;
+.attendance-info h2{
+    color: #444;
+    font-size: 1.5rem;
 }
+
 
 </style>
 
@@ -29,11 +30,11 @@
 <section class="hr-analytics">
 
 
-    <div class="attendance">
+    <div class="attendance my-lg-5">
         <div class="attendance-graph">
             <canvas id="myChart" style="width:100%;max-width:700px;height:18rem;"></canvas>
         </div>
-        <div class="attendance-info">
+        <div class="attendance-info my-lg-5">
             <h2>Total - {{total}}</h2>
             <h2>Present - {{present}}</h2>
             <h2>Absent - {{absent}}</h2>
