@@ -108,6 +108,19 @@
 
         </div>
 
+        <div class="info">
+            <p for="is_active" class="info-title">Status</p>
+
+            <select class="options" name="is_active" required id="is_active">
+                <option value="" disabled>---------</option>
+                
+                <option value="Activate" {% if team.is_active %} selected {% endif %}><span style="padding-right:1rem;">Activate</option>
+                <option value="Deactivate" {% if not team.is_active %} selected {% endif %}><span style="padding-right:1rem;">Deactivate</option>
+
+            </select>
+
+        </div>
+
 
 
 
