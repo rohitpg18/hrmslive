@@ -155,7 +155,8 @@
                     <th scope="col">Name</th>
                     <th scope="col">Leader</th>
                     <th scope="col">View</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -170,11 +171,23 @@
                         Members
                         </a>
                     </td>
+
+                    <td>
+                        {% if team.is_active %}
+                        <span class="material-symbols-outlined" style="color:green;font-size:1.8rem">
+                            groups
+                            </span>
+
+                        
+                        {% else %}
+                        <span class="material-symbols-outlined" style="color:red;font-size:1.8rem">
+                            group_off
+                            </span>
+                        {% endif %}
+                    </td>
                 
                 <td>
                     <a href="{% url 'update_team' team.id %}"><span class="material-symbols-outlined" style="font-size:1.5rem;font-weight:900;color:blue"> drive_file_rename_outline </span></a>
-
-                    <a href="{% url 'delete_team' team.id %}"><span class="material-symbols-outlined" style="font-size:1.5rem;font-weight:900;color:red">delete</span></a>
                 </td>
 
                 </tr>

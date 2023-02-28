@@ -11,16 +11,129 @@
 {% block style %}
 
 <style>
+    :root {
+        --red: rgb(255, 99, 132);
+        --cyan: hsl(180, 62%, 55%);
+        --orange: rgb(75, 192, 192);
+        --blue: rgb(54, 162, 235);
+        --varyDarkBlue: hsl(234, 12%, 34%);
+        --grayishBlue: hsl(229, 6%, 66%);
+        --veryLightGray: hsl(0, 0%, 98%);
+        --weight1: 200;
+        --weight2: 400;
+        --weight3: 600;
+    }
+
+    .row1-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+
+
+    .box p {
+        color: var(--grayishBlue);
+    }
+
+
+    .box {
+        border-radius: 5px;
+        box-shadow: 0px 30px 40px -20px var(--grayishBlue);
+        padding: 2rem;
+        margin: 1rem;
+        position: relative;
+        cursor: pointer;
+        width: 15rem;
+    }
+
+
+    .box:hover {
+        color: #fff;
+        transform: scale(1.1);
+        transition: all 0.5s ease-out;
+        z-index: 5;
+        background: #fff;
+
+    }
+
+    .box img {
+        position: absolute;
+        right: 1.5rem;
+        bottom: 1rem;
+        width: 2rem;
+    }
+
+
+
+    .cyan {
+        border-top: 3px solid var(--cyan);
+        border-bottom: 3px solid var(--cyan);
+    }
+
+    .red {
+        border-top: 3px solid var(--red);
+        border-bottom: 3px solid var(--red);
+    }
+
+    .blue {
+        border-top: 3px solid var(--blue);
+        border-bottom: 3px solid var(--blue);
+    }
+
+    .orange {
+        border-top: 3px solid var(--orange);
+        border-bottom: 3px solid var(--orange);
+    }
+
+    .box h2 {
+        color: var(--varyDarkBlue);
+        font-weight: 600;
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    .box p {
+        text-align: center;
+    }
 
 .attendance{
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
-.attendance-info h2{
+
+.attendance-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-wrap: wrap;
+
+
+    
+}
+
+.attendance-graph{
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30rem;
+}
+.chartjs1{
+    position: relative;
+}
+
+.total{
+    position: absolute;
+    margin-top: 1.7rem;
     color: #444;
-    font-size: 1.5rem;
+    font-size: 3rem;
 }
-
-
 </style>
 
 {% endblock %}
@@ -29,17 +142,46 @@
 
 <section class="hr-analytics">
 
+    
 
     <div class="attendance my-lg-5">
         <div class="attendance-graph">
-            <canvas id="myChart" style="width:100%;max-width:700px;height:18rem;"></canvas>
+            <canvas id="myChart" class="chartjs1" style="width:23rem;height:23rem;padding:2em;box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;">
+                
+            </canvas>
+            <h2 class="total">
+                {{total}}
+            </h2>
         </div>
-        <div class="attendance-info my-lg-5">
-            <h2>Total - {{total}}</h2>
-            <h2>Present - {{present}}</h2>
-            <h2>Absent - {{absent}}</h2>
-            <h2>Leave - {{leave}}</h2>
+
+        <div class="attendance-info">
+
+            <div class="box box-down cyan">
+                
+                <h2> {{total}}</h2>
+                <p>Total Employees</p>
+            </div>
+
+            <div class="box box-down blue">
+                <h2>{{present}}</h2>
+                <p>Present Employees</p>
+            </div>
+
+            <div class="box box-down  red">
+                <h2>{{absent}}</h2>
+                <p>Absent Employees</p>
+
+            </div>
+
+            <div class="box box-down orange">
+                <h2>{{leave}}</h2>
+                <p>Employees on leave </p>
+            </div>
+
         </div>
+
+
+        
         
     </div>
     
@@ -61,13 +203,14 @@
     var xValues = ["Present", "Leave", "Absent"];
     var yValues = {{data}};
     var barColors = [
-        "#00aba9",
-        "#f89b9b",
-        "#ddd"
+    'rgb(54, 162, 235)',
+    'rgb(75, 192, 192)',
+        'rgb(255, 99, 132)',
+        
     ];
 
     new Chart("myChart", {
-        type: "pie",
+        type: "doughnut",
         data: {
             labels: xValues,
             datasets: [{
@@ -75,16 +218,22 @@
                 data: yValues
             }]
         },
+
         options: {
             responsive: true,
             title: {
                 display: false,
             },
-            legend: {
-                display: false,
-            },
+            
             
         }
     });
 </script>
+
+
+
+
+<script src="https://cdn.syncfusion.com/js/assets/external/jquery-1.10.2.min.js"></script>
+    <!-- Essential JS UI widget -->
+<script src="https://cdn.syncfusion.com/20.4.0.48/js/web/ej.web.all.min.js"></script>
 {% endblock %}

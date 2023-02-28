@@ -34,7 +34,6 @@ urlpatterns = [
     path("teams/", Team.as_view(),name="teams"),
     path('add-team/', AddTeam.as_view(), name = "add_team"),
     path("update-team/<int:id>/", UpdateTeam.as_view(), name="update_team"),
-    path("delete-team/<int:id>/", DeleteTeam.as_view(), name="delete_team"),
     path("team-members/", TeamMembers.as_view(),name="team_members"),
     
     # policy

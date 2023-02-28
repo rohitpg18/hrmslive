@@ -166,7 +166,7 @@ class Teams(models.Model):
     team_name = models.CharField(max_length= 100)
     employees = models.ManyToManyField(User)
     leader_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_leader_name')
-    is_completed_teams = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
