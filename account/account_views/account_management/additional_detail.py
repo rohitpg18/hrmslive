@@ -40,9 +40,35 @@ class AdditionalDetail(View):
         user_additional_detail.date_of_birth=additional_details["date_of_birth"]
 
         user_additional_detail.pan_number=additional_details["pan_number"]
+        
+        pan_file = request.FILES.get('pan_file')
+            
+        if pan_file is not None:
+                
+            user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Pan Card")
+        
+            if user_document.exists():
+                user_document[0].doc_file= pan_file
+                user_document[0].save()
+                
+            else:
+                user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Pan Card", doc_file = pan_file)
 
         user_additional_detail.aadhaar_number=additional_details["aadhaar_number"]
-
+        
+        aadhar_file = request.FILES.get('aadhar_file')
+            
+        if aadhar_file is not None:
+                
+            user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Aadhar Card")
+        
+            if user_document.exists():
+                user_document[0].doc_file= aadhar_file
+                user_document[0].save()
+                
+            else:
+                user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Aadhar Card", doc_file = aadhar_file)
+                
         user_additional_detail.permanent_address=additional_details["permanent_address"]
         
         if additional_details["is_address_same"]== "True":

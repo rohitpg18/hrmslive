@@ -22,17 +22,20 @@
 {% block userForm %}
 
 
-<form class="details" action="{% url 'educational_details' %}" method="post">{% csrf_token %}
+<form class="details" action="{% url 'educational_details' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
 
     <div class="heading">
         <h3 class="user-profile-update-title">Educational Details</h3>
     </div>
 
+
+    <!-- SSC Details ============================================================================================================================================================= -->
+
     <p class="page-sub-title">Secondary School Certificate</p>
 
 
     <div class="info info-full">
-        <p class="info-title">10th board name</p>
+        <p class="info-title">10th board name<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="ssc_board_name" name="ssc_board_name"
             placeholder="Enter 10th board name" required>
     </div>
@@ -44,19 +47,19 @@
     </div>
 
     <div class="info">
-        <p class="info-title">10th percentage</p>
+        <p class="info-title">10th percentage<small style='color:red;'> *</small></p>
         <input type="number" class="form-control" id="ssc_percentage" name="ssc_percentage"
             placeholder="Enter 10th percentage" required>
     </div>
 
     <div class="info">
-        <p class="info-title">10th passing year</p>
+        <p class="info-title">10th passing year<small style='color:red;'> *</small></p>
         <input type="number" class="form-control" id="ssc_passing_yr" name="ssc_passing_yr"
             placeholder="Enter 10th passing year" required>
     </div>
 
     <div class="info info-full">
-        <p class="info-title">10th Marksheet</p>
+        <p class="info-title">10th Marksheet<small style='color:red;'> *</small></p>
         <input type="file" class="form-control" id="ssc_doc_file" name="ssc_doc_file" required>
     </div>
 
@@ -64,18 +67,18 @@
 
     <div class="check-box permissions check-box-info" id="is_hsc_complete">
         <input type="checkbox" class="check-box-square" id="emp_hsc_check" name="emp_hsc_check" value="True" onchange="manageEducationalDetails()">
-        <label class="check-box-label" for="emp_hsc_check">Have you completed HSC</label>
+        <label class="check-box-label" for="emp_hsc_check">I have completed HSC</label>
     </div>  
 
 
 
-    
+    <!-- HSC Details ============================================================================================================================================================= -->
 
 
     <p class="page-sub-title hsc_detail">Higher Secondary School Certificate</p>
 
     <div class="info info-full hsc_detail">
-        <p class="info-title">12th board name</p>
+        <p class="info-title">12th board name<small style='color:red;'> *</small></p>
         <input type="text" class="form-control hsc_input" id="hsc_board_name" name="hsc_board_name"
             placeholder="Enter 12th board name" >
     </div>
@@ -87,20 +90,20 @@
     </div>
 
     <div class="info hsc_detail">
-        <p class="info-title">12th percentage</p>
+        <p class="info-title">12th percentage<small style='color:red;'> *</small></p>
         <input type="text" class="form-control hsc_input" id="hsc_percentage" name="hsc_percentage"
             placeholder="Enter 12th percentage" >
     </div>
 
     <div class="info hsc_detail">
-        <p class="info-title">12th passing year</p>
+        <p class="info-title">12th passing year<small style='color:red;'> *</small></p>
         <input type="year" class="form-control hsc_input" id="hsc_passing_yr" name="hsc_passing_yr"
             placeholder="Enter 12th passing year" >
     </div>
 
 
     <div class="info hsc_detail">
-        <p class="info-title">12th Stream</p>
+        <p class="info-title">12th Stream<small style='color:red;'> *</small></p>
         <select class="options hsc_input" name="hsc_stream" >
             <option selected value="Science">Science</option>
             <option  value="Commerce">Commerce</option>
@@ -111,14 +114,14 @@
 
 
     <div class="info info-full hsc_detail">
-        <p class="info-title">12th Marksheet</p>
+        <p class="info-title">12th Marksheet<small style='color:red;'> *</small></p>
         <input type="file" class="form-control hsc_input" id="hsc_doc_file" name="hsc_doc_file" >
     </div>
 
 
     <div class="check-box permissions check-box-info" id="is_diploma_complete">
         <input type="checkbox" class="check-box-square" id="emp_diploma_check" name="emp_diploma_check" value="True" onchange="manageEducationalDetails()">
-        <label class="check-box-label" for="emp_diploma_check">Have you completed diploma</label>
+        <label class="check-box-label" for="emp_diploma_check">I have completed Diploma</label>
     </div>   
 
 
@@ -126,13 +129,14 @@
 
 
 
+    <!-- Diploma Details ============================================================================================================================================================= -->
 
     
     <p class="page-sub-title diploma_detail">diploma Details</p>
 
 
     <div class="info info-full diploma_detail">
-        <p class="info-title">diploma university</p>
+        <p class="info-title">diploma university<small style='color:red;'> *</small></p>
         <input type="text" class="form-control diploma_input" id="diploma_university" name="diploma_university"
             placeholder="Enter diploma university" >
     </div>
@@ -144,60 +148,52 @@
     </div>
 
     <div class="info info-full diploma_detail">
-        <p class="info-title">diploma branch</p>
+        <p class="info-title">diploma branch<small style='color:red;'> *</small></p>
         <input type="text" class="form-control diploma_input" id="diploma_branch" name="diploma_branch"
-            placeholder="Enter brandiploma_detailch" >
+            placeholder="Enter diploma branch details" >
     </div>
 
     <div class="info diploma_detail">
-        <p class="info-title">Diploma Admission Year</p>
-        <input type="year" class="form-control diploma_input" id="diploma_admission_yr" name="diploma_admission_yr"
+        <p class="info-title">Diploma Admission Year<small style='color:red;'> *</small></p>
+        <input type="number" class="form-control diploma_input" id="diploma_admission_yr" name="diploma_admission_yr"
             placeholder="Enter admission year" >
     </div>
 
     <div class="info diploma_detail">
-        <p class="info-title">Diploma Passout Year</p>
-        <input type="year" class="form-control diploma_input" id="diploma_passout_yr" name="diploma_passout_yr"
+        <p class="info-title">Diploma Passout Year<small style='color:red;'> *</small></p>
+        <input type="number" class="form-control diploma_input" id="diploma_passout_yr" name="diploma_passout_yr"
             placeholder="Enter passout year" >
     </div>
 
 
     <div class="info diploma_detail">
-        <p class="info-title">diploma percentage</p>
-        <input type="year" class="form-control diploma_input" id="diploma_percentage" name="diploma_percentage"
+        <p class="info-title">diploma percentage<small style='color:red;'> *</small></p>
+        <input type="number" class="form-control diploma_input" id="diploma_percentage" name="diploma_percentage"
             placeholder="Enter percentage" >
     </div>
 
 
 
     <div class="info info-full diploma_detail">
-        <p class="info-title">diploma Marksheet</p>
+        <p class="info-title">diploma Marksheet<small style='color:red;'> *</small></p>
         <input type="file" class="form-control diploma_input" id="diploma_doc_file" name="diploma_doc_file" >
     </div>
 
 
     <div class="check-box permissions check-box-info" id="is_graduation_complete">
         <input type="checkbox" class="check-box-square" id="emp_graduation_check" name="emp_graduation_check" value="True" onchange="manageEducationalDetails()">
-        <label class="check-box-label" for="emp_graduation_check">Have you completed graduation</label>
+        <label class="check-box-label" for="emp_graduation_check">I have completed Graduation</label>
     </div>  
 
 
-
-
-
-
-
-
-
-
-
+    <!-- Graduation Details ============================================================================================================================================================= -->
 
 
     <p class="page-sub-title graduation_detail">graduation Details</p>
     
 
     <div class="info info-full graduation_detail">
-        <p class="info-title">graduation university</p>
+        <p class="info-title">graduation university<small style='color:red;'> *</small></p>
         <input type="text" class="form-control graduation_input" id="diploma_university" name="graduation_university"
             placeholder="Enter graduation university" >
     </div>
@@ -209,61 +205,51 @@
     </div>
 
     <div class="info info-full graduation_detail">
-        <p class="info-title">graduation branch</p>
+        <p class="info-title">graduation branch<small style='color:red;'> *</small></p>
         <input type="text" class="form-control graduation_input" id="graduation_branch" name="graduation_branch"
             placeholder="Enter graduation branch" >
     </div>
 
     <div class="info graduation_detail">
-        <p class="info-title">graduation Admission Year</p>
+        <p class="info-title">graduation Admission Year<small style='color:red;'> *</small></p>
         <input type="year" class="form-control graduation_input" id="graduation_admission_yr" name="graduation_admission_yr"
             placeholder="Enter admission year" >
     </div>
 
     <div class="info graduation_detail">
-        <p class="info-title">graduation Passout Year</p>
+        <p class="info-title">graduation Passout Year<small style='color:red;'> *</small></p>
         <input type="year" class="form-control graduation_input" id="graduation_passout_yr" name="graduation_passout_yr"
             placeholder="Enter passout year" >
     </div>
 
 
     <div class="info graduation_detail">
-        <p class="info-title">graduation percentage</p>
+        <p class="info-title">graduation percentage<small style='color:red;'> *</small></p>
         <input type="year" class="form-control graduation_input" id="graduation_percentage" name="graduation_percentage"
             placeholder="Enter percentage" >
     </div>
 
 
     <div class="info info-full graduation_detail">
-        <p class="info-title">graduation Marksheet</p>
+        <p class="info-title">graduation Marksheet<small style='color:red;'> *</small></p>
         <input type="file" class="form-control graduation_input" id="graduation_doc_file" name="graduation_doc_file" >
     </div>
 
     <div class="check-box permissions check-box-info" id="is_post_graduation_complete">
         <input type="checkbox" class="check-box-square" id="emp_pg_check" name="emp_pg_check" value="True" onchange="manageEducationalDetails()">
-        <label class="check-box-label" for="emp_pg_check">Have you completed Post-Graduation</label>
+        <label class="check-box-label" for="emp_pg_check">I have completed Post-Graduation</label>
     </div> 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+  <!-- Post Graduation Details ============================================================================================================================================================= -->
+  
 
 
     <p class="page-sub-title post_graduation_detail">Post graduation Details</p>
 
     <div class="info info-full post_graduation_detail">
-        <p class="info-title">Post graduation university</p>
+        <p class="info-title">Post graduation university<small style='color:red;'> *</small></p>
         <input type="text" class="form-control post_graduation_input" id="pg_university" name="pg_university"
             placeholder="Enter post graduation university" >
     </div>
@@ -275,37 +261,38 @@
     </div>
 
     <div class="info info-full post_graduation_detail">
-        <p class="info-title">post graduation branch</p>
+        <p class="info-title">post graduation branch<small style='color:red;'> *</small></p>
         <input type="text" class="form-control post_graduation_input" id="pg_branch" name="pg_branch"
             placeholder="Enter post graduation branch" >
     </div>
 
     <div class="info post_graduation_detail">
-        <p class="info-title">post graduation Admission Year</p>
+        <p class="info-title">post graduation Admission Year<small style='color:red;'> *</small></p>
         <input type="year" class="form-control post_graduation_input" id="pg_admission_yr" name="pg_admission_yr"
             placeholder="Enter admission year" >
     </div>
 
     <div class="info post_graduation_detail">
-        <p class="info-title">post graduation Passout Year</p>
+        <p class="info-title">post graduation Passout Year<small style='color:red;'> *</small></p>
         <input type="year" class="form-control post_graduation_input" id="pg_passout_yr" name="pg_passout_yr"
             placeholder="Enter passout year" >
     </div>
 
 
     <div class="info post_graduation_detail">
-        <p class="info-title">post graduation percentage</p>
+        <p class="info-title">post graduation percentage<small style='color:red;'> *</small></p>
         <input type="year" class="form-control post_graduation_input" id="pg_percentage" name="pg_percentage"
             placeholder="Enter percentage" >
     </div>
 
     <div class="info info-full post_graduation_detail">
-        <p class="info-title">post graduation Marksheet</p>
+        <p class="info-title">post graduation Marksheet<small style='color:red;'> *</small></p>
         <input type="file" class="form-control post_graduation_input" id="pg_doc_file" name="pg_doc_file">
     </div>
 
-
-
+    <div class="info info-full" id="current_address_div">
+    <p style="color:red;"><small>Note : * indicates required field</small></p>
+    </div>
 
     <!-- disabled -->
     <div class="btns">
@@ -378,7 +365,7 @@
             }
 
             for (var i = 0; i < diploma_input.length; i++) {
-                hsc_input[i].required = true;
+                diploma_input[i].required = true;
             }
 
         }else{

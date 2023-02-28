@@ -21,21 +21,21 @@
     </div>
 
     <div class="info">
-        <p class="info-title">First Name</p>
+        <p class="info-title">First Name<small style='color:red;'> *</small></p>
         <input type="text" onkeypress='return ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)' class="form-control" id="first_name" name="first_name" placeholder="Enter first name"
             required >
         <!-- <small class="error" *ngIf="Profile.value['address_line1']==0">Address Line1 is required</small> -->
     </div>
 
     <div class="info">
-        <p class="info-title">last name</p>
+        <p class="info-title">last name<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter last name" required>
         <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
     </div>
 
 
     <div class="info">
-        <p class="info-title">department</p>
+        <p class="info-title">department<small style='color:red;'> *</small></p>
         <select class="options" name="department" required>
             {% for department in departments %}
             <option value="{{department.id}}">{{department.department_name}}</option>
@@ -45,7 +45,7 @@
     </div>
 
     <div class="info">
-        <p class="info-title">designation</p>
+        <p class="info-title">designation<small style='color:red;'> *</small></p>
         <select class="options" name="designation" required>
             {% for designation in designations %}
             <option value="{{designation.id}}">{{designation.designation_name}}</option>
@@ -56,7 +56,7 @@
 
 
     <div class="info">
-        <p class="info-title">experience</p>
+        <p class="info-title">experience<small style='color:red;'> *</small></p>
         <select class="options" name="experience_status" required>
             <option value="Fresher" selected>Fresher</option>
             <option value="Experienced">Experienced</option>
@@ -65,7 +65,7 @@
     </div>
 
     <div class="info">
-        <p class="info-title">Shift</p>
+        <p class="info-title">Shift<small style='color:red;'> *</small></p>
         <select class="options" name="shift_details" required>
             {% for shift in shifts %}
             <option value="{{shift.id}}">{{shift.shift_name}}</option>
@@ -76,7 +76,7 @@
 
 
     <div class="info">
-        <p class="info-title">Date of joining</p>
+        <p class="info-title">Date of joining<small style='color:red;'> *</small></p>
         <input type="date" class="form-control" id="date_of_joining" name="date_of_joining"
             placeholder="Enter date of joining" required>
         <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
@@ -85,7 +85,7 @@
 
 
     <div class="info">
-        <p class="info-title">Payment Type</p>
+        <p class="info-title">Payment Type<small style='color:red;'> *</small></p>
         <select class="options" name="is_salaried" id="is_salaried" required onchange="paymentType()">
             <option value="True" selected>Salary</option>
             <option value="False">Stipend</option>

@@ -12,7 +12,7 @@ class VerifyDetails(View):
             return redirect('ems_dashboard')
         
         verify_emp_list = UserBasicDetails.objects.filter(is_requested=True,is_verify=False)
-        if verify_emp_list.count() < 1:
+        if verify_emp_list.count() < 0:
             messages.warning(request, 'applications not found')
             return redirect('ems_dashboard')
         

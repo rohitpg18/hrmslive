@@ -79,21 +79,21 @@
         </div>
     
         <div class="info">
-            <p class="info-title">First Name</p>
+            <p class="info-title">First Name<small style='color:red;'> *</small></p>
             <input type="text" minlength="2" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))' class="form-control" id="first_name" name="first_name" placeholder="Enter first name"
                 required>
             <!-- <small class="error" *ngIf="Profile.value['address_line1']==0">Address Line1 is required</small> -->
         </div>
     
         <div class="info">
-            <p class="info-title">last name</p>
+            <p class="info-title">last name<small style='color:red;'> *</small></p>
             <input type="text" minlength="2" class="form-control" id="last_name" name="last_name" placeholder="Enter last name" required onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))'>
             <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
         </div>
     
     
         <div class="info">
-            <p class="info-title">department</p>
+            <p class="info-title">department<small style='color:red;'> *</small></p>
             <select class="options" name="department" required>
                 {% for department in departments %}
                 <option value="{{department.id}}">{{department.department_name}}</option>
@@ -103,7 +103,7 @@
         </div>
     
         <div class="info">
-            <p class="info-title">designation</p>
+            <p class="info-title">designation<small style='color:red;'> *</small></p>
             <select class="options" name="designation" required>
                 {% for designation in designations %}
                 <option value="{{designation.id}}">{{designation.designation_name}}</option>
@@ -114,7 +114,7 @@
     
     
         <div class="info">
-            <p class="info-title">experience</p>
+            <p class="info-title">experience<small style='color:red;'> *</small></p>
             <select class="options" name="experience_status" required>
                 <option value="Fresher" selected>Fresher</option>
                 <option value="Experienced">Experienced</option>
@@ -123,7 +123,7 @@
         </div>
     
         <div class="info">
-            <p class="info-title">Shift</p>
+            <p class="info-title">Shift<small style='color:red;'> *</small></p>
             <select class="options" name="shift_details" required>
                 {% for shift in shifts %}
                 <option value="{{shift.id}}">{{shift.shift_name}}</option>
@@ -134,7 +134,7 @@
     
     
         <div class="info">
-            <p class="info-title">Date of joining</p>
+            <p class="info-title">Date of joining<small style='color:red;'> *</small></p>
             <input type="date" class="form-control" id="date_of_joining" name="date_of_joining"
                 placeholder="Enter date of joining" required>
             <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
@@ -143,7 +143,7 @@
     
     
         <div class="info">
-            <p class="info-title">Payment Type</p>
+            <p class="info-title">Payment Type<small style='color:red;'> *</small></p>
             <select class="options" name="is_salaried" id="is_salaried" required onchange="paymentType()">
                 <option value="True" selected>Salary</option>
                 <option value="False">Stipend</option>
@@ -152,7 +152,7 @@
         </div>
     
         <div class="info info-full">
-            <p class="info-title" id="payment_label">Salary (Rs)</p>
+            <p class="info-title" id="payment_label">Salary</p>
             <input type="number" required min="0" onkeypress='return ((event.keyCode >= 48 && event.keyCode <= 57 )|| event.key === " ")' max="999999999"  class="form-control" id="salary" name="salary" placeholder="Enter salary amount" >
             <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
         </div>
@@ -213,15 +213,15 @@
     
     
         <div class="info info-full">
-            <p class="info-title">password</p>
+            <p class="info-title">password<small style='color:red;'> *</small></p>
             <input type="password" minlength="8" id="password" name="password" placeholder="Enter password" required>
             <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
         </div>
-    
-    
-    
-    
-    
+
+        <div class="info info-full">
+            <p style="color:red;"><small>Note : * indicates required field</small></p>
+        </div>
+        
     
         <!-- disabled -->
         <div class="btns">

@@ -11,26 +11,26 @@
 {% block userForm %}
 
 
-<form class="details" action="{% url 'bank_details' %}" method="post">{% csrf_token %}
+<form class="details" action="{% url 'bank_details' %}" method="post" enctype="multipart/form-data" >{% csrf_token %}
 
     <div class="heading">
         <h3 class="user-profile-update-title">Bank details</h3>
     </div>
 
     <div class="info">
-        <p class="info-title">bank name</p>
+        <p class="info-title">bank name<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Enter bank name"
             required>
     </div>
 
     <div class="info">
-        <p class="info-title">branch name</p>
+        <p class="info-title">branch name<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="branch_name" name="branch_name" placeholder="Enter branch name"
             required>
     </div>
 
     <div class="info">
-        <p class="info-title">account type</p>
+        <p class="info-title">account type<small style='color:red;'> *</small></p>
         <select class="options" name="account_type" required>
             <option selected value="Saving">Saving</option>
             <option  value="Current">Current</option>
@@ -39,21 +39,24 @@
     </div>
 
     <div class="info info-full">
-        <p class="info-title">ifsc code</p>
+        <p class="info-title">ifsc code<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="Enter ifsc code"
             required>
     </div>
 
 
     <div class="info info-full">
-        <p class="info-title">account number</p>
+        <p class="info-title">account number<small style='color:red;'> *</small></p>
         <input type="number" class="form-control" id="account_number" name="account_number" placeholder="Enter account number"
             required>
     </div>
 
-    
+    <div class="info info-full">
+        <p class="info-title">Upload Bank Document<small style='color:red;'> *</small></p>
+        <input type="file" id="bank_docs" class="my_file" name="bank_docs" required>
+    </div>
 
-
+    <p style="color:red;"><small>Note : * indicates required field</small></p>
 
 
     <!-- disabled -->

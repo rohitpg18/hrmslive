@@ -46,13 +46,14 @@ class EducationalDetail(View):
             
             if ssc_doc_file is not None:
                 
-                user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "SSC Marksheet")
+                user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "SSC Marksheet")
                 
-                if user_document is None:
-                    user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "SSC Marksheet", doc_file = ssc_doc_file)
+                if user_document.exists():
+                    user_document[0].doc_file= ssc_doc_file
+                    user_document[0].save()
+                    
                 else:
-                    user_document.doc_file= ssc_doc_file
-                    user_document.save()
+                    user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "SSC Marksheet", doc_file = ssc_doc_file)
             
             
             if emp_hsc_check == "True":
@@ -67,14 +68,14 @@ class EducationalDetail(View):
                 hsc_doc_file = request.FILES.get('hsc_doc_file')
             
                 if hsc_doc_file is not None:
+                    user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "HSC Marksheet")
                 
-                    user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "HSC Marksheet")
-                
-                    if user_document is None:
-                        user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "HSC Marksheet", doc_file = hsc_doc_file)
+                    if user_document.exists():
+                        user_document[0].doc_file= hsc_doc_file
+                        user_document[0].save()
                     else:
-                        user_document.doc_file= hsc_doc_file
-                        user_document.save()
+                        user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "HSC Marksheet", doc_file = hsc_doc_file)
+                        
 
             
             if emp_diploma_check == "True":
@@ -92,13 +93,14 @@ class EducationalDetail(View):
             
                 if diploma_doc_file is not None:
                 
-                    user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "Diploma Marksheet")
+                    user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Diploma Marksheet")
                 
-                    if user_document is None:
-                        user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Diploma Marksheet", doc_file = diploma_doc_file)
+                    if user_document.exists():
+                        user_document[0].doc_file= diploma_doc_file
+                        user_document[0].save()
                     else:
-                        user_document.doc_file= diploma_doc_file
-                        user_document.save()
+                        user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Diploma Marksheet", doc_file = diploma_doc_file)
+                        
                         
             
             if emp_graduation_check == "True":
@@ -116,13 +118,14 @@ class EducationalDetail(View):
             
                 if graduation_doc_file is not None:
                 
-                    user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "Graduation Marksheet")
+                    user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Graduation Marksheet")
                 
-                    if user_document is None:
-                        user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Graduation Marksheet", doc_file = graduation_doc_file)
+                    if user_document.exists():
+                        user_document[0].doc_file= graduation_doc_file
+                        user_document[0].save()     
                     else:
-                        user_document.doc_file= graduation_doc_file
-                        user_document.save()
+                        user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Graduation Marksheet", doc_file = graduation_doc_file)
+                        
                 
             
             if emp_pg_check == "True":
@@ -140,13 +143,13 @@ class EducationalDetail(View):
             
                 if pg_doc_file is not None:
                 
-                    user_document= UserDocument.objects.get(emp_user_id=user_id,doc_name = "Post Graduation Marksheet")
+                    user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Post Graduation Marksheet")
                 
-                    if user_document is None:
-                        user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Post Graduation Marksheet", doc_file = pg_doc_file)
+                    if user_document.exists():
+                        user_document[0].doc_file= pg_doc_file
+                        user_document[0].save()
                     else:
-                        user_document.doc_file= pg_doc_file
-                        user_document.save()
+                        user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Post Graduation Marksheet", doc_file = pg_doc_file)
                 
             education_detail.is_completed_academics= True
             education_detail.save()  

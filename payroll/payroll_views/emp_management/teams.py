@@ -106,9 +106,8 @@ class UpdateTeam(View):
         
             
             if data[key] == "True":
-                a=User.objects.get(username=key)
+                a = User.objects.get(username=key)
                 team[0].employees.add(a)
-            
         messages.success(request,'Team Update successfully')
         
         return redirect('teams')

@@ -23,8 +23,8 @@
 
     
 
-    <div class="info">
-        <p class="info-title ">previous organisation name</p>
+    <div class="info info-full">
+        <p class="info-title ">previous organisation name<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="previous_organisation" name="previous_organisation" placeholder="Enter Organisation Name"
             required>
     </div>
@@ -32,7 +32,7 @@
     
 
     <div class="info info-full">
-        <p class="info-title">Designation</p>
+        <p class="info-title">Designation<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="previous_organisation_designation" name="previous_organisation_designation" placeholder="Enter designation in previous organisation"
             required>
     </div>
@@ -44,10 +44,38 @@
             required>
     </div>
 
-    <div class="info info-full ">
-        <p class="info-title">Documents</p>
-        <input type="file" class="form-control" id="previous_organization_docs" name="previous_organization_docs" >
+    <div class="info upload_docs_first">
+        <p class="info-title">Experience Letter<small style='color:red;'> *</small></p>
+        <input type="file" class="form-control upload_docs_first_input" id="experience_letter_first" name="experience_letter_first" >
     </div>
+
+    <div class="info upload_docs_first">
+        <p class="info-title">Relieving Letter<small style='color:red;'> *</small></p>
+        <input type="file" class="form-control upload_docs_first_input" id="relieving_letter_first" name="relieving_letter_first" >
+    </div>
+
+    <div class="info upload_docs_first">
+        <p class="info-title">Offer Letter<small style='color:red;'> *</small></p>
+        <input type="file" class="form-control upload_docs_first_input" id="offer_letter_first" name="offer_letter_first" >
+    </div>
+
+    <div class="info upload_docs_first">
+        <p class="info-title">Payment Slip - 1<small style='color:red;'> *</small></p>
+        <input type="file" class="form-control upload_docs_first_input" id="salary_slip_first_one" name="salary_slip_first_one" >
+    </div>
+
+    <div class="info upload_docs_first">
+        <p class="info-title">Payment Slip - 2<small style='color:red;'> *</small></p>
+        <input type="file" class="form-control upload_docs_first_input" id="salary_slip_first_two" name="salary_slip_first_two" >
+    </div>
+
+    <div class="info upload_docs_first">
+        <p class="info-title">Payment Slip - 3<small style='color:red;'> *</small></p>
+        <input type="file" class="form-control upload_docs_first_input" id="salary_slip_first_three" name="salary_slip_first_three" >
+    </div>
+
+
+
 
     <div class="check-box permissions check-box-info" id="is_diploma_complete">
         <input type="checkbox" class="check-box-square" id="if_second_company_check" name="if_second_company_check" value="True" onchange="manageOrganisationDetails()">
@@ -65,21 +93,77 @@
             placeholder="Enter Organisation Name" >
     </div>
 
-    <div class="info organisation_detail">
+    <div class="info info-full organisation_detail">
         <p class="info-title">designation</p>
         <input type="text" class="form-control organisation_input" id="previous_organisation_designation2" name="previous_organisation_designation2"
             placeholder="Enter designation in previous organisation" >
     </div>
 
-    <div class="info organisation_detail">
+    <div class="info info-full organisation_detail">
         <p class="info-title">experience in years</p>
         <input type="number" class="form-control organisation_input" id="experience_in_years2" name="experience_in_years2"
             placeholder="Enter experience in years" >
     </div>
 
-    <div class="info info-full organisation_detail">
-        <p class="info-title">Documents</p>
-        <input type="file" class="form-control organisation_input" id="previous_organization_docs" name="previous_organization_docs" >
+    <div class="info organisation_detail">
+        <p class="info-title">Experience Letter</p>
+        <input type="file" class="form-control organisation_input" id="experience_letter_second" name="experience_letter_second" >
+    </div>
+
+    <div class="info organisation_detail">
+        <p class="info-title">Relieving Letter</p>
+        <input type="file" class="form-control organisation_input" id="relieving_letter_second" name="relieving_letter_second" >
+    </div>
+
+    <div class="info organisation_detail">
+        <p class="info-title">Offer Letter</p>
+        <input type="file" class="form-control organisation_input" id="offer_letter_second" name="offer_letter_second" >
+    </div>
+
+    <div class="info organisation_detail">
+        <p class="info-title">Payment Slip - 1</p>
+        <input type="file" class="form-control organisation_input" id="salary_slip_second_one" name="salary_slip_second_one" >
+    </div>
+
+    <div class="info organisation_detail">
+        <p class="info-title">Payment Slip - 2</p>
+        <input type="file" class="form-control organisation_input" id="salary_slip_second_two" name="salary_slip_second_two" >
+    </div>
+
+    <div class="info organisation_detail">
+        <p class="info-title">Payment Slip - 3</p>
+        <input type="file" class="form-control organisation_input" id="salary_slip_second_three" name="salary_slip_second_three" >
+    </div>
+
+
+
+    <div class="check-box permissions check-box-info" id="is_third_organisation">
+        <input type="checkbox" class="check-box-square" id="if_third_company_check" name="if_third_company_check" value="True" onchange="manageOrganisationDetails()">
+        <label class="check-box-label" for="if_third_company_check">Add details of one more company</label>
+    </div>
+
+
+
+    <div class="info info-full organisation_detail_third">
+        <p class="info-title">Previous Organisation name</p>
+        <input type="text" class="form-control organisation_input_third" id="previous_organisation3" name="previous_organisation3"
+            placeholder="Enter Organisation Name" >
+    </div>
+
+    <div class="info info-full organisation_detail_third">
+        <p class="info-title">designation</p>
+        <input type="text" class="form-control organisation_input_third" id="previous_organisation_designation3" name="previous_organisation_designation3"
+            placeholder="Enter designation in previous organisation" >
+    </div>
+
+    <div class="info info-full organisation_detail_third">
+        <p class="info-title">experience in years</p>
+        <input type="number" class="form-control organisation_input_third" id="experience_in_years3" name="experience_in_years3"
+            placeholder="Enter experience in years" >
+    </div>
+
+    <div class="info info-full" id="current_address_div">
+    <p style="color:red;"><small>Note : * indicates required field</small></p>
     </div>
 
     <!-- disabled -->
@@ -103,8 +187,15 @@
     function manageOrganisationDetails() {
 
         var if_second_company_check = document.getElementById("if_second_company_check").checked;
+        var if_third_company_check = document.getElementById("if_third_company_check").checked;
         
 
+        if (if_second_company_check == false) {
+            document.getElementById("is_third_organisation").classList.add('hide_display');
+
+        }else{
+            document.getElementById("is_third_organisation").classList.remove('hide_display');
+        }
 
         var organisation_detail = document.querySelectorAll('.organisation_detail');
         var organisation_input = document.querySelectorAll('.organisation_input');
@@ -130,6 +221,32 @@
                 organisation_input[i].required = false;
             }
         }
+
+        var organisation_detail_third = document.querySelectorAll('.organisation_detail_third');
+        var organisation_input_third = document.querySelectorAll('.organisation_input_third');
+
+        if (if_third_company_check) {
+            console.log('hiii')
+            console.log(organisation_detail_third)
+
+            for (var i = 0; i < organisation_detail_third.length; i++) {
+                organisation_detail_third[i].classList.remove('hide_display');
+            }
+
+            for (var i = 0; i < organisation_input_third.length; i++) {
+                organisation_input_third[i].required = true;
+            }
+
+        }else{
+            console.log('bye')
+            for (var i = 0; i < organisation_detail_third.length; i++) {
+                organisation_detail_third[i].classList.add('hide_display');
+            }
+            for (var i = 0; i < organisation_input_third.length; i++) {
+                organisation_input_third[i].required = false;
+            }
+        }
+
     }
 
 </script>
