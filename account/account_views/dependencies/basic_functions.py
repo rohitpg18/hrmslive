@@ -47,60 +47,51 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
             additional_detail= UserAdditionalDetail.objects.get_or_create(emp_user_id= user_id)
             bank_detail= UserBankDetail.objects.get_or_create(emp_user_id= user_id)
             
-            
             education_detail= UserEducationDetails.objects.get_or_create(emp_user_id= user_id)
             previous_organisation_detail = PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
             
             
-            if previous_organisation_detail is None:
+            if not previous_organisation_detail.exists():
                 if basic_detail.experience_status == "Experienced":
                     previous_organisation_detail= PreviousOrganisationDetail.objects.create(emp_user_id= user_id)
             
             return {"basic_detail":basic_detail[0],"additional_detail":additional_detail[0],"bank_detail":bank_detail[0],"education_detail":education_detail[0],'previous_organisation_detail':previous_organisation_detail}
             
         elif detail == 1:
-            basic_detail= UserBasicDetails.objects.get(emp_user_id= user_id)
-            if basic_detail is None:
-                basic_detail= UserBasicDetails.objects.create(emp_user_id= user_id)
-                
-            return basic_detail
+            basic_detail= UserBasicDetails.objects.get_or_create(emp_user_id= user_id)
+                            
+            return basic_detail[0]
         
         
         elif detail == 2:
-            additional_detail= UserAdditionalDetail.objects.get(emp_user_id= user_id)
+            additional_detail= UserAdditionalDetail.objects.get_or_create(emp_user_id= user_id)
             
-            if additional_detail is None:
-                additional_detail= UserAdditionalDetail.objects.create(emp_user_id= user_id)
-
-            return additional_detail
+            return additional_detail[0]
         
         
         elif detail == 3:
-            bank_detail= UserBankDetail.objects.get(emp_user_id= user_id)
+            bank_detail= UserBankDetail.objects.get_or_create(emp_user_id= user_id)
             
-            if bank_detail is None:
-                bank_detail = UserBankDetail.objects.create(emp_user_id= user_id)
-
-            
-            return bank_detail
+            return bank_detail[0]
         
         
         elif detail == 4:
-            education_detail= UserEducationDetails.objects.get(emp_user_id= user_id)
+            education_detail= UserEducationDetails.objects.get_or_create(emp_user_id= user_id)
             
-            if education_detail is None:
-                education_detail= UserEducationDetails.objects.filter(emp_user_id= user_id)
-            
-            return education_detail
+            return education_detail[0]
         
         elif detail == 5:
-            previous_organisation_detail= PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
+            basic_detail= UserBasicDetails.objects.get_or_create(emp_user_id= user_id)
+            previous_organisation_detail = PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
             
-            if previous_organisation_detail is None:
-                previous_organisation_detail= PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
-            return previous_organisation_detail
-        
-        
+            
+            if not previous_organisation_detail.exists():
+                if basic_detail[0].experience_status == "Experienced":
+                    previous_organisation_detail= PreviousOrganisationDetail.objects.create(emp_user_id= user_id)
+                    return previous_organisation_detail
+                else:
+                    return None
+                    
         else:
             return None
     
@@ -111,7 +102,7 @@ def is_profile_complete(user_id,**kwargs):
         
     
     user_detail= user_details(user_id,True,0)
-    print(user_detail)
+    
     
     if user_detail is not None:
         
