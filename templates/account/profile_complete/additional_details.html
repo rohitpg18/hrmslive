@@ -24,7 +24,7 @@
     </div>
 
     <div class="info">
-        <p class="info-title">gender</p>
+        <p class="info-title">gender<small style='color:red;'> *</small></p>
         <select class="options" name="gender" required>
             <option selected value="Male">Male</option>
             <option value="Female">Female</option>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="info">
-        <p class="info-title" id="payment_label">mobile number</p>
+        <p class="info-title" id="payment_label">mobile number<small style='color:red;'> *</small></p>
         <input type="tel" pattern="[0-9]{10}" onkeypress='return (event.keyCode >= 48 && event.keyCode <= 57  && event.key != " ")' class="form-control" id="mobile_no" name="mobile_no" placeholder="Enter mobile number"
             required onchange="validate('mobile_number',this.value,'mobile_number1','submit-btn1')">
 
@@ -41,13 +41,13 @@
 
 
     <div class="info">
-        <p class="info-title">Date of birth</p>
+        <p class="info-title">Date of birth<small style='color:red;'> *</small></p>
         <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
             placeholder="Enter date of joining" required>
     </div>
 
     <div class="info">
-        <p class="info-title">Pan number</p>
+        <p class="info-title">Pan number<small style='color:red;'> *</small></p>
         <input type="text" maxlength="10" class="form-control" id="pan_number" name="pan_number" placeholder="Enter pan number"
             required onchange="validate('pan_number',this.value,'pan_card1','submit-btn1')" onkeypress='return ((event.keyCode >= 65 && event.keyCode <= 90)|| (event.keyCode >= 48 && event.keyCode <= 57 ) || event.keyCode == 8)'>
 
@@ -55,18 +55,25 @@
     </div>
 
     <div class="info">
-        <p class="info-title">Aadhaar number</p>
+        <p class="info-title">Upload Pan Card<small style='color:red;'> *</small></p>
+        <input type="file" id="pan_file" class="my_file" name="pan_file" required>
+    </div>
+
+    <div class="info">
+        <p class="info-title">Aadhaar number<small style='color:red;'> *</small></p>
         <input type="number" maxlength="12" minlength="12" onkeypress='return (event.keyCode >= 48 && event.keyCode <= 57  && event.key != " ")' class="form-control" id="aadhaar_number" name="aadhaar_number"
             placeholder="Enter aadhaar number" required onchange="validate('aadhaar_number',this.value,'aadhaar_card1','submit-btn1')">
 
         <small class="error" id="aadhaar_card1">Invalid aadhaar number</small>  
     </div>
 
-
-
+    <div class="info">
+        <p class="info-title">Upload Aadhaar Card<small style='color:red;'> *</small></p>
+        <input type="file" id="aadhar_file" class="my_file" name="aadhar_file" required>
+    </div>
 
     <div class="info">
-        <p class="info-title">Marital Status</p>
+        <p class="info-title">Marital Status<small style='color:red;'> *</small></p>
         <select class="options" name="marital_status" required>
             <option selected value="Single">Single</option>
             <option value="Married">Married</option>
@@ -79,33 +86,33 @@
     </div>
 
     <div class="info">
-        <p class="info-title">father name</p>
+        <p class="info-title">father name<small style='color:red;'> *</small></p>
         <input type="text" minlength="2" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))' class="form-control" id="father_name" name="father_name" placeholder="Enter father name"
             required>
     </div>
 
     <div class="info">
-        <p class="info-title">mother name</p>
+        <p class="info-title">mother name<small style='color:red;'> *</small></p>
         <input type="text" minlength="2" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))' class="form-control" id="mother_name" name="mother_name" placeholder="Enter mother name"
             required>
     </div>
 
     <div class="info">
-        <p class="info-title">nationality</p>
+        <p class="info-title">nationality<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter nationality" value="Indian"
             required onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))' >
     </div>
 
 
     <div class="info">
-        <p class="info-title">emergency contact number</p>
+        <p class="info-title">emergency contact number<small style='color:red;'> *</small></p>
         <input type="number" onkeypress='return (event.keyCode >= 48 && event.keyCode <= 57  && event.key != " ")' class="form-control" id="emergency_contact_no" name="emergency_contact_no"
             placeholder="Enter emergency contact number" required onchange="validate('mobile_number',this.value,'mobile_number2','submit-btn1')">
             <small class="error" id="mobile_number2">Mobile number must be 10 digits</small>
     </div>
 
     <div class="info info-full">
-        <p class="info-title">blood group</p>
+        <p class="info-title">blood group<small style='color:red;'> *</small></p>
         <select class="options" name="blood_group" required>
             <option value="A-">A-</option>
             <option value="A+">A+</option>
@@ -119,7 +126,7 @@
     </div>
 
     <div class="info info-full">
-        <p class="info-title">permanent address</p>
+        <p class="info-title">permanent address<small style='color:red;'> *</small></p>
         <input type="text" class="form-control" id="permanent_address" name="permanent_address"
             placeholder="Enter permanent address" required>
     </div>
@@ -143,7 +150,9 @@
             placeholder="Enter current address">
     </div>
 
-
+    <div class="info info-full" id="current_address_div">
+    <p style="color:red;"><small>Note : * indicates required field</small></p>
+    </div>
 
     <!-- disabled -->
     <div class="btns">
@@ -152,6 +161,7 @@
     </div>
 
 </form>
+
 
 
 {% endblock %}

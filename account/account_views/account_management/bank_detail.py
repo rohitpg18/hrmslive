@@ -20,25 +20,35 @@ class BankDetail(View):
     def post(self, request):
         user_id = request.user.id
         
-        bank_name = request.POST.get('bank_name')
-        branch_name = request.POST.get('branch_name')
-        account_type = request.POST.get('account_type')
-        ifsc_code = request.POST.get('ifsc_code')
-        account_number = request.POST.get('account_number')
+        bankname = request.POST.get('bank_name')
+        branchname = request.POST.get('branch_name')
+        accounttype = request.POST.get('account_type')
+        ifsccode = request.POST.get('ifsc_code')
+        accountnumber = request.POST.get('account_number')
+        bank_docs = request.FILES.get('bank_docs')
+            
+        if bank_docs is not None:
+                
+            user_document= UserDocument.objects.filter(emp_user_id=user_id,doc_name = "Bank Document")
         
-        bank_details = UserBankDetail.objects.get(emp_user_id=user_id)
+            if user_document.exists():
+                user_document[0].doc_file= bank_docs
+                user_document[0].save()
+                
+            else:
+                user_document=UserDocument.objects.create(emp_user_id = user_id, doc_name = "Bank Document", doc_file = bank_docs)
         
-        if bank_details is None:
-            bank_details = UserBankDetail.objects.create(emp_user_id=user_id)
+        bank_details = UserBankDetail.objects.filter(emp_user_id=user_id)
         
-        bank_details.bank_name = bank_name
-        bank_details.branch_name = branch_name
-        bank_details.account_type = account_type
-        bank_details.ifsc_code = ifsc_code
-        bank_details.account_number = account_number
-        bank_details.is_completed_bank_details = True
+        print(bank_details)
         
-        bank_details.save()
+        if bank_details.count() != 0:
+            bank_details.update(emp_user_id=user_id, bank_name=bankname, branch_name=branchname, account_type= accounttype, ifsc_code=ifsccode, account_number=accountnumber, is_completed_bank_details = True)
+            
+        else:
+            bank_details = UserBankDetail.objects.create(emp_user_id=user_id, bank_name=bankname, branch_name=branchname, account_type= accounttype, ifsc_code=ifsccode, account_number=accountnumber, is_completed_bank_details = True)
+        
+
         
         messages.success(request,"Bank Details added successfully")
 

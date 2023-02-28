@@ -61,7 +61,7 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
             if education_detail is None:
                 education_detail= UserEducationDetails.objects.create(emp_user_id= user_id)
                 
-            if previous_organisation_detail is None:
+            if previous_organisation_detail.count() == 0:
                 if basic_detail.experience_status == "Experienced":
                     previous_organisation_detail= PreviousOrganisationDetail.objects.create(emp_user_id= user_id)
             
@@ -98,15 +98,15 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
             education_detail= UserEducationDetails.objects.get(emp_user_id= user_id)
             
             if education_detail is None:
-                education_detail= UserEducationDetails.objects.filter(emp_user_id= user_id)
+                education_detail= UserEducationDetails.objects.create(emp_user_id= user_id)
             
             return education_detail
         
         elif detail == 5:
             previous_organisation_detail= PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
             
-            if previous_organisation_detail is None:
-                previous_organisation_detail= PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
+            if not previous_organisation_detail.exists():
+                previous_organisation_detail = PreviousOrganisationDetail.objects.create(emp_user_id= user_id)
             return previous_organisation_detail
         
         
@@ -120,7 +120,6 @@ def is_profile_complete(user_id,**kwargs):
         
     
     user_detail= user_details(user_id,True,0)
-    print(user_detail)
     
     if user_detail is not None:
         
