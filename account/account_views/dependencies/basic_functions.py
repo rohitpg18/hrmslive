@@ -52,7 +52,7 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
             
             
             if not previous_organisation_detail.exists():
-                if basic_detail.experience_status == "Experienced":
+                if basic_detail[0].experience_status == "Experienced":
                     previous_organisation_detail= PreviousOrganisationDetail.objects.create(emp_user_id= user_id)
             
             return {"basic_detail":basic_detail[0],"additional_detail":additional_detail[0],"bank_detail":bank_detail[0],"education_detail":education_detail[0],'previous_organisation_detail':previous_organisation_detail}
@@ -78,7 +78,7 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
         elif detail == 4:
             education_detail= UserEducationDetails.objects.get_or_create(emp_user_id= user_id)
             
-            return education_detail[0]
+            return education_detail[0]  
         
         elif detail == 5:
             basic_detail= UserBasicDetails.objects.get_or_create(emp_user_id= user_id)
@@ -90,7 +90,7 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
                     previous_organisation_detail= PreviousOrganisationDetail.objects.create(emp_user_id= user_id)
                     return previous_organisation_detail
                 else:
-                    return None
+                    return None 
                     
         else:
             return None
