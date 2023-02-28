@@ -26,3 +26,9 @@ class HRAttendanceDashboard(View):
     def get(self, request):
     
         return render(request, 'payroll/admin_dashboards/attendance_dashboard.html')
+
+class HRPayrollDashboard(View):
+    @method_decorator(login_required(login_url='login'))
+    def get(self, request):
+    
+        return render(request, 'payroll/admin_dashboards/payroll_dashboard.html')

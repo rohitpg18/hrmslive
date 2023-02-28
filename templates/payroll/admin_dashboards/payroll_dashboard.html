@@ -1,0 +1,167 @@
+{% extends 'profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/dashboard.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Payroll Dashboard {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    .dashboard {
+        padding: 3rem;
+        width: 100%;
+        min-height: 100vh;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+    :root {
+        --red: hsl(0, 78%, 62%);
+        --cyan: hsl(180, 62%, 55%);
+        --orange: hsl(34, 97%, 64%);
+        --blue: hsl(212, 86%, 64%);
+        --varyDarkBlue: hsl(234, 12%, 34%);
+        --grayishBlue: hsl(229, 6%, 66%);
+        --veryLightGray: hsl(0, 0%, 98%);
+        --weight1: 200;
+        --weight2: 400;
+        --weight3: 600;
+    }
+
+    .row1-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+
+
+    .box p {
+        color: var(--grayishBlue);
+    }
+
+
+    .box {
+        border-radius: 5px;
+        box-shadow: 0px 30px 40px -20px var(--grayishBlue);
+        padding: 2rem;
+        height: 10rem;
+        margin: 1rem;
+        position: relative;
+        cursor: pointer;
+        width: 30rem;
+    }
+
+    .box:nth-child(odd) {
+        width: 28rem;
+    }
+
+    .box:hover {
+        color: #fff;
+        transform: scale(1.1);
+        transition: all 0.5s ease-out;
+        z-index: 5;
+        background: #fff;
+
+    }
+
+    .box img {
+        position: absolute;
+        right: 1.5rem;
+        bottom: 1rem;
+        width: 2rem;
+    }
+
+
+
+    .cyan {
+        border-top: 3px solid var(--cyan);
+    }
+
+    .red {
+        border-top: 3px solid var(--red);
+    }
+
+    .blue {
+        border-top: 3px solid var(--blue);
+    }
+
+    .orange {
+        border-top: 3px solid var(--orange);
+    }
+
+    h2 {
+        color: var(--varyDarkBlue);
+        font-weight: 600;
+        font-size: 1.4rem;
+    }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+<section class="dashboard">
+    <div class="dashboard_options">
+        <div class="row1-container">
+
+
+            <a href="{% url 'payroll' %}">
+                <div class="box box-down cyan">
+                    <h2>Salary Slips</h2>
+                    <p>Approve your team members request<br> if he is present.</p>
+                    <img src="{% static 'Logos/attendance.png' %}" alt="">
+                </div>
+            </a>
+            
+            <a href="{% url 'day_based_salary' %}">
+                <div class="box box-down blue">
+                    <h2>Day-Based Salary</h2>
+                    <p>Uses data from past projects to provide better delivery estimates</p>
+                    <img src="{% static 'Logos/attendance.png' %}" alt="">
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="box orange">
+                    <h2>Unit-Based Salary</h2>
+                    <p>Regularly evaluates our talent to ensure quality</p>
+                    <img src="{% static 'Logos/attendance.png' %}" alt="">
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="box red">
+                    <h2>Time-Based Salary</h2>
+                    <p>Scans our talent network to create the optimal team for your project</p>
+                    <img src="{% static 'Logos/team_members.png' %}" alt="">
+                </div>
+            </a>
+            
+
+        </div>
+
+    </div>
+</section>
+
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    document.getElementById('dashboard').classList.add('link1');
+</script>
+{% endblock %}

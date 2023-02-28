@@ -1,4 +1,4 @@
-{% extends 'profile_basic.html' %}
+{% extends 'hr_profile_basic.html' %}
 {% load static %}
 
 {% block tag %}
@@ -128,7 +128,7 @@
             </div>
 
 
-            <div class="info info-full" id="start_date_is_first_half">
+            <div class="info" id="start_date_is_first_half">
                 <p class="info-title">Half</p>
                 <select class="options" name="start_date_is_first_half" id="start_day_half">
                     {% if leave_application.start_date_is_first_half %}
@@ -163,7 +163,7 @@
             </div>
 
 
-            <div class="info info-full" id="end_date_is_first_half">
+            <div class="info" id="end_date_is_first_half">
                 <p class="info-title">Half</p>
                 <select class="options" name="end_date_is_first_half" id="end_date_half">
                     {% if leave_application.end_date_is_first_half %}
@@ -246,7 +246,7 @@
 
 {% block js %}
 <script>
-    document.getElementById('leave-requests').classList.add('link1');
+    document.getElementById('leaves_dashboard').classList.add('link1');
 
     window.onload= leaveApply();
 

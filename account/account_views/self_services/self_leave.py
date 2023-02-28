@@ -80,13 +80,13 @@ class ApplyLeave(View):
             leave_count = LeaveCount.objects.filter(month=get_month_year(), emp_user_id=user_id)
             
             if leave_type == 'SL':
-                sl_count = leave_count[0].sl_count - int(number_of_days) 
+                sl_count = leave_count[0].sl_count - float(number_of_days) 
                 leave_count.update(sl_count=sl_count)
             elif leave_type == 'CL':
-                cl_count = leave_count[0].cl_count - int(number_of_days)
+                cl_count = leave_count[0].cl_count - float(number_of_days)
                 leave_count.update(cl_count=cl_count)
             elif leave_type == 'PL':
-                pl_count = leave_count[0].pl_count - int(number_of_days)
+                pl_count = leave_count[0].pl_count - float(number_of_days)
                 leave_count.update(pl_count=pl_count)
             leave.save()
             
