@@ -43,29 +43,20 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
     if is_detail_required:
         if detail == 0:
             
-            basic_detail= UserBasicDetails.objects.get(emp_user_id= user_id)
-            additional_detail= UserAdditionalDetail.objects.get(emp_user_id= user_id)
-            bank_detail= UserBankDetail.objects.get(emp_user_id= user_id)
-            education_detail= UserEducationDetails.objects.get(emp_user_id= user_id)
+            basic_detail= UserBasicDetails.objects.get_or_create(emp_user_id= user_id)
+            additional_detail= UserAdditionalDetail.objects.get_or_create(emp_user_id= user_id)
+            bank_detail= UserBankDetail.objects.get_or_create(emp_user_id= user_id)
+            
+            
+            education_detail= UserEducationDetails.objects.get_or_create(emp_user_id= user_id)
             previous_organisation_detail = PreviousOrganisationDetail.objects.filter(emp_user_id= user_id)
             
-            if basic_detail is None:
-                basic_detail= UserBasicDetails.objects.create(emp_user_id= user_id)
-        
-            if additional_detail is None:
-                additional_detail= UserAdditionalDetail.objects.create(emp_user_id= user_id)
-
-            if bank_detail is None:
-                bank_detail = UserBankDetail.objects.create(emp_user_id= user_id)
-
-            if education_detail is None:
-                education_detail= UserEducationDetails.objects.create(emp_user_id= user_id)
-                
+            
             if previous_organisation_detail is None:
                 if basic_detail.experience_status == "Experienced":
                     previous_organisation_detail= PreviousOrganisationDetail.objects.create(emp_user_id= user_id)
             
-            return {"basic_detail":basic_detail,"additional_detail":additional_detail,"bank_detail":bank_detail,"education_detail":education_detail,'previous_organisation_detail':previous_organisation_detail}
+            return {"basic_detail":basic_detail[0],"additional_detail":additional_detail[0],"bank_detail":bank_detail[0],"education_detail":education_detail[0],'previous_organisation_detail':previous_organisation_detail}
             
         elif detail == 1:
             basic_detail= UserBasicDetails.objects.get(emp_user_id= user_id)
