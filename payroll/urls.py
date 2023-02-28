@@ -45,6 +45,7 @@ urlpatterns = [
     path("leaves-dashboard/", HRLeavesDashboard.as_view(), name='leaves_dashboard'),
     path("attendance-dashboard/", HRAttendanceDashboard.as_view(), name='attendance_dashboard'),
     path("hr-analytics/", HrAnalytics.as_view(), name='hr_analytics'),
+    path("hr-info/", data, name='hr_info'),
     
     # NR
     path('emp-activate/<int:emp_id>/', EmpActivate, name="emp_activate"),

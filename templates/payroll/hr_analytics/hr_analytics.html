@@ -95,45 +95,52 @@
         font-size: 1.8rem;
         text-align: center;
     }
+
     .box p {
         text-align: center;
     }
 
-.attendance{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
+    .attendance {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-.attendance-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    flex-wrap: wrap;
+    .attendance-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+        flex-wrap: wrap;
+
+    }
+
+    .attendance-graph {
+        padding: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30rem;
+    }
 
 
-    
-}
 
-.attendance-graph{
-    padding: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30rem;
-}
-.chartjs1{
-    position: relative;
-}
 
-.total{
-    position: absolute;
-    margin-top: 1.7rem;
-    color: #444;
-    font-size: 3rem;
-}
+    .chartjs1 {
+        position: relative;
+    }
+
+    .total {
+        position: absolute;
+        margin-top: 1.7rem;
+        color: #444;
+        font-size: 1.8rem;
+    }
+
+    .payroll {
+        width: 100%;
+    }
 </style>
 
 {% endblock %}
@@ -142,49 +149,55 @@
 
 <section class="hr-analytics">
 
-    
+    <div class="attendance-info">
+
+        <div class="box box-down cyan">
+
+            <h2> {{total}}</h2>
+            <p>Total Employees</p>
+        </div>
+
+        <div class="box box-down blue">
+            <h2>{{present}}</h2>
+            <p>Present Employees</p>
+        </div>
+
+        <div class="box box-down  red">
+            <h2>{{absent}}</h2>
+            <p>Absent Employees</p>
+
+        </div>
+
+        <div class="box box-down orange">
+            <h2>{{leave}}</h2>
+            <p>Employees on leave </p>
+        </div>
+
+    </div>
 
     <div class="attendance my-lg-5">
         <div class="attendance-graph">
-            <canvas id="myChart" class="chartjs1" style="width:23rem;height:23rem;padding:2em;box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;">
-                
+            <canvas id="Attendance" class="chartjs1"
+                style="width:20rem;height:20rem;padding:2em;box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;">
+
             </canvas>
             <h2 class="total">
                 {{total}}
             </h2>
         </div>
 
-        <div class="attendance-info">
-
-            <div class="box box-down cyan">
-                
-                <h2> {{total}}</h2>
-                <p>Total Employees</p>
-            </div>
-
-            <div class="box box-down blue">
-                <h2>{{present}}</h2>
-                <p>Present Employees</p>
-            </div>
-
-            <div class="box box-down  red">
-                <h2>{{absent}}</h2>
-                <p>Absent Employees</p>
-
-            </div>
-
-            <div class="box box-down orange">
-                <h2>{{leave}}</h2>
-                <p>Employees on leave </p>
-            </div>
-
+        <div class="payroll">
+            <canvas id="Payroll" class="chartjs1"
+                style="max-height:20rem;max-width:90%;margin:0 auto;padding:2em;box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;">
+            </canvas>
+            <div class="chartjs-tooltip"></div>
         </div>
 
 
-        
-        
     </div>
-    
+
+
+
 </section>
 
 
@@ -203,13 +216,13 @@
     var xValues = ["Present", "Leave", "Absent"];
     var yValues = {{data}};
     var barColors = [
-    'rgb(54, 162, 235)',
-    'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(75, 192, 192)',
         'rgb(255, 99, 132)',
-        
+
     ];
 
-    new Chart("myChart", {
+    new Chart("Attendance", {
         type: "doughnut",
         data: {
             labels: xValues,
@@ -224,16 +237,119 @@
             title: {
                 display: false,
             },
-            
-            
+
         }
     });
 </script>
 
+<script>
 
+    var data;
+
+    $.ajax({
+        type: "get",
+        url: "{% url 'hr_info' %}",
+        data : $("#commentForm").serialize(),
+        dataType:"json",
+        success: (res)=>{
+            console.log(res.data);
+            
+            new Chart("Payroll", {
+                type: "line",
+                data: {
+                    labels: res.data['emp_names'],
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: res.data['emp_salary'],
+                        tension: 0,
+                        pointRadius: 5,
+                        pointHoverRadius: 5,
+                        pointHitRadius: 10,
+                        hoverBackgroundColor: '#fff',
+                        pointBackgroundColor: 'transparent',
+                        pointBorderColor: 'transparent',
+                        hoverBorderColor: 'rgb(54, 162, 235)',
+                        pointHoverBorderWidth: 5,
+                        borderWidth: 2,
+                        borderColor: 'rgb(54, 162, 235)',
+                        fill: false,
+                    }]
+                },
+        
+                options: {
+                    responsive: true,
+                    title: {
+                        display: false,
+                    },
+                    
+        
+                    tooltips: {
+                        
+                    
+                        backgroundColor: 'rgb(54, 162, 235)',
+                        titleFontSize: 15,
+                        titleFontColor: '#fff',
+                        bodyFontColor: '#fff',
+                        bodyFontSize: 14,
+                        displayColors: false
+                    }
+                },
+        
+        
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: false,
+                        },
+                        grid: {
+                            color: 'transparent',
+                            borderColor: '#444',
+                            borderWidth: 2,
+                        },
+                        ticks: {
+                            display: false,
+                            color: '#fff',
+                        },
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: false,
+                            text: 'Value',
+                        },
+                        grid: {
+                            color: 'transparent',
+                            borderColor: '#444',
+                            borderWidth: 2,
+                        },
+                        ticks: {
+                            color: '#444',
+                        },
+                    },
+                },
+            });
+        
+        
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 
 
 <script src="https://cdn.syncfusion.com/js/assets/external/jquery-1.10.2.min.js"></script>
-    <!-- Essential JS UI widget -->
+<!-- Essential JS UI widget -->
 <script src="https://cdn.syncfusion.com/20.4.0.48/js/web/ej.web.all.min.js"></script>
 {% endblock %}
