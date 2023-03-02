@@ -1,5 +1,9 @@
 asgiref==3.6.0
 Django==4.1.6
+django-crispy-forms==2.0
+django-filter==22.1
+django-template-maths==0.2.0
+django-widget-tweaks==1.4.12
 numpy==1.24.1
 pandas==1.5.3
 Pillow==9.4.0

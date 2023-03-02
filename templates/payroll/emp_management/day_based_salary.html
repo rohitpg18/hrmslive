@@ -1,0 +1,225 @@
+{% extends 'hr_profile_basic.html' %}
+{% load static %}
+{% load django_template_maths %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Day Based Salary {% endblock %}</title>
+
+{% block style %}
+
+<style>
+     .team-members {
+          width: 100%;
+          min-height: 100vh;
+          height: 100%;
+          overflow: auto;
+          padding: 2em;
+     }
+
+     :root {
+        --red: hsl(0, 78%, 62%);
+        --cyan: hsl(180, 62%, 55%);
+        --orange: hsl(34, 97%, 64%);
+        --blue: hsl(212, 86%, 64%);
+        --varyDarkBlue: hsl(234, 12%, 34%);
+        --grayishBlue: hsl(229, 6%, 66%);
+        --veryLightGray: hsl(0, 0%, 98%);
+        --weight1: 200;
+        --weight2: 400;
+        --weight3: 600;
+    }
+
+     .members {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 2rem;
+          width: 100%;
+          height: 100%;
+     }
+
+
+
+     .profile-card {
+          flex: 1 1 30%;
+          min-width: 24rem;
+          max-width: 30rem;
+          background: #fff;
+          padding: 20px 30px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          border-radius: 4px;
+          box-shadow: 0 0 2px 0 #ccc;
+          transition: .3s;
+     }
+
+     .profile-info {
+          padding-top: 1rem;
+          width: 100%;
+     }
+
+     .profile-card:hover {
+          transform: scale(1.1);
+          box-shadow: 0 0 25px -5px #ccc;
+     }
+
+     .profile-icon {
+          height: 100px;
+          width: 100px;
+          object-fit: cover;
+          border-radius: 10%;
+          margin-right: 2rem;
+     }
+
+     .profile-name {
+          font-size: 2.5em;
+          font-weight: bold;
+     }
+
+     .profile-position {
+          font-size: 14px;
+          color: #777;
+     }
+
+     .button {
+          margin: 9px 0 0 0;
+          padding: 4px 14px;
+          color: #999;
+          font-size: 0.7em;
+          text-decoration: none;
+          border: 1px solid #999;
+          border-radius: 4px;
+          position: relative;
+          top: 8px;
+     }
+
+     .cyan {
+        border-top: 3px solid var(--cyan);
+        border-bottom : 3px solid var(--cyan);
+    }
+
+    .red {
+        border-top: 3px solid var(--red);
+        border-bottom: 3px solid var(--red);
+    }
+
+    .blue {
+        border-top: 3px solid var(--blue);
+        border-bottom: 3px solid var(--blue);
+    }
+
+    .orange {
+        border-top: 3px solid var(--orange);
+        border-bottom: 3px solid var(--orange);
+    }
+
+
+     .button:hover {
+          color: #fff;
+          background: #748dff;
+          border: 1px solid #748dff;
+     }
+
+     @media screen and (max-width: 1000px) {
+          .profile-name {
+               font-size: 18px;
+          }
+     }
+
+     @media screen and (max-width: 800px) {
+          .profile-card {
+               padding: 20px 15px;
+          }
+
+          .profile-name {
+               font-size: 16px;
+          }
+     }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="team-members">
+     <div class="head-card">
+          <h4>Day Based Salary Data</h4>
+          <a href="{% url 'payroll_dashboard' %}">
+               Back
+               <span class="material-symbols-outlined mx-2">
+                    undo
+               </span>
+          </a>
+     </div>
+
+    <div class="members my-lg-5">
+
+
+        <div class="profile-card cyan">
+          <img src="{% static 'Logos/employee_salary.png' %}" alt="image1" class="profile-icon" />
+          <div class="profile-info">
+               <div class="profile-name" style="font-size:3.3rem;font-weight:bolder">₹ {{total_per_day_salary}}</div>
+               <div class="profile-position my-3" style="font-weight:bold;">Per Day Cost of all Employees</div>    
+          </div>
+        </div>
+
+        <div class="profile-card orange">
+            <img src="{% static 'Logos/department_salary.png' %}" alt="image1" class="profile-icon" />
+            <div class="profile-info">
+                 <div class="profile-name">₹ {{department_wise_per_day_salary}}</div>
+                 <div class="profile-position my-2">Department wise per Day Cost
+                    <form action="{% url 'day_based_salary' %}" method="GET" enctype="multipart/form-data">
+                    <select class="options" id="department" name="department" style="margin:0px; position:relative; left:0px; top:10px" >
+                        {% for dept in departments %}
+                        <option value="{{dept.department_name}}" {% if dept.department_name == dept_name %} Selected {% endif %}>{{dept.department_name}}</option>
+                        {% endfor %}
+                    </select> 
+                    <button type="submit" class="button">View</button>
+                 </div>    
+            </div>
+         </div>
+    </div>
+
+    <table class="table">
+        <thead >
+                <tr>
+                    <th scope="col">Sr. No.</th>
+                    <th scope="col">Employee ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Per Day Salary</th>
+                </tr>
+        </thead>
+        <tbody>
+            {% for salaries in department_wise_filter %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{salaries.emp_user.username}}</td>
+                <td>{{salaries.emp_user.get_full_name}}</td>
+                <td>{{salaries.designation.designation_name}}</td>
+                <td>₹ {{salaries.salary|div:month_days|floatformat:0}}</td>
+            </tr>
+            {% endfor %}  
+        </tbody>
+    </table>
+
+
+
+
+     
+</section>
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+     document.getElementById('payroll').classList.add('link1');
+</script>
+{% endblock %}

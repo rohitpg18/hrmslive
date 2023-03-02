@@ -1,3 +1,11 @@
+
+{% load django_template_maths %}
+{% for sal in salary %}
+
+{{sal.salary|div:month_days}}
+    
+{% endfor %}
+=====================================================================================================================================================================================================
 Required Documents for Joining:
 
 Passport Size Photos – 4 No’s

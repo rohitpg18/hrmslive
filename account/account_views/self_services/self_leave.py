@@ -9,7 +9,7 @@ class ApplyLeave(View):
         
         user_id = request.user.id
         
-        leave_count=monthly_leave_count(user_id)
+        leave_count=monthly_leave_count(user_id=user_id)
         if leave_count is None:
             return redirect('self_leave')
             

@@ -25,6 +25,8 @@ urlpatterns = [
     # payroll
     path("payroll/", PayrollData.as_view(), name = "payroll"),
     path('day-based-salary/', DayBasedSalary.as_view(), name = "day_based_salary"),
+    path('department-based-salary/', DepartmentBasedSalary.as_view(), name = "department_based_salary"),
+    path('time-based-salary/', TimeBasedSalary.as_view(), name="time_based_salary"),
     
     # other
     path("department/", DepartmentDetails.as_view(),name="department"),

@@ -72,7 +72,7 @@ class UpdateEmployee(View):
                 emp_user.is_active = False
             emp_user.save()
 
-            user_basic_details = UserBasicDetails.objects.get(emp_user_id=emp_user.id)
+            user_basic_details = list(UserBasicDetails.objects.get_or_create(emp_user_id=emp_user.id))[0]
 
             user_basic_details.designation = Designation.objects.get(id=designation)
             user_basic_details.department = Department.objects.get(id=department)
@@ -147,7 +147,7 @@ class UpdateEmployee(View):
             user_basic_details.is_completed_basic_details = True
             user_basic_details.save()
 
-            user_bank_details = UserBankDetail.objects.get(emp_user_id=emp_user.id)
+            user_bank_details = list(UserBankDetail.objects.get_or_create(emp_user_id=emp_user.id))[0]
 
             if completed_bank_details == "True":
                 user_bank_details.is_completed_bank_details = True
