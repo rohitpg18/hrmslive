@@ -1,4 +1,4 @@
-{% extends 'profile_basic.html' %}
+{% extends 'hr_profile_basic.html' %}
 {% load static %}
 
 {% block tag %}
@@ -9,7 +9,6 @@
 <title>{% block title %} HRMS : Payroll Dashboard {% endblock %}</title>
 
 {% block style %}
-
 <style>
     .dashboard {
         padding: 3rem;
@@ -107,7 +106,6 @@
         font-size: 1.4rem;
     }
 </style>
-
 {% endblock %}
 
 {% block profile %}
@@ -116,11 +114,10 @@
     <div class="dashboard_options">
         <div class="row1-container">
 
-
             <a href="{% url 'payroll' %}">
                 <div class="box box-down cyan">
                     <h2>Salary Slips</h2>
-                    <p>Approve your team members request<br> if he is present.</p>
+                    <p>Document issued monthly by an employer to its employees</p>
                     <img src="{% static 'Logos/attendance.png' %}" alt="">
                 </div>
             </a>
@@ -128,7 +125,7 @@
             <a href="{% url 'day_based_salary' %}">
                 <div class="box box-down blue">
                     <h2>Day-Based Salary</h2>
-                    <p>Uses data from past projects to provide better delivery estimates</p>
+                    <p>Divided employees salary by the total number of days in a month</p>
                     <img src="{% static 'Logos/attendance.png' %}" alt="">
                 </div>
             </a>
@@ -136,32 +133,28 @@
             <a href="{% url 'department_based_salary' %}">
                 <div class="box orange">
                     <h2>Department-Based Salary</h2>
-                    <p>Regularly evaluates our talent to ensure quality</p>
+                    <p>Per month salary costs of departments</p>
                     <img src="{% static 'Logos/attendance.png' %}" alt="">
                 </div>
             </a>
 
-            <a href="#">
+            <a href="{% url 'time_based_salary' %}">
                 <div class="box red">
                     <h2>Time-Based Salary</h2>
-                    <p>Scans our talent network to create the optimal team for your project</p>
+                    <p>Salaries amount released till month</p>
                     <img src="{% static 'Logos/team_members.png' %}" alt="">
                 </div>
             </a>
-            
-
+    
         </div>
-
     </div>
 </section>
-
-
 
 {% endblock %}
 
 
 {% block js %}
 <script>
-    document.getElementById('dashboard').classList.add('link1');
+    document.getElementById('payroll').classList.add('link1');
 </script>
 {% endblock %}

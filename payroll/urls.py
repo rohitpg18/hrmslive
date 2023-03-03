@@ -27,6 +27,7 @@ urlpatterns = [
     path('day-based-salary/', DayBasedSalary.as_view(), name = "day_based_salary"),
     path('department-based-salary/', DepartmentBasedSalary.as_view(), name = "department_based_salary"),
     path('time-based-salary/', TimeBasedSalary.as_view(), name="time_based_salary"),
+    path('total-paid-salary/', SalariesPaidTillDate.as_view(), name="total_paid_salary"),
     
     # other
     path("department/", DepartmentDetails.as_view(),name="department"),
@@ -51,8 +52,4 @@ urlpatterns = [
     path("hr-analytics/", HrAnalytics.as_view(), name='hr_analytics'),
     path("hr-info/", data, name='hr_info'),
     
-    
-    # NR
-    path('emp-activate/<int:emp_id>/', EmpActivate, name="emp_activate"),
-    path('emp-deactivate/<int:emp_id>/', EmpDeactivate, name="emp_deactivate"),   
 ]

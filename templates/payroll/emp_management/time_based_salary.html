@@ -1,11 +1,12 @@
 {% extends 'hr_profile_basic.html' %}
 {% load static %}
+{% load django_template_maths %}
 
 {% block tag %}
 <link href="{%static 'css/self-details.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : Department Based Salary {% endblock %}</title>
+<title>{% block title %} HRMS : Time Based Salary {% endblock %}</title>
 
 {% block style %}
 
@@ -48,14 +49,13 @@
           min-width: 24rem;
           max-width: 30rem;
           background: #fff;
-          padding: 15px 25px;
+          padding: 20px 30px;
           display: flex;
           flex-direction: row;
           align-items: center;
           border-radius: 4px;
           box-shadow: 0 0 2px 0 #ccc;
           transition: .3s;
-          margin: 20px 20px;
      }
 
      .profile-info {
@@ -77,12 +77,12 @@
      }
 
      .profile-name {
-          font-size: 3em;
+          font-size: 2.5em;
           font-weight: bold;
      }
 
      .profile-position {
-          font-size: 19px;
+          font-size: 14px;
           color: #777;
      }
 
@@ -99,23 +99,23 @@
      }
 
      .cyan {
-        border-top: 4px solid var(--cyan);
-        border-bottom : 4px solid var(--cyan);
+        border-top: 3px solid var(--cyan);
+        border-bottom : 3px solid var(--cyan);
     }
 
     .red {
-        border-top: 4px solid var(--red);
-        border-bottom: 4px solid var(--red);
+        border-top: 3px solid var(--red);
+        border-bottom: 3px solid var(--red);
     }
 
     .blue {
-        border-top: 4px solid var(--blue);
-        border-bottom: 4px solid var(--blue);
+        border-top: 3px solid var(--blue);
+        border-bottom: 3px solid var(--blue);
     }
 
     .orange {
-        border-top: 4px solid var(--orange);
-        border-bottom: 4px solid var(--orange);
+        border-top: 3px solid var(--orange);
+        border-bottom: 3px solid var(--orange);
     }
 
 
@@ -148,54 +148,48 @@
 
 
 <section class="team-members">
-    <div class="head-card">
-         <h4>Department Based Salary</h4>
-         <a href="{% url 'payroll_dashboard' %}">
-              Back
-              <span class="material-symbols-outlined mx-2">
-                   undo
-              </span>
-         </a>
-    </div>
-
-
+     <div class="head-card">
+          <h4>Time Based Salary Data</h4>
+          <a href="{% url 'payroll_dashboard' %}">
+               Back
+               <span class="material-symbols-outlined mx-2">
+                    undo
+               </span>
+          </a>
+     </div>
 
     <div class="members my-lg-5">
 
-         
-        <div class="profile-card blue">
-            <img src="{% static 'Logos/backend.jpg' %}" alt="image1" class="profile-icon" />
-            <div class="profile-info">
-                 <div class="profile-name">₹ {{back_end_development_salary}}</div>
-                 <div class="profile-position my-3">Back End Development</div>
-            </div>
-        </div>
-
-        <div class="profile-card red">
-            <img src="{% static 'Logos/soft_test.jpg' %}" alt="image1" class="profile-icon" />
-            <div class="profile-info">
-                 <div class="profile-name">₹ {{software_testing_salary}}</div>
-                 <div class="profile-position my-3">Software Testing</div>
-            </div>
-        </div>
-
+        
         <div class="profile-card cyan">
-            <img src="{% static 'Logos/sap.png' %}" alt="image1" class="profile-icon" />
-            <div class="profile-info">
-                 <div class="profile-name">₹ {{sap_salary}}</div>
-                 <div class="profile-position my-3">SAP MM</div>
-            </div>
+          <img src="{% static 'Logos/employee_salary.png' %}" alt="image1" class="profile-icon" />
+          <div class="profile-info">
+               <div class="profile-name" style="font-size:3.3rem;font-weight:bolder">₹ {{total_salary_paid}}</div>
+               <a href="{% url 'total_paid_salary' %}">
+               <div class="profile-position my-3" style="font-weight:bold;">Total Salary Paid till month</div>  
+               </a>  
+          </div>
         </div>
+        
 
         <div class="profile-card orange">
-            <img src="{% static 'Logos/hr.png' %}" alt="image1" class="profile-icon" />
+            <img src="{% static 'Logos/department_salary.png' %}" alt="image1" class="profile-icon" />
             <div class="profile-info">
-                 <div class="profile-name">₹ {{hr_salary}}</div>
-                 <div class="profile-position my-3">Human Resource</div>
+                 <div class="profile-name">₹ {{total_salary_paid_to_department}}</div>
+                 <div class="profile-position my-2">Department wise salaries paid till month
+                    <form action="{% url 'time_based_salary' %}" method="GET" enctype="multipart/form-data">
+                    <select class="options" id="department" name="department" style="margin:0px; position:relative; left:0px; top:10px" >
+                        {% for dept in departments %}
+                        <option value="{{dept.department_name}}" {% if dept.department_name == dept %} Selected {% endif %}>{{dept.department_name}}</option>
+                        {% endfor %}
+                    </select> 
+                    <button type="submit" class="button">View</button>
+                 </div>    
             </div>
-        </div>
-
+         </div>
     </div>
+
+     
 </section>
 
 {% endblock %}

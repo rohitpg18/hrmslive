@@ -1,0 +1,243 @@
+{% extends 'hr_profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
+{% endblock %}
+
+<title>{% block title %} HRMS : Total Salary Paid to Employee List {% endblock %}</title>
+
+
+{% block style %}
+
+<style>
+    .user-info {
+        padding: 2rem;
+        overflow: auto;
+    }
+
+    .user_info {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+
+    .basic_info {
+        width: 100%;
+    }
+
+    .main-heading {
+        margin: 0;
+        padding: 2.5rem 1rem;
+    }
+
+    .user_info .info {
+        max-width: 40%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user_info .info .info-description {
+        margin-right: 1rem;
+
+    }
+
+    .user_info .info p {
+        margin: 0;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+
+    .details {
+        padding: 0;
+        margin-top: 0;
+    }
+
+    .info_card {
+        border: 1px solid #387EF9;
+        padding: 1em;
+        padding-bottom: 0;
+        width: 100%;
+
+    }
+
+    .table thead tr {
+        color: #387EF9;
+        font-weight: 100;
+        font-size:20;
+        border: none;
+    }
+
+    .table tbody td {
+        border: none;
+        padding: 15px;
+        font-size: 0.9rem;
+        background: #fff;
+        text-align: center;
+        font-weight: 350;
+    }
+    .table thead tr th {
+        border: none;
+    }
+    .table .next-btn2 {
+        margin: 0;
+        padding: 0.2em 1em;
+        font-size: 1em;
+        font-weight: 500;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+    .table .next-btn2:hover {
+        background: #fff;
+        color: #387EF9;
+        border: 2px solid #387EF9;
+        transition: 0.2s linear;
+    }
+
+    .table thead tr:hover {
+        color: #fff;
+        background-color: #387EF9;
+        transition: 0.3s linear;
+
+    }
+
+    .emplist_head{
+        display : flex;
+
+    }
+    .emp_details{
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        overflow: auto;
+        gap:1em;
+    }
+    .emp_details input{
+        width: 10rem;   
+        height:2.6rem; 
+    border: none;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius:0;
+    }
+
+    .options{
+    border: none;
+    outline: none;
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    color: #444;
+    cursor: pointer;
+    }
+
+    .next_btn1 {
+        padding: 0;
+        border: none;
+        outline: none;
+        color: #387EF9;
+        border: 1px solid #387EF9;
+        cursor: pointer;
+        margin:0;
+        font-weight: 600;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .emp_details input select {
+        vertical-align: middle;
+        margin: 5px 10px 5px 0;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+    @media (max-width: 800px) {
+        .emp_details input {
+          margin: 10px 0;
+        }
+
+        .emp_details {
+          flex-direction: column;
+          align-items: stretch;
+        }
+    }
+
+</style>
+
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <div class="basic_info">
+        <div class="emplist_head">
+        <p class="main-heading">List of total amount of salary paid to employees</p> 
+
+
+        </div>
+
+
+        <table class="table">
+            <thead >
+                    <tr>
+                        <th scope="col">Employee ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">Salary Paid Till Month</th>
+                    </tr>
+            </thead>
+            <tbody>
+                {% for data in users_total_paid_salary %}
+                <tr>
+                    <th scope="row">{{data.emp_user.username}}</th>
+                    <td>{{data.emp_user.get_full_name}}</td>
+                    <td>{{data.emp_user.user_basics.department.department_name}}</td>
+                    <td>{{data.emp_user.user_basics.designation.designation_name}}</td>
+                    <td>{{data.paid_salary}}</td>
+                </tr>
+                {% endfor %}  
+            </tbody>
+        </table>
+
+
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+
+
+{% block js %}
+
+<script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js"></script>
+
+<script>
+    document.getElementById('payroll').classList.add('link1');
+</script>
+
+
+
+
+
+{% endblock %}
