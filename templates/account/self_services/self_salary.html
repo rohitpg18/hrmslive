@@ -133,7 +133,7 @@
                     <th>{{forloop.counter}}</th>
                     <td>{{sal.emp_user.username}}</td>
                     <td>{{sal.month.month_name|slice:":-4:"}} {{sal.month.month_name|slice:"-4::"}}</td>
-                    <td> {% if basic_details.is_salaried == True %} {{sal.net_salary}} {% else %} {{sal.gross_salary}}
+                    <td> {% if basic_details.is_salaried == False %} {{sal.net_salary}} {% else %} {{sal.gross_salary}}
                         {% endif %} 
                     </td>
                     <td>

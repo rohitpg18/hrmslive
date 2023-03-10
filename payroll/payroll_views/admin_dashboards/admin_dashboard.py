@@ -32,3 +32,10 @@ class HRPayrollDashboard(View):
     def get(self, request):
     
         return render(request, 'payroll/admin_dashboards/payroll_dashboard.html')
+    
+
+class HRCreateEmployeeDashboard(View):
+    @method_decorator(login_required(login_url='login'))
+    def get(self, request):
+    
+        return render(request, 'payroll/admin_dashboards/create_employee.html')

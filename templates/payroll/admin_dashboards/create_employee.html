@@ -6,9 +6,10 @@
 <link href="{%static 'css/dashboard.css'%}" rel="stylesheet">
 {% endblock %}
 
-<title>{% block title %} HRMS : Payroll Dashboard {% endblock %}</title>
+<title>{% block title %} HRMS : Attendance Data {% endblock %}</title>
 
 {% block style %}
+
 <style>
     .dashboard {
         padding: 3rem;
@@ -16,10 +17,9 @@
         min-height: 100vh;
         height: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
     }
-
 
 
     :root {
@@ -106,6 +106,7 @@
         font-size: 1.4rem;
     }
 </style>
+
 {% endblock %}
 
 {% block profile %}
@@ -114,47 +115,35 @@
     <div class="dashboard_options">
         <div class="row1-container">
 
-            <a href="{% url 'payroll' %}">
+
+            <a href="{% url 'signup' %}">
                 <div class="box box-down cyan">
-                    <h2>Salary Slips</h2>
-                    <p>Document issued monthly by an employer to its employees</p>
-                    <img src="{% static 'Logos/salary.png' %}" alt="">
-                </div>
-            </a>
-            
-            <a href="{% url 'day_based_salary' %}">
-                <div class="box box-down blue">
-                    <h2>Day-Based Salary</h2>
-                    <p>Divided employees salary by the total number of days in a month</p>
-                    <img src="{% static 'Logos/attendance.png' %}" alt="">
+                    <h2>Self On-boarding</h2>
+                    <p>Create employee account by manually</p>
+                    <img src="{% static 'Logos/attendance_list.png' %}" alt="">
                 </div>
             </a>
 
-            <a href="{% url 'department_based_salary' %}">
-                <div class="box orange">
-                    <h2>Department-Based Salary</h2>
-                    <p>Per month salary costs of departments</p>
-                    <img src="{% static 'Logos/attendance.png' %}" alt="">
-                </div>
-            </a>
-
-            <a href="{% url 'time_based_salary' %}">
+            <a href="{% url 'upload' %}">
                 <div class="box red">
-                    <h2>Time-Based Salary</h2>
-                    <p>Salaries amount released till month</p>
-                    <img src="{% static 'Logos/team_members.png' %}" alt="">
+                    <h2>On-boarding By Excel</h2>
+                    <p>Create employee accounts using Excel sheet in bulk</p>
+                    <img src="{% static 'Logos/attendance_list.png' %}" alt="">
                 </div>
             </a>
-    
+
         </div>
+
     </div>
 </section>
+
+
 
 {% endblock %}
 
 
 {% block js %}
 <script>
-    document.getElementById('payroll').classList.add('link1');
+    document.getElementById('create-account').classList.add('link1');
 </script>
 {% endblock %}

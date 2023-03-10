@@ -1,5 +1,68 @@
 from account.account_views.dependencies.basic_functions import *
+from account.resources import *
+from account.resources import *
+from django.contrib import messages
+from tablib import Dataset
+from django.contrib.auth.hashers import make_password
 
+
+
+def Upload(request):
+    if request.method == "POST":
+        user_resouce = UserResouce()
+        user_basic_resouce = UserBasicDetailsResouce()
+        designation_resouce = DesignationResouce()
+        department_resouce = DepartmentResouce()
+        user_shift_resource = UserShiftDetailsResouce()
+        dataset = Dataset()
+
+        detail = request.FILES['myfile']
+    
+
+        imported_data = dataset.load(detail.read(), format='xlsx')
+
+        # if not imported_data.name.endswith('xlsx'):
+        #     messages.info('wrong formate')
+        print(imported_data)
+
+        for data in imported_data:
+            print(data)
+            username = data[0]            
+
+            if User.objects.filter(username=username).exists():
+                messages.warning(request, f"User {username} already exists")
+
+            else:               
+                user = User()
+                user.username = data[0]
+                user.password = make_password(data[9])
+                user.first_name = data[1]
+                user.last_name = data[2]
+                user.save()
+
+                username = data[0]
+                password = data[9]
+                designation = data[4]
+                salary = data[8]
+                department = data[3]
+                experience = data[5]
+                joining = data[7]
+                shift_details = data[6]
+
+                print(username)
+                
+                other_detail = UserBasicDetails.objects.get(emp_user__username= username)
+                other_detail.designation_id = designation
+                other_detail.department_id = department
+                other_detail.experience_status = experience
+                other_detail.date_of_joining = joining
+                other_detail.shift_details_id = shift_details
+                other_detail.salary = salary
+                other_detail.save()
+            
+                messages.success(request, f"Account Created sucessfully.\n Your Username is {username} and Password is {password}")
+                      
+    return render(request, "payroll/emp_management/upload.html")
 
 class UserSignUp(View):
     

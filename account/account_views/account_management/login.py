@@ -23,12 +23,23 @@ class UserLogin(View):
 
 
                     date = datetime.today()
-
-                    day= DailyAttendance.objects.filter(emp_user_id= user_id,date=date)
+                    
                     month = get_month_year()
 
-                    if not day.exists():
-                        DailyAttendance.objects.create(emp_user_id=user_id,month=month,login_time=date.time(),is_present=True)
+                    day= DailyAttendance.objects.get_or_create(emp_user_id= user_id,date=date, month=month)
+                    
+                    day[0].is_present = True
+                    day[0].save()
+                        
+                    user_location = UserLocationDetails.objects.get_or_create(emp_user_id=user_id, attendance=day[0])
+                    
+                    user_location[0].country=get_location()['country']
+                    user_location[0].state=get_location()['regionName']
+                    user_location[0].city=get_location()['city']
+                    user_location[0].latitude=get_location()['lat']
+                    user_location[0].longitude=get_location()['lon']
+                    user_location[0].service_provider=get_location()['org']
+                    user_location[0].save()
 
                     return redirect(is_profile_complete(user_id))
                     
@@ -57,7 +68,7 @@ class UserLogOut(View):
 
         date = datetime.today()
         day= DailyAttendance.objects.filter(emp_user_id= user_id,date=date)
-        month = get_month_year
+        
         if day.exists():
             DailyAttendance.objects.filter(emp_user_id= user_id,date=date).update(logout_time=date.time())
         

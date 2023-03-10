@@ -22,6 +22,7 @@ from account.views import *
 urlpatterns = [
     path("",UserLogin.as_view(),name="login"),
     path("log-out/",UserLogOut.as_view(),name="logout"),
+    # path("location/", UserLocation.as_view(), name="location"),
     path("admin/", admin.site.urls),
     path("accounts/",include('account.urls')),
     path("payroll/",include('payroll.urls')),

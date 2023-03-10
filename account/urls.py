@@ -8,6 +8,7 @@ from account.views import *
 urlpatterns = [
     # employee details forms
     path("signup/", UserSignUp.as_view(), name="signup"),
+    path("upload-excel/", Upload, name = "upload"),
     path("additional-detail/", AdditionalDetail.as_view(), name="additional_details"),
     path("bank-detail/", BankDetail.as_view(), name="bank_details"),
     path("educational-detail/", EducationalDetail.as_view(), name="educational_details"),

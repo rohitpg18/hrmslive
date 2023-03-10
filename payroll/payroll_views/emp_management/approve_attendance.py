@@ -1,4 +1,5 @@
 from account.account_views.dependencies.basic_functions import *
+from django.core.paginator import Paginator
 
 
 class ApproveAttendance(View):
@@ -69,10 +70,17 @@ class AttendanceList(View):
         if department_name:
             employees = employees.filter(
                 user_basics_departmentdepartment_name_icontains=department_name)
+            
+        paginator = Paginator(employees, per_page=10)
+        page_number = request.GET.get("page", 1)
+        page_obj = paginator.get_page(page_number)
+        total_pages = page_obj.paginator.num_pages
 
         context = {
-            "employees": employees,
-            "departments": Department.objects.all()
+            "employees": page_obj,
+            "last_page": total_pages,
+            "departments": Department.objects.all(),
+            "paginator": paginator,
         }
 
         return render(request, 'payroll/emp_management/attendanceList_allUsers.html', context)

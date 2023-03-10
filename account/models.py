@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
+from payroll.models import DailyAttendance
 
 class Designation(models.Model):
     designation_name = models.CharField(max_length=100, unique=True)
@@ -243,6 +244,20 @@ class Notification(models.Model):
     
     def __str__ (self):
         return self.emp_user.username + ' ' + self.title
+    
+    
+class UserLocationDetails(models.Model):
+    emp_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "user_location")
+    attendance = models.OneToOneField(DailyAttendance, on_delete=models.CASCADE, related_name="dailyattendance")
+    country = models.CharField(max_length=255, null=True)
+    state = models.CharField(max_length=255, null=True)
+    city = models.CharField(max_length=255, null=True)
+    latitude = models.CharField(max_length=255, null=True)
+    longitude = models.CharField(max_length=255, null=True)
+    service_provider = models.CharField(max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
         
     
 @receiver(post_save, sender=User)

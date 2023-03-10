@@ -49,6 +49,7 @@ urlpatterns = [
     path("leaves-dashboard/", HRLeavesDashboard.as_view(), name='leaves_dashboard'),
     path("attendance-dashboard/", HRAttendanceDashboard.as_view(), name='attendance_dashboard'),
     path("payroll-dashboard/", HRPayrollDashboard.as_view(), name='payroll_dashboard'),
+    path("create-employee-dashboard/", HRCreateEmployeeDashboard.as_view(), name='create_employee_dashboard'),
     path("hr-analytics/", HrAnalytics.as_view(), name='hr_analytics'),
     path("hr-info/", data, name='hr_info'),
     

@@ -1,4 +1,7 @@
 from account.account_views.dependencies.dependencie import *
+import requests
+import json
+# from digidevice import location
 
 
 def get_end_date_of_month(year, month):
@@ -94,9 +97,7 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
                     
         else:
             return None
-    
-    
-    
+
 
 def is_profile_complete(user_id,**kwargs):
         
@@ -149,7 +150,7 @@ def create_month_year_formate(date=0,is_current_month=True,month=0):
         
         else:
             date = datetime.now()
-            date = date + relativedelta(months=+month)
+            date = date + relativedelta(months=-month)
             
             return str(date.strftime('%B')) + str(date.year)
     
@@ -521,6 +522,30 @@ def validate (input_type, value):
             return e
         else:
             return True
+        
+        
+def get_location ():
+    
+    ip_request = requests.get('https://api.ipify.org?format=json')
+    
+    ip_data = json.loads(ip_request.text)
+    
+    res = requests.get('http://ip-api.com/json/'+ip_data['ip'])
+    
+    # ip_address = ip_request.json()['ip']
+    
+    location_data_one = res.text
+    
+    location_data = json.loads(location_data_one)
+    
+    # url = 'https://ip-api.com/json/'+ip_address+'.json'
+    
+    # geo_request = requests.get(url)
+    
+    return location_data
+        
+        
+
     
     
     

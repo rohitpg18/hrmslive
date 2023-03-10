@@ -173,7 +173,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for emp in employees %}
+                {% for emp in employees.object_list %}
                 <tr>
                     <td>{{emp.username}}</td>
                     <td>{{emp.get_full_name}}</td>
@@ -191,9 +191,49 @@
                 {% endfor %}
             </tbody>
         </table>
-
-
     </div>
+
+    
+    <ul class='pagination'>
+
+        {% if employees.has_previous %}
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page=1"><<</a>
+        </li>
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page={{employees.previous_page_number}}"><</a>
+        </li>
+        
+        {% endif %}
+        
+        {% for i in paginator.page_range %}
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page={{i}}">{{i}}</a>
+        </li>
+            
+        {% endfor %}
+
+        {% if employees.has_next %}
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page={{employees.next_page_number}}">></a>
+        </li>
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page={{last_page}}">>></a>
+        </li>
+
+
+
+        {% endif %}
+    
+    </ul>
+
+            
+
 </section>
 
 

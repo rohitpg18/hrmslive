@@ -170,6 +170,7 @@
                     <th scope="col">Employee Name</th>
                     <th scope="col">Department</th>
                     <th scope="col">Designation</th>
+                    <th scope="col">Location</th>
                     <!-- <th scope="col">Status</th> -->
                 </tr>
             </thead>
@@ -182,17 +183,19 @@
                         <td>{{emp.emp_user.get_full_name}}</td>
                         <td>{{emp.emp_user.user_basics.department.department_name}}</td>
                         <td>{{emp.emp_user.user_basics.designation.designation_name}}</td>
-                        <!-- <td>
-                            {{emp.is_present}}
-                        </td> -->
+                        <td>{{emp.dailyattendance.state}}, {{emp.dailyattendance.city}}</td>
                     </tr>
                 {% endif %}    
                 {% endfor %}
             </tbody>
         </table>
 
-
     </div>
+
+
+
+
+
 </section>
 
 {% endblock %}

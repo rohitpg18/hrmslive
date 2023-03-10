@@ -1,4 +1,6 @@
+{'status': 'success', 'country': 'India', 'countryCode': 'IN', 'region': 'MH', 'regionName': 'Maharashtra', 'city': 'Pune', 'zip': '411001', 'lat': 18.6161, 'lon': 73.7286, 'timezone': 'Asia/Kolkata', 'isp': 'Bharti Airtel', 'org': 'Bharti Airtel Ltd.', 'as': 'AS24560 Bharti Airtel Ltd., Telemedia Services', 'query': '171.48.34.40'}
 
+=========================================================================================================================
 {% load django_template_maths %}
 {% for sal in salary %}
 

@@ -176,8 +176,45 @@
             </tbody>
         </table>
 
-
     </div>
+
+    <ul class='pagination'>
+
+        {% if leave_history.has_previous %}
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page=1"><<</a>
+        </li>
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page={{leave_history.previous_page_number}}"><</a>
+        </li>
+        
+        {% endif %}
+        
+        {% for i in paginator.page_range %}
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page={{i}}">{{i}}</a>
+        </li>
+            
+        {% endfor %}
+
+        {% if leave_history.has_next %}
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page={{leave_history.next_page_number}}">></a>
+        </li>
+
+        <li class='pagination-item'>
+            <a class='page-link' href="?page={{last_page}}">>></a>
+        </li>
+
+
+
+        {% endif %}
+    
+    </ul>
 </section>
 
 

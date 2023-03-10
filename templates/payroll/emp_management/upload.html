@@ -1,0 +1,356 @@
+{% extends 'hr_profile_basic.html' %}
+{% load static %}
+
+{% block tag %}
+<link href="{%static 'css/self-details.css'%}" rel="stylesheet">
+<link href="{%static 'css/form.css'%}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>{% block title %} HRMS : Create Account {% endblock %}</title>
+
+{% block style %}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        width: 100%;
+        min-height: 100vh;
+        background: #5691d5;
+        background: linear-gradient(282deg, #009dff 0%, #54bdff);
+    }
+
+    .box {
+        max-width: 500px;
+        background: #fff;
+        padding: 30px;
+        width: 100%;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+
+    .upload-area-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .uploadlabel {
+        width: 100%;
+        min-height: 100px;
+        background: #18a7ff0d;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 3px dashed #18a7ff82;
+        cursor: pointer;
+    }
+
+    .uploadlabel span {
+        font-size: 70px;
+        color: #18a7ff;
+    }
+
+    .uploadlabel p {
+        color: #18a7ff;
+        font-size: 20px;
+        font-weight: 800;
+        font-family: cursive;
+    }
+
+    .uploaded {
+        margin: 3px 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #a5a5a5
+    }
+
+    .showfilebox {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0;
+        padding: 10px 15px;
+        box-shadow: #0000000d 0px 0px 0px 1px,
+            #d1d5db3d 0px 0px 0px 1px inset;
+    }
+
+    .showfilebox.left {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .filetype {
+        background: #18a7ff;
+        color: #fff;
+        padding: 5px 15px;
+        font-size: 20px;
+        text-transform: capitalize;
+    }
+
+    .left h4 {
+        font-weight: 600;
+        font-size: 15px;
+        color: #292f42;
+        margin: 0;
+    }
+
+    .right span {
+        background: #18a7ff;
+        color: #fff;
+        width: 25px;
+        height: 25px;
+        font-size: 25px;
+        line-height: 25px;
+        display: inline-block;
+        text-align: center;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+    }
+
+    .button {
+        background-color: #387EF9;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s;
+        /* Safari */
+        transition-duration: 0.4s;
+    }
+
+    .button2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    }
+    .but{
+        text-align: center;
+        font-size: 10px;
+    }
+
+
+
+
+
+
+    .profile-navigations .profile-navigation-links .link1 {
+        color: #fff;
+        background-color: #387EF9;
+        transition: all 0.5s ease-out;
+    }
+
+    .profile-navigations .profile-navigation-links .link1 svg {
+        fill: #fff;
+        transition: all 0.5s ease-out;
+    }
+
+    .details {
+        margin-top: 0;
+        padding-top: 2rem;
+    }
+
+    .details .permissions {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .details .permissions p {
+        color: #387EF9;
+        font-weight: 500;
+        margin-bottom: 1em;
+        text-transform: uppercase;
+    }
+
+    .details .permissions .check-box-info {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 1rem;
+    }
+
+    .details .permissions .check-box {
+        max-width: 22rem;
+        overflow: hidden;
+    }
+
+    .check-box-square {
+        width: 1.3rem;
+        height: 1.3rem;
+        transform: translateY(25%);
+        margin-right: 1rem;
+    }
+
+    .check-box-label:hover {
+        cursor: pointer;
+    }
+
+    .info-full {
+        max-width: 100%;
+        padding: 0 1rem;
+
+    }
+</style>
+
+{% endblock %}
+
+{% block profile %}
+
+
+<section class="user-info">
+    <div class="wrapper">
+        <div class="box">
+            <div class="input-bx">
+                <h2 class="upload-area-title">Upload File</h2>
+                <form method="post" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" id="upload" name="myfile" accept=".xlsx" hidden>
+                    <label for="upload" class="uploadlabel">
+                        <span><i class="fa fa-cloud-upload"></i></span>
+                        <p>Click to upload</p>
+                    </label>
+                    <div class="but">
+                        <button type="submit" class="button button2" style="margin-top: 10px">
+                            Upload</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="filewrapper">
+                <!-- <h3 class="uploaded">Uploaded Documents</h3>
+                <div class="showfilebox">
+                    <div class="left">
+                        <span class="filetype">pdf</span>
+                        <h3>My.pdf</h3  >                                                                       
+                    </div>
+                    <div class="right">
+                        <span>&#215;</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+<section class="user-info">
+    <div>
+        <h2>Upload File to Import Data....!!!</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="myfile">
+            <button type="submit">Upload</button>
+    </div>
+    </form>
+</section>
+{% endblock %}
+
+{% block js %}
+<script>
+    window.addEventListener("load", () => {
+        const input = document.getElementById("upload");
+        const filewrapper = document.getElementById("filewrapper");
+
+        input.addEventListener("change", (e) => {
+            let fileName = e.target.files[0].name;
+            let filetype = e.target.value.split(".").pop();
+            console.log(fileName)
+            fileshow(fileName, filetype);
+        })
+        const fileshow = (fileName, filetype) => {
+            const showfileboxElem = document.createElement("div");
+            showfileboxElem.classList.add("showfilebox");
+            const leftElem = document.createElement("div");
+            leftElem.classList.add("left");
+            const fileTypeElem = document.createElement("span");
+            fileTypeElem.classList.add("filetype");
+            fileTypeElem.innerHTML = filetype;
+            leftElem.append(fileTypeElem);
+            const filetitleElem = document.createElement("h3");
+            filetitleElem.innerHTML = fileName;
+            leftElem.append(filetitleElem);
+            showfileboxElem.append(leftElem);
+            const rightElem = document.createElement("div");
+            rightElem.classList.add("right");
+            showfilrboxElem.append(rightElem);
+            const crossElem = document.createElement("span");
+            crossElem.innerHTML = "&#215;";
+            rightElem.append(crossElem);
+            filewrapper.append(showfileboxElem);
+
+            crossElem.addEventListener("click", () => {
+                filewrapper.removeChild(showfileboxElem);
+            })
+        }
+    })
+
+    document.getElementById('create-account').classList.add('link1');
+    window.load = paymentType();
+
+    function paymentType() {
+        var is_salaried = document.getElementById('is_salaried').value;
+
+
+        if (is_salaried == "True") {
+            document.getElementById('payment_label').innerText = "Salary (Rs)";
+        } else {
+            document.getElementById('payment_label').innerText = "Stipend (Rs)";
+        }
+
+    }
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Upload File to Import Data....!!!</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="myfile">
+    <button type="submit">Upload</button>
+</form>
