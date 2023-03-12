@@ -7,7 +7,7 @@ from django.contrib.auth.hashers import make_password
 
 
 
-def Upload(request):
+def Upload(request):    
     if request.method == "POST":
         user_resouce = UserResouce()
         user_basic_resouce = UserBasicDetailsResouce()
@@ -21,13 +21,10 @@ def Upload(request):
 
         imported_data = dataset.load(detail.read(), format='xlsx')
 
-        # if not imported_data.name.endswith('xlsx'):
-        #     messages.info('wrong formate')
-        print(imported_data)
 
         for data in imported_data:
-            print(data)
-            username = data[0]            
+            
+            username = data[0]         
 
             if User.objects.filter(username=username).exists():
                 messages.warning(request, f"User {username} already exists")
@@ -48,16 +45,14 @@ def Upload(request):
                 experience = data[5]
                 joining = data[7]
                 shift_details = data[6]
-
-                print(username)
                 
                 other_detail = UserBasicDetails.objects.get(emp_user__username= username)
-                other_detail.designation_id = designation
-                other_detail.department_id = department
+                other_detail.designation_id    = designation
+                other_detail.department_id     = department
                 other_detail.experience_status = experience
-                other_detail.date_of_joining = joining
-                other_detail.shift_details_id = shift_details
-                other_detail.salary = salary
+                other_detail.date_of_joining   = joining
+                other_detail.shift_details_id  = shift_details
+                other_detail.salary            = salary
                 other_detail.save()
             
                 messages.success(request, f"Account Created sucessfully.\n Your Username is {username} and Password is {password}")
@@ -77,10 +72,10 @@ class UserSignUp(View):
             
         
             data={
-                "designations":Designation.objects.all(),
-                "departments":Department.objects.all(),
-                "shifts":UserShiftDetails.objects.all(),
-                "emp_no": User.objects.all().count()
+                "designations": Designation.objects.all(),
+                "departments" : Department.objects.all(),
+                "shifts"      : UserShiftDetails.objects.all(),
+                "emp_no"      : User.objects.all().count()
             }
                 
         
@@ -169,8 +164,6 @@ class UserSignUp(View):
                 
             
             if user_permissions is not None:
-                
-                print("yes it will run successfully")
             
                 if can_approve_attendance == "True":
                     user_permissions.can_approve_attendance = True

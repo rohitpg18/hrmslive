@@ -234,7 +234,7 @@
                         <p>Click to upload</p>
                     </label>
                     <div class="but">
-                        <button type="submit" class="button button2" style="margin-top: 10px">
+                        <button type="submit" class="btn btn-primary btn-lg my-3" style="margin-top: 10px">
                             Upload</button>
                     </div>
                 </form>
@@ -257,23 +257,6 @@
 
 </section>
 
-
-
-
-
-
-
-
-<section class="user-info">
-    <div>
-        <h2>Upload File to Import Data....!!!</h2>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="file" name="myfile">
-            <button type="submit">Upload</button>
-    </div>
-    </form>
-</section>
 {% endblock %}
 
 {% block js %}
