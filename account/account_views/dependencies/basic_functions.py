@@ -68,7 +68,7 @@ def user_details(user_id,is_detail_required = False,detail=0,**kwargs):
         
         elif detail == 2:
             additional_detail= UserAdditionalDetail.objects.get_or_create(emp_user_id= user_id)
-            
+
             return additional_detail[0]
         
         
@@ -137,7 +137,6 @@ def is_profile_complete(user_id,**kwargs):
     return 'login'
 
 
-
 def create_month_year_formate(date=0,is_current_month=True,month=0):
     
     
@@ -162,7 +161,6 @@ def create_month_year_formate(date=0,is_current_month=True,month=0):
             
             return date + relativedelta(months=+month)
         
-    
 
 def get_month_year(month_name=0):
     

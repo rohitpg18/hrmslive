@@ -114,6 +114,7 @@ class UserSignUp(View):
             
             experience_status= request.POST['experience_status']
             is_salaried= request.POST['is_salaried']
+            email = request.POST['email']
             
             
             can_approve_attendance= request.POST.get('can_approve_attendance')
@@ -131,6 +132,7 @@ class UserSignUp(View):
             emp_user = User.objects.create_user(username=username, password=password)
             emp_user.first_name = first_name
             emp_user.last_name = last_name
+            emp_user.email = email
             emp_user.save()
             
 

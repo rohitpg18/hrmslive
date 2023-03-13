@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.contrib import auth
 from django.contrib import messages
-from django.contrib.auth import authenticate,logout
+from django.contrib.auth import authenticate,logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta,date

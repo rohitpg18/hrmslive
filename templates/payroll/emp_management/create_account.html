@@ -90,7 +90,12 @@
             <input type="text" minlength="2" class="form-control" id="last_name" name="last_name" placeholder="Enter last name" required onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) && (event.charCode != 32))'>
             <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
         </div>
-    
+
+        <div class="info">
+            <p class="info-title">Email-ID<small style='color:red;'> *</small></p>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email id" required>
+            <!-- <small class="error" *ngIf="Profile.value['address_line2']==0">Address Line2 is required</small> -->
+        </div>
     
         <div class="info">
             <p class="info-title">department<small style='color:red;'> *</small></p>
